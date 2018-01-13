@@ -25,6 +25,14 @@
         for (var file of chunk.files) {
           if (file.match(/\.(js|css)$/)) { %>
     <link rel="<%= chunk.initial?'preload':'prefetch' %>" href="<%= htmlWebpackPlugin.files.publicPath + file %>" as="<%= file.match(/\.css$/)?'style':'script' %>"><% }}} %>
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@0.7.3/dist/leaflet.css" />
+    <!-- <link rel="stylesheet" href="main.css" /> -->
+    <!-- <script src="//d3js.org/topojson.v1.min.js"></script> -->
+    <!-- <script src="https://unpkg.com/leaflet@0.7.3/dist/leaflet.js"></script> -->
+<!--     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/leaflet.heat@0.2.0/dist/leaflet-heat.min.js"></script> -->
+    <!-- <script type="text/javascript" src="./assets/lib/tile.stamen.js"></script> -->
+    <!-- <script src="https://d3js.org/queue.v1.min.js"></script> -->
   </head>
   <body>
     <noscript>
