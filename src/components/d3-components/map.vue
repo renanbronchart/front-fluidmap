@@ -1,5 +1,10 @@
 <template>
-  <div id="map"></div>
+  <div>
+    <div id="map"></div>
+    <div id="number-records-nd"></div>
+    <div id="departement-row-chart"></div>
+    <div id="population-chart"></div>
+  </div>
 </template>
 
 <script>
@@ -11,10 +16,6 @@ import * as leafletHeat from '@/assets/leaflet-heat'
 import dc from 'dc'
 import crossfilter from 'crossfilter'
 import * as d3Queue from 'd3-queue'
-
-// console.log(densitejson)
-console.dir(crossfilter)
-console.dir(d3Queue)
 
 console.log(leafletHeat, 'leaflet')
 
@@ -33,14 +34,10 @@ export default {
     }
   },
   mounted () {
-    // d3.json('static/densite.json', function (error, recordsJson) {
-    //   if (error) { console.log(error) }
-    //   console.log(recordsJson, 'ghjkl')
-    // })
     var self = this
 
     d3Queue.queue()
-      .defer(d3.json, 'static/densite.json')
+      .defer(d3.json, 'static/data/densite.json')
       .await(makeGraphs)
 
     this.map = L.map('map', {
@@ -49,17 +46,11 @@ export default {
     })
 
     var svg = d3.select(this.map.getPanes().overlayPane).append('svg')
-    console.log(this.svg)
-    var commercesGroup = svg.append('g').attr('class', 'leaflet-zoom-hide')
-    console.log(commercesGroup, 'commercesGroup')
-    var transform = d3.geo.transform({ point: projectPoint })
-    self.path = d3.geo.path().projection(transform)
 
-    function projectPoint (x, y) {
-      var point = self.map.latLngToLayerPoint(new L.LatLng(y, x))
-
-      this.stream.point(point.x, point.y)
-    }
+    // this.svg = svg
+    // console.log(this.svg, 'this.svg')
+    var transform = d3.geoTransform({ point: this.projectPoint })
+    self.path = d3.geoPath().projection(transform)
 
     function makeGraphs (error, recordsJson) {
       console.log(recordsJson)
@@ -67,13 +58,18 @@ export default {
         console.log('error')
       }
       // Clean data
-      var records = recordsJson
+      var records = [...recordsJson]
 
       // Create a Crossfilter instance
       var ndx = crossfilter(records)
 
+      console.log(ndx, 'ndx')
+      console.log(records, 'records')
+
       // Define Dimensions
-      var populationDim = ndx.dimension(function (d) { return d.fields.population })
+      var populationDim = ndx.dimension(function (d) {
+        return d.fields.population > 20 ? '< 20' : '> 20'
+      })
       var departementDim = ndx.dimension(function (d) { return d.fields.nom_dept })
       var allDim = ndx.dimension(function (d) { return d.fields })
 
@@ -82,10 +78,15 @@ export default {
       var departementGroup = departementDim.group()
       var all = ndx.groupAll()
 
+      // console.log(departementGroup.groupAll().value(), 'populationDim')
+
       // Charts
       var numberRecordsND = dc.numberDisplay('#number-records-nd')
       var populationBrandChart = dc.rowChart('#population-chart')
       var departementChart = dc.rowChart('#departement-row-chart')
+
+      console.log(populationBrandChart, 'populationBrandChart')
+      console.log(departementChart, 'departementChart')
 
       numberRecordsND
         .formatNumber(d3.format('d'))
@@ -105,29 +106,35 @@ export default {
         .ticks(4)
 
       populationBrandChart
-        .width(300)
-        .height(150)
+        .width(500)
+        .height(10000)
         .dimension(populationDim)
         .group(populationGroup)
         .colors(['#6baed6'])
         .elasticX(true)
-        .labelOffsetY(10)
+        .labelOffsetY(20)
         .xAxis()
-        .ticks(4)
+        .ticks(10)
+
+      // console.log(populationBrandChart, 'populationBrandChart')
+      // console.log(departementChart, 'departementChart')
 
       // Draw Map
-      drawMap(allDim)
+      self.drawMap(svg, allDim)
 
       // Update the heatmap if any dc chart get filtered
-      var dcCharts = [departementChart, populationBrandChart]
+      var dcCharts = [populationBrandChart, departementChart]
 
       dcCharts.forEach(function (dcChart) {
+        console.log(dcChart, 'dcChart')
+
+        // stop here
         dcChart.on('filtered', function (chart, filter) {
           var transitionPoints = new Promise(
             // La fonction de résolution est appelée avec la capacité de
             // tenir ou de rompre la promesse
             function (resolve, reject) {
-              d3.select('.leaflet-objects-pane')
+              d3.select('.leaflet-container')
                 .transition()
                 .duration(700)
                 .style('opacity', '0')
@@ -143,12 +150,12 @@ export default {
 
           transitionPoints.then(
             // On affiche un message avec la valeur
-            function (val) {
+            function () {
               self.map.eachLayer(function (layer) {
                 self.map.removeLayer(layer)
               })
 
-              drawMap(allDim)
+              self.drawMap(svg, allDim)
             })
             .catch(
               // Promesse rejetée
@@ -160,8 +167,10 @@ export default {
 
       dc.renderAll()
     }
-
-    function drawMap (allDim) {
+  },
+  methods: {
+    drawMap (svg, allDim) {
+      // var commercesGroup = svg.append('g').attr('class', 'leaflet-zoom-hide')
       // map.setView([31.75, 110], 4)
       L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
         attribution: 'Map data &copy <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
@@ -169,12 +178,12 @@ export default {
         minZoom: 8,
         id: 'mapbox.streets',
         accessToken: 'sk.eyJ1IjoicmVuYW5icm9uY2hhcnQiLCJhIjoiY2o5OW84enp2MHoyOTMzbndla3cyN3hrcCJ9.DdB659aMvccAu0B6ag8aJA'
-      }).addTo(self.map)
+      }).addTo(this.map)
 
       var allDimTop = allDim.top(Infinity)
-      var radius = d3.scale.linear()
-        .domain([0, d3.max(allDimTop, function (d) { return +d.fields.population })])
-        .range([2, 50])
+      // var radius = d3.scaleLinear()
+      //   .domain([0, d3.max(allDimTop, function (d) { return +d.fields.population })])
+      //   .range([2, 50])
 
       const maxValue = d3.max(allDimTop, function (d) { return +d.fields.population })
 
@@ -186,16 +195,20 @@ export default {
         geoData.push([d.fields.geo_point_2d[0], d.fields.geo_point_2d[1], ((d.fields.population) / maxValue)])
       })
 
-      self.featureCommerces = commercesGroup.selectAll('.commerces')
-        .data(allDimTop)
-        .enter()
-        .append('path')
-        .attr('class', 'commerces')
-        .attr('d', self.path.pointRadius(function (d) {
-          return radius(Math.floor((d.fields.population)) * 100)
-        }))
-        .style('fill', 'black')
-        .style('z-index', function (d) { return Math.floor((d.fields.population)) })
+      // this.featureCommerces = commercesGroup.selectAll('.commerces')
+      //   .data(allDimTop)
+      //   .enter()
+      //   .append('path')
+      //   .attr('class', 'commerces')
+      //   .attr('d', this.path.pointRadius(function (d) {
+      //     return radius(Math.floor((d.fields.population)) * 100)
+      //   }))
+      //   .style('fill', 'black')
+      //   .style('z-index', function (d) { return Math.floor((d.fields.population)) })
+      //   .on('mouseover', function (d) {
+
+      //     console.log(d, 'd')
+      //   })
 
       var heat = L.heatLayer(geoData, {
         radius: 10,
@@ -204,13 +217,15 @@ export default {
         minZoom: 25,
         // max: 2,
         minOpacity: 0.5
-      }).addTo(self.map)
+      }).addTo(this.map)
 
       console.log(heat)
-    }
-  },
-  methods: {
+    },
+    projectPoint (x, y) {
+      var point = this.map.latLngToLayerPoint(new L.LatLng(y, x))
 
+      this.stream.point(point.x, point.y)
+    }
   }
 }
 </script>
@@ -253,7 +268,7 @@ export default {
 
   #map {
     width: 100vw;
-    height: 100vh;
+    height: 50vh;
   }
 
   .leaflet-tile-pane {
