@@ -1,10 +1,8 @@
 <template>
-  <div>
-    <div id="map"></div>
-    <div id="number-records-nd"></div>
+  <div id="map__heat"></div>
+<!--     <div id="number-records-nd"></div>
     <div id="departement-row-chart"></div>
-    <div id="population-chart"></div>
-  </div>
+    <div id="population-chart"></div> -->
 </template>
 
 <script>
@@ -42,7 +40,7 @@ export default {
       .defer(d3.json, 'static/data/densite.json')
       .await(makeGraphs)
 
-    this.map = L.map('map', {
+    this.map = L.map('map__heat', {
       center: [48.853, 2.333],
       zoom: 10
     })
@@ -207,7 +205,11 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+  body {
+    overflow: hidden;
+  }
+
   .station {
     stroke: black;
   }
@@ -243,9 +245,9 @@ export default {
   }
 
 
-  #map {
+  #map__heat {
     width: 100vw;
-    height: 50vh;
+    height: calc(100vh - 160px);
   }
 
   .leaflet-tile-pane {

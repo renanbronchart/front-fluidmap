@@ -28,16 +28,21 @@ body {
 }
 
 main {
-  text-align: center;
-  margin-top: 40px;
+  padding: 80px 0 0 0;
 }
 
 header {
-  margin: 0;
-  height: 56px;
-  padding: 0 16px 0 24px;
-  background-color: #35495E;
+  width: 100%;
+  height: 80px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  border-bottom: 1px solid gray;
   color: #ffffff;
+  background: white;
+  z-index: 10000;
+  margin: 0;
+  padding: 0 16px 0 24px;
 }
 
 header span {
