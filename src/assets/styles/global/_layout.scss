@@ -1,0 +1,15 @@
+body {
+  background-color: lighten($color-catskill-white, 5);
+  color: $gray-base;
+  &.body--noScroll {
+    overflow: hidden;
+  }
+}
+
+.container {
+  max-width: $max-width-container;
+}
+
+section.section + section.section {
+  margin: 2rem auto 0 auto;
+}

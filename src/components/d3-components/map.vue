@@ -10,7 +10,7 @@
 // const d3 = require('d3')
 import * as d3 from 'd3'
 import L from 'leaflet'
-import * as leafletHeat from '@/assets/leaflet-heat'
+import * as leafletHeat from '@/assets/js/leaflet-heat'
 import dc from 'dc'
 import crossfilter from 'crossfilter'
 import * as d3Queue from 'd3-queue'
