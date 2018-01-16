@@ -40,7 +40,7 @@ header {
   border-bottom: 1px solid gray;
   color: #ffffff;
   background: white;
-  z-index: 10000;
+  z-index: 9000;
   margin: 0;
   padding: 0 16px 0 24px;
 }
