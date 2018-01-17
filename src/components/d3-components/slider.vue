@@ -11,15 +11,15 @@
         slider: {
           value: 0,
           data: [
-            '06-08',
-            '08-10',
-            '10-12',
-            '12-14',
-            '14-16',
-            '16-18',
-            '18-20',
-            '20-22',
-            '22-00'
+            '06H - 08H',
+            '08H - 10H',
+            '10H - 12H',
+            '12H - 14H',
+            '14H - 16H',
+            '16H - 18H',
+            '18H - 20H',
+            '20H - 22H',
+            '22H - 00H'
           ],
           piecewiseStyle: {
             'width': '14px',
@@ -54,8 +54,11 @@
       }
     },
     methods: {
-      onChange (e) {
-        console.log(e, 'e')
+      onChange (value) {
+        let valueTrim = value.trim()
+        let newValue = valueTrim.replace(/(\d{2})H - (\d{2})H/g, '$1$2')
+
+        console.log(newValue)
       }
     },
     components: {
