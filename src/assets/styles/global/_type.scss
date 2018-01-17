@@ -76,7 +76,7 @@ p, .p {
 
 a, a:visited {
   display: inline-block;
-  color: $gray-base;
+  color: $color-mine-shaft;
   font-family: $font-family-base;
   font-weight: 700;
   &:hover,
@@ -102,19 +102,19 @@ a, a:visited {
 }
 
 .text--white {
-  color: white
+  color: white;
 }
 
 .text--primary {
-  color: blue
+  color: blue;
 }
 
 .text--danger {
-  color: red
+  color: red;
 }
 
 .text--base {
-  color: $gray-base
+  color: $color-mine-shaft;
 }
 
 .text--left {

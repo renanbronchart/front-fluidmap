@@ -1,6 +1,6 @@
 body {
-  background-color: lighten($color-catskill-white, 5);
-  color: $gray-base;
+  background-color: lighten($color-whisper, 5);
+  color: $color-mine-shaft;
   &.body--noScroll {
     overflow: hidden;
   }

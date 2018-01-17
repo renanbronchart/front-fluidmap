@@ -10,12 +10,14 @@
 </template>
 
 <script>
+import 'stylesheets/style.scss'
+
 export default {
   name: 'app'
 }
 </script>
 
-<style>
+<style lang='scss'>
 body {
   margin: 0;
 }
