@@ -1,9 +1,13 @@
 <template>
-  <vue-slider @callback='onChange' v-bind="slider" v-model="slider.value" ref="slider"></vue-slider>
+  <div>
+    <vue-slider @callback='onChange' v-bind="slider" v-model="slider.value" ref="slider"></vue-slider>
+    <Button label="Accèder à l'analyse" />
+  </div>
 </template>
 
 <script>
   import vueSlider from 'vue-slider-component'
+  import Button from '@/components/molecules/Button.vue'
 
   export default {
     data () {
@@ -62,7 +66,8 @@
       }
     },
     components: {
-      vueSlider
+      vueSlider,
+      Button
     }
   }
 </script>
