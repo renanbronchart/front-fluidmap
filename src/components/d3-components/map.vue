@@ -154,12 +154,11 @@ export default {
       // var commercesGroup = svg.append('g').attr('class', 'leaflet-zoom-hide')
       // map.setView([31.75, 110], 4)
       if (mapConstruct) {
-        this.mapLayer = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
-          attribution: 'Map data &copy <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
+        this.mapLayer = L.tileLayer('https://api.mapbox.com/styles/v1/renanbronchart/cjcjqu77v9elo2soyghb33i8h/tiles/256/{z}/{x}/{y}?access_token={accessToken}', {
           maxZoom: 30,
-          minZoom: 8,
+          minZoom: 10,
           id: 'mapbox.streets',
-          accessToken: 'sk.eyJ1IjoicmVuYW5icm9uY2hhcnQiLCJhIjoiY2o5OW84enp2MHoyOTMzbndla3cyN3hrcCJ9.DdB659aMvccAu0B6ag8aJA'
+          accessToken: 'pk.eyJ1IjoicmVuYW5icm9uY2hhcnQiLCJhIjoiY2o5OW82cG1jMHdxZTMzcXRxbThnczZuMSJ9.zrdXIR4UBPh8195XRQPLtQ'
         }).addTo(this.map)
       }
 
@@ -186,13 +185,13 @@ export default {
       console.log(newGeoData, 'newGeoData')
 
       this.heatLayer = L.heatLayer(geoData, {
-        radius: 10,
+        radius: 15,
         blur: 20,
         maxZoom: 8,
         minZoom: 25,
         id: 'heatmap.population',
-        minOpacity: 0.5,
-        gradient: {0.4: '#42d5fc', 1: '#0027fd'}
+        minOpacity: 0.2,
+        gradient: {0.1: '#42d5fc', 0.6: '#0027fd'}
       }).addTo(this.map)
 
       d3.select('.leaflet-heatmap-layer')
