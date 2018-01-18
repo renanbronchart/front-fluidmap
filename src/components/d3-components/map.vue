@@ -187,11 +187,12 @@ export default {
 
       this.heatLayer = L.heatLayer(geoData, {
         radius: 10,
-        blur: 15,
+        blur: 20,
         maxZoom: 8,
         minZoom: 25,
         id: 'heatmap.population',
-        minOpacity: 0.5
+        minOpacity: 0.5,
+        gradient: {0.4: '#42d5fc', 1: '#0027fd'}
       }).addTo(this.map)
 
       d3.select('.leaflet-heatmap-layer')
