@@ -27,6 +27,7 @@ export default {
       featureCommerces: false,
       rootWidth: false,
       previousWidth: false,
+      population: false,
       path: false,
       heat: false,
       mapLayer: false,
@@ -173,6 +174,7 @@ export default {
         geoData.push([d.fields.geo_point_2d[0], d.fields.geo_point_2d[1], ((d.fields.population) / maxValue)])
       })
 
+      this.population = geoData
       console.log(geoData, 'geoData')
 
       var heatData = typeof this.heatLayer._heat === 'undefined' ? [] : this.heatLayer._heat._data
@@ -183,6 +185,7 @@ export default {
       })
 
       console.log(newGeoData, 'newGeoData')
+      console.log(geoData, '*****************************')
 
       this.heatLayer = L.heatLayer(geoData, {
         radius: 15,

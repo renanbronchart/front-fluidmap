@@ -39,8 +39,6 @@ header {
   position: fixed;
   top: 0;
   left: 0;
-  border-bottom: 1px solid gray;
-  color: #ffffff;
   background: white;
   z-index: 9000;
   margin: 0;

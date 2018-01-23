@@ -1,27 +1,20 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import VuexPersist from 'vuex-persist'
+// import VuexPersist from 'vuex-persist'
 
-import * as getters from './getters'
-import * as actions from './actions'
-import mutations from './mutations'
+import planning from './modules/planning'
 
 Vue.use(Vuex)
 
-const vuexLocalStorage = new VuexPersist({
-  storage: window.localStorage
-})
-
-const state = {
-  challenges: []
-}
+// const vuexLocalStorage = new VuexPersist({
+//   storage: window.localStorage
+// })
 
 const store = new Vuex.Store({
-  state,
-  getters,
-  actions,
-  mutations,
-  plugins: [vuexLocalStorage.plugin]
+  modules: {
+    planning
+  }
+  // plugins: [vuexLocalStorage.plugin]
 })
 
 export default store
