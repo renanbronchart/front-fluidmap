@@ -2,7 +2,9 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 // import VuexPersist from 'vuex-persist'
 
-import planning from './modules/planning'
+import events from './modules/events.js'
+import places from './modules/places.js'
+import planning from './modules/planning.js'
 
 Vue.use(Vuex)
 
@@ -12,7 +14,9 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
   modules: {
-    planning
+    planning,
+    events,
+    places
   }
   // plugins: [vuexLocalStorage.plugin]
 })

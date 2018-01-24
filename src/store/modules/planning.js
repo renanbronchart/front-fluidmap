@@ -1,8 +1,10 @@
 import * as types from '../mutationTypes'
 
 const state = {
-  date: '0908',
-  schedules: '0608'
+  selectedDate: {
+    date: '0908',
+    schedules: '0608'
+  }
 }
 
 const getters = {}
