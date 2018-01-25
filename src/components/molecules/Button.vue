@@ -35,7 +35,7 @@
     background-color: $color-blue-ribbon;
     box-shadow: 0 3px 12px 0 rgba(0, 0, 0, 0.1);
     border-radius: 3px;
-    padding: 10px 25px;
+    padding: 10px 20px;
     white-space: nowrap;
     text-transform: uppercase;
     &.button--block {
