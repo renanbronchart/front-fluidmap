@@ -1,7 +1,10 @@
 <template>
-  <div class="map">
-    <MapHome />
-    <RangeSlider />
+  <div>
+    <div class="map">
+      <MapHome />
+      <RangeSlider />
+    </div>
+    <router-view></router-view>
   </div>
 </template>
 

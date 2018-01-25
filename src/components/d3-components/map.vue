@@ -38,7 +38,7 @@ export default {
     var self = this
 
     d3Queue.queue()
-      .defer(d3.json, 'static/data/densite.json')
+      .defer(d3.json, '/static/data/densite.json')
       .await(makeGraphs)
 
     this.map = L.map('map__heat', {
