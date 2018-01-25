@@ -1,15 +1,27 @@
 <template>
-  <button class="button">
-    <template v-if="label">
+  <button class="button" :class="extraClass">
+    <span v-if="label">
       {{label}}
-    </template>
-    <slot></slot>
+    </span>
+    <i class="material-icons" v-if='iconName'>{{iconName}}</i>
   </button>
 </template>
 
 <script>
   export default {
-    props: ['label']
+    props: {
+      label: {
+        type: String,
+        default: 'Button'
+      },
+      extraClass: {
+        type: String,
+        default: ''
+      },
+      iconName: {
+        type: String
+      }
+    }
   }
 </script>
 
@@ -17,7 +29,8 @@
   @import '~stylesheets/helpers/_variables.scss';
 
   .button {
-    display: inline-block;
+    display: flex;
+    align-items: center;
     color: white;
     background-color: $color-blue-ribbon;
     box-shadow: 0 3px 12px 0 rgba(0, 0, 0, 0.1);
@@ -27,6 +40,16 @@
     text-transform: uppercase;
     &.button--block {
       display: block;
+    }
+    &.button--ghost {
+      background-color: transparent;
+      color: $color-blue-ribbon;
+      border: 1px solid $color-blue-ribbon;
+      box-shadow: none;
+    }
+    .material-icons {
+      font-size: 15px;
+      margin: 0 0 0 10px;
     }
   }
 </style>
