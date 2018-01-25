@@ -20,8 +20,13 @@
     "dc": "^2.1.9",
     "leaflet": "^1.2.0",
     "mapbox-gl": "^0.43.0",
+    "node-sass": "^4.7.2",
+    "sass-loader": "^6.0.6",
     "vue": "^2.5.2",
-    "vue-router": "^3.0.1"
+    "vue-router": "^3.0.1",
+    "vue-slider-component": "^2.4.8",
+    "vuex": "^3.0.1",
+    "vuex-persist": "^1.1.0"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.5",

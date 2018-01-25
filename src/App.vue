@@ -10,12 +10,14 @@
 </template>
 
 <script>
+import 'stylesheets/style.scss'
+
 export default {
   name: 'app'
 }
 </script>
 
-<style>
+<style lang='scss'>
 body {
   margin: 0;
 }
@@ -28,16 +30,19 @@ body {
 }
 
 main {
-  text-align: center;
-  margin-top: 40px;
+  padding: 80px 0 0 0;
 }
 
 header {
+  width: 100%;
+  height: 80px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: white;
+  z-index: 9000;
   margin: 0;
-  height: 56px;
   padding: 0 16px 0 24px;
-  background-color: #35495E;
-  color: #ffffff;
 }
 
 header span {

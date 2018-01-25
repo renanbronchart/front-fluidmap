@@ -1,0 +1,53 @@
+////////////
+// colors //
+////////////
+$color-mine-shaft: #2E2E2E; // gray base
+$color-blue-ribbon: #2C5BFC; // blue
+$color-malibu: #42D5FC; // blue fushia
+$color-caribbean-green: #01EDA2; // green fushia
+$color-torch-red: #fe012c; // red
+$color-hollywood-cerise: #FE029B; // pink
+$color-sun: #FEA910; // orange
+$color-whisper: #FAFAFC; // white broken
+
+
+////////////
+// fonts  //
+////////////
+$font-family-title: 'Oswald', sans-serif;
+$font-family-base: 'Lato', sans-serif;
+
+/////////////////
+// fonts-size  //
+/////////////////
+$font-size-icon: 3.5rem;
+
+///////////////////
+// Break points  //
+///////////////////
+$screen-sm-min: 850px;
+$screen-md-min: 1024px;
+$screen-lg-min: 1281px;
+
+///////////////////
+//    Images     //
+///////////////////
+// $directory-image: 'https://s3.eu-west-2.amazonaws.com/';
+
+///////////////////
+// border-radius //
+///////////////////
+$border-radius-xs: 2px;
+$border-radius-base: 4px;
+
+///////////////////
+//   z-index     //
+///////////////////
+// $z-index-tapbar: 50;
+
+///////////////////
+//  Grid-layout  //
+///////////////////
+$max-width-container: $screen-lg-min;
+$number-columns: 12;
+$percentPerColumn : 100/$number-columns;

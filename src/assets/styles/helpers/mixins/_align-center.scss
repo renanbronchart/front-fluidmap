@@ -1,0 +1,15 @@
+@mixin align-center($horizontal: true, $vertical: true) {
+  position: absolute;
+  @if ($horizontal == true and $vertical == false) {
+    left: 50%;
+    transform: translateX(-50%);
+  } @else if ($horizontal == false and $vertical == true) {
+    top: 50%;
+    transform: translateY(-50%);
+  } @else {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+

@@ -1,10 +1,8 @@
 <template>
-  <div>
-    <div id="map"></div>
-    <div id="number-records-nd"></div>
+  <div id="map__heat"></div>
+<!--     <div id="number-records-nd"></div>
     <div id="departement-row-chart"></div>
-    <div id="population-chart"></div>
-  </div>
+    <div id="population-chart"></div> -->
 </template>
 
 <script>
@@ -12,7 +10,7 @@
 // const d3 = require('d3')
 import * as d3 from 'd3'
 import L from 'leaflet'
-import * as leafletHeat from '@/assets/leaflet-heat'
+import * as leafletHeat from '@/assets/js/leaflet-heat'
 import dc from 'dc'
 import crossfilter from 'crossfilter'
 import * as d3Queue from 'd3-queue'
@@ -29,6 +27,7 @@ export default {
       featureCommerces: false,
       rootWidth: false,
       previousWidth: false,
+      population: false,
       path: false,
       heat: false,
       mapLayer: false,
@@ -42,7 +41,7 @@ export default {
       .defer(d3.json, 'static/data/densite.json')
       .await(makeGraphs)
 
-    this.map = L.map('map', {
+    this.map = L.map('map__heat', {
       center: [48.853, 2.333],
       zoom: 10
     })
@@ -156,12 +155,11 @@ export default {
       // var commercesGroup = svg.append('g').attr('class', 'leaflet-zoom-hide')
       // map.setView([31.75, 110], 4)
       if (mapConstruct) {
-        this.mapLayer = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
-          attribution: 'Map data &copy <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
+        this.mapLayer = L.tileLayer('https://api.mapbox.com/styles/v1/renanbronchart/cjcjqu77v9elo2soyghb33i8h/tiles/256/{z}/{x}/{y}?access_token={accessToken}', {
           maxZoom: 30,
-          minZoom: 8,
+          minZoom: 10,
           id: 'mapbox.streets',
-          accessToken: 'sk.eyJ1IjoicmVuYW5icm9uY2hhcnQiLCJhIjoiY2o5OW84enp2MHoyOTMzbndla3cyN3hrcCJ9.DdB659aMvccAu0B6ag8aJA'
+          accessToken: 'pk.eyJ1IjoicmVuYW5icm9uY2hhcnQiLCJhIjoiY2o5OW82cG1jMHdxZTMzcXRxbThnczZuMSJ9.zrdXIR4UBPh8195XRQPLtQ'
         }).addTo(this.map)
       }
 
@@ -176,6 +174,7 @@ export default {
         geoData.push([d.fields.geo_point_2d[0], d.fields.geo_point_2d[1], ((d.fields.population) / maxValue)])
       })
 
+      this.population = geoData
       console.log(geoData, 'geoData')
 
       var heatData = typeof this.heatLayer._heat === 'undefined' ? [] : this.heatLayer._heat._data
@@ -186,14 +185,16 @@ export default {
       })
 
       console.log(newGeoData, 'newGeoData')
+      console.log(geoData, '*****************************')
 
       this.heatLayer = L.heatLayer(geoData, {
-        radius: 10,
-        blur: 15,
+        radius: 15,
+        blur: 20,
         maxZoom: 8,
         minZoom: 25,
         id: 'heatmap.population',
-        minOpacity: 0.5
+        minOpacity: 0.2,
+        gradient: {0.1: '#42d5fc', 0.6: '#0027fd'}
       }).addTo(this.map)
 
       d3.select('.leaflet-heatmap-layer')
@@ -207,7 +208,11 @@ export default {
 }
 </script>
 
-<style>
+<style lang='scss' scoped>
+  body {
+    overflow: hidden;
+  }
+
   .station {
     stroke: black;
   }
@@ -243,9 +248,9 @@ export default {
   }
 
 
-  #map {
+  #map__heat {
     width: 100vw;
-    height: 50vh;
+    height: calc(100vh - 160px);
   }
 
   .leaflet-tile-pane {
