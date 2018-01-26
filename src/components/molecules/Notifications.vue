@@ -5,10 +5,7 @@
 <script>
   export default {
     props: {
-      count: {
-        type: String,
-        default: '0'
-      },
+      count: {},
       extraClass: {
         type: String,
         default: ''

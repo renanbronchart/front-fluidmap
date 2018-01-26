@@ -1,6 +1,6 @@
 <template>
   <div class="tooltip">
-    <Notifications :count='count' v-if="count" extraClass="tooltip__notification"/>
+    <Notifications :count='count' v-if="count > 0" extraClass="tooltip__notification"/>
     <p class="tooltip__content text--xs">{{text}}</p>
     <Button
       extraClass="button--ghost tooltip__button"
@@ -24,9 +24,7 @@
         type: String,
         default: ''
       },
-      count: {
-        type: String
-      },
+      count: {},
       labelButton: {
         type: String
       },
