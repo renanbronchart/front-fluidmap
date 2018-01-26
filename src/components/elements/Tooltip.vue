@@ -6,7 +6,11 @@
       extraClass="button--ghost tooltip__button"
       iconName="arrow_forward"
       :label="labelButton"
-      v-if="labelButton"/>
+      v-if="labelButton"
+      :linkName="linkName"
+      :linkParams="linkParams"
+      :linkTitle="linkTitle"
+    />
   </div>
 </template>
 
@@ -25,6 +29,16 @@
       },
       labelButton: {
         type: String
+      },
+      linkName: {
+        type: String
+      },
+      linkParams: {
+        type: Object,
+        default: {}
+      },
+      linkTitle: {
+        default: 'Lien vers une nouvelle étape'
       }
     },
     components: {
