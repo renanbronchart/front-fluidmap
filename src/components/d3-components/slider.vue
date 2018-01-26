@@ -11,6 +11,11 @@
       </div>
     </div>
     <Button label="Accèder à l'analyse" />
+<!--     <Tooltip
+      text='salut'
+      count='1'
+      labelButton="Suivant"
+    /> -->
   </div>
 </template>
 

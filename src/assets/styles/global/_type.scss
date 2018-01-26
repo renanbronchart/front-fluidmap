@@ -86,6 +86,16 @@ a, a:visited {
 
 }
 
+.text--xs {
+  @include font-size(0.75rem);
+  @include medium {
+    @include font-size(0.75rem);
+  }
+  @include large {
+    @include font-size(0.8rem);
+  }
+}
+
 .text--bold {
   font-weight: 700;
 }
