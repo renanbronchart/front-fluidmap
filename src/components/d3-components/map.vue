@@ -3,6 +3,7 @@
 <!--     <div id="number-records-nd"></div>
     <div id="departement-row-chart"></div>
     <div id="population-chart"></div> -->
+
 </template>
 
 <script>
@@ -250,7 +251,14 @@ export default {
 
   #map__heat {
     width: 100vw;
-    height: calc(100vh - 160px);
+    height: calc(100vh - 170px);
+    position: relative;
+  }
+
+  .events {
+    position: absolute;
+    bottom: 0;
+    left: 40px;
   }
 
   .leaflet-tile-pane {

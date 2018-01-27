@@ -54,7 +54,7 @@
     align-items: flex-start;
     position: absolute;
     top: 0;
-    border-radius: 2px;
+    border-radius: $border-radius-base;
     background: white;
     z-index: $z-index-tooltip;
     padding: 30px 20px;

@@ -63,14 +63,14 @@ h5, .h5 {
 }
 
 p, .p {
-  @include font-size(1rem);
+  @include font-size(0.8rem);
   font-family: $font-family-base;
   font-weight: normal;
   @include medium {
-    @include font-size(1.1rem);
+    @include font-size(0.85rem);
   }
   @include large {
-    @include font-size(1.2rem);
+    @include font-size(0.9rem);
   }
 }
 
