@@ -5,7 +5,7 @@
       <i class="material-icons" v-if='!panelOpen'>arrow_drop_down</i>
       <i class="material-icons" v-else>arrow_drop_up</i>
     </div>
-    <div class="panel__body" :class="panelOpen ? 'active' : ''">
+    <div class="panel__body" :class="panelOpen ? 'panel__body--active' : ''">
       <ul class="panel__container">
         <li class="event" v-for='(ind, index) in 4'>
           <a href="" class="event__link" >
@@ -66,7 +66,7 @@
     position: relative;
     overflow: hidden;
     transition: height .3s ease-in-out;
-    &.active {
+    &.panel__body--active {
       height: 310px;
     }
   }
