@@ -1,5 +1,5 @@
 <template>
-  <aside class="aside" :class="asideOpen ? 'aside--active' : ''">
+  <aside class="aside" :class="getClass">
     <div class="aside__infos">
       <div class="aside__title">
         <h2 class="h3">Equitation - Femmes</h2>
@@ -85,8 +85,16 @@
       getRoute () {
         return this.$route.params.id
       },
-      asideOpen () {
-        return this.map.placeSelected || parseFloat(this.$route.params.id) === 3
+      getClass () {
+        let extraClass = ''
+
+        if (this.map.placeSelected) {
+          extraClass += ' aside--active'
+        } else if (parseFloat(this.$route.params.id) === 3) {
+          extraClass += ' aside--onboard'
+        }
+
+        return extraClass
       }
     },
     components: {
@@ -103,7 +111,7 @@
   @import '~stylesheets/helpers/_variables.scss';
 
   .aside {
-    width: 525px;
+    width: 524px;
     height: calc(100vh - 170px);
     display: flex;
     flex-direction: column;
@@ -111,12 +119,26 @@
     top: 80px;
     right: 0;
     background: white;
-    transform: translateX(525px);
+    transform: translateX(524px);
     transition: transform .3s ease-in-out;
     z-index: $z-index-aside;
     padding: 30px 0 0 0;
-    &.aside--active {
+    &.aside--active,
+    &.aside--onboard {
       transform: translateX(0);
+    }
+
+    &.aside--onboard {
+      &:before {
+        content: ' ';
+        opacity: 1;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        box-shadow: 0 0 0 1000em rgba(black, .7);
+        z-index: 9000;
+        padding: 100vh 262px;
+      }
     }
   }
 

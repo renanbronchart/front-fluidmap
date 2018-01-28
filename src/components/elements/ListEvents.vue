@@ -1,5 +1,5 @@
 <template>
-  <div class="panel">
+  <div class="panel" :class="onBoardPanel ? 'panel--onboard' : ''">
     <div class="panel__heading" @click.prevent='toggle'>
       <h5 class="panel__title text--xs">Évenements dans cette période</h5>
       <i class="material-icons" v-if='!panelOpen'>arrow_drop_down</i>
@@ -31,6 +31,11 @@
       toggle () {
         this.panelOpen = !this.panelOpen
       }
+    },
+    computed: {
+      onBoardPanel () {
+        return parseFloat(this.$route.params.id) === 4
+      }
     }
   }
 </script>
@@ -46,6 +51,22 @@
     border-radius: $border-radius-base $border-radius-base 0 0;
     background: white;
     z-index: $z-index-list-dropdown;
+    &.panel--onboard {
+      .panel__body {
+        height: 310px;
+      }
+
+      &:before {
+        content: ' ';
+        opacity: 1;
+        position: fixed;
+        bottom: 90px;
+        left: 40px;
+        box-shadow: 0 0 0 1000em rgba(black, .7);
+        z-index: 9000;
+        padding: 175px 150px;
+      }
+    }
   }
 
   .panel__heading {
