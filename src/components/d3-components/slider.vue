@@ -20,6 +20,8 @@
 </template>
 
 <script>
+  import { mapActions } from 'vuex'
+
   import vueSlider from 'vue-slider-component'
   import Button from '@/components/molecules/Button.vue'
 
@@ -155,7 +157,12 @@
       }
     },
     methods: {
+      ...mapActions([
+        'selectPlace'
+      ]),
       onChange (value) {
+        this.selectPlace()
+
         const dateHash = {
           janvier: '01',
           fevrier: '02',

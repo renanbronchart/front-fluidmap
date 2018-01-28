@@ -3,7 +3,7 @@
     <div class="aside__infos">
       <div class="aside__title">
         <h2 class="h3">Equitation - Femmes</h2>
-        <i class="material-icons">arrow_forward</i>
+        <i class="material-icons cursor--pointer" @click.prevent="deselectPlace">arrow_forward</i>
       </div>
       <div class="aside__details">
         <div class="aside__infosEvent">
@@ -60,6 +60,8 @@
 </template>
 
 <script>
+  import { mapState, mapActions } from 'vuex'
+
   import TextInfos from '@/components/molecules/TextInfos.vue'
   import StatsHint from '@/components/elements/stats/StatsHint.vue'
   import StatsPeople from '@/components/elements/stats/StatsPeople.vue'
@@ -69,7 +71,22 @@
   export default {
     data () {
       return {
-        asideOpen: false
+      }
+    },
+    methods: {
+      ...mapActions([
+        'deselectPlace'
+      ])
+    },
+    computed: {
+      ...mapState([
+        'map'
+      ]),
+      getRoute () {
+        return this.$route.params.id
+      },
+      asideOpen () {
+        return this.map.placeSelected || parseFloat(this.$route.params.id) === 3
       }
     },
     components: {
