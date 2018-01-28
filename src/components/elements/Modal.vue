@@ -9,7 +9,6 @@
           <slot></slot>
         </div>
       </div>
-      <div class="modal__background"></div>
     </div>
   </transition>
 </template>
@@ -37,9 +36,8 @@
   }
 
   .modal__content {
-    min-width: 760px;
+    width: 760px;
     min-height: 380px;
-    position: absolute;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -47,11 +45,17 @@
     border-radius: $border-radius-base;
     box-shadow: 0 26px 163px 0 rgba(0, 0, 0, 0.11);
     padding: 50px 60px;
-    z-index: 20000;
-  }
-
-  .modal__background {
-    background: rgba($color-mine-shaft, 0.3);
+    margin: 50px auto;
+    &:after {
+      content: ' ';
+      width: 100vw;
+      height: 100vh;
+      position: absolute;
+      top: 0;
+      left: 0;
+      background: rgba($color-mine-shaft, 0.3);
+      z-index: -1;
+    }
   }
 
   .fade-enter-active, .fade-leave-active {
