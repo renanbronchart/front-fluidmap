@@ -50,7 +50,7 @@
     },
     created () {
       const stepId = this.getStepId
-
+      // rajouter le cookie, si il a déjà vu le onboard ou pas.
       if (stepId <= 0 || stepId > 5) {
         this.$router.push({name: 'Home'})
       }

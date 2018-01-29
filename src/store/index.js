@@ -5,6 +5,7 @@ import Vuex from 'vuex'
 import events from './modules/events.js'
 import places from './modules/places.js'
 import planning from './modules/planning.js'
+import map from './modules/map.js'
 
 Vue.use(Vuex)
 
@@ -16,7 +17,8 @@ const store = new Vuex.Store({
   modules: {
     planning,
     events,
-    places
+    places,
+    map
   }
   // plugins: [vuexLocalStorage.plugin]
 })

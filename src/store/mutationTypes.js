@@ -1,2 +1,4 @@
 export const SET_NEW_DATE = 'SET_NEW_DATE'
 export const SET_NEW_SCHEDULES = 'SET_NEW_SCHEDULES'
+export const SELECT_PLACE = 'SELECT_PLACE'
+export const DESELECT_PLACE = 'DESELECT_PLACE'

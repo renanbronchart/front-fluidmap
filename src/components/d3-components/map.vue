@@ -1,8 +1,9 @@
 <template>
-  <div id="map__heat"></div>
+  <div id="map__heat" :class="onBoardMap ? 'map--onboard' : ''"></div>
 <!--     <div id="number-records-nd"></div>
     <div id="departement-row-chart"></div>
     <div id="population-chart"></div> -->
+
 </template>
 
 <script>
@@ -204,13 +205,27 @@ export default {
 
       this.stream.point(point.x, point.y)
     }
+  },
+  computed: {
+    onBoardMap () {
+      return parseFloat(this.$route.params.id) === 2
+    }
   }
 }
 </script>
 
 <style lang='scss' scoped>
-  body {
-    overflow: hidden;
+  .map--onboard {
+    &:before {
+      content: ' ';
+      opacity: 1;
+      position: fixed;
+      top: 30vh;
+      left: 20%;
+      box-shadow: 0 0 0 1000em rgba(black, .7);
+      z-index: 9000;
+      padding: 20vh 15vw;
+    }
   }
 
   .station {
@@ -250,7 +265,14 @@ export default {
 
   #map__heat {
     width: 100vw;
-    height: calc(100vh - 160px);
+    height: calc(100vh - 170px);
+    position: relative;
+  }
+
+  .events {
+    position: absolute;
+    bottom: 0;
+    left: 40px;
   }
 
   .leaflet-tile-pane {

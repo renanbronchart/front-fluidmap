@@ -1,5 +1,5 @@
 <template>
-  <button class="button" :class="extraClass">
+  <button class="button" :class="extraClass" @click="callback">
     <router-link :to="{name: linkName, params: linkParams}" :title="linkTitle" v-if='linkName'>
       {{label}}
     </router-link>
@@ -32,6 +32,15 @@
       },
       iconName: {
         type: String
+      },
+      click: {
+        type: Function,
+        default: () => {}
+      }
+    },
+    methods: {
+      callback () {
+        this.click()
       }
     }
   }
@@ -50,6 +59,9 @@
     padding: 10px 20px;
     white-space: nowrap;
     text-transform: uppercase;
+    a, i {
+      color: white;
+    }
     &.button--block {
       display: block;
     }
