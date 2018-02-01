@@ -115,9 +115,10 @@
     height: calc(100vh - 170px);
     display: flex;
     flex-direction: column;
-    position: absolute;
+    position: fixed;
     top: 80px;
     right: 0;
+    overflow: auto;
     background: white;
     transform: translateX(524px);
     transition: transform .3s ease-in-out;

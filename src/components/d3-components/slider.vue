@@ -198,7 +198,9 @@
     },
     computed: {
       onBoardSlider () {
-        return parseFloat(this.$route.params.id) === 1
+        const onBoardNumber = parseFloat(this.$route.params.id)
+
+        return onBoardNumber === 5 || onBoardNumber === 1
       }
     },
     components: {

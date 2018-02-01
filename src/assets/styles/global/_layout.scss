@@ -1,4 +1,6 @@
 body {
+  overflow: hidden;
+  overflow-y: auto;
   background-color: lighten($color-whisper, 5);
   color: $color-mine-shaft;
   &.body--noScroll {
