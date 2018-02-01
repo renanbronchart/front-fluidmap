@@ -128,20 +128,6 @@
     &.aside--onboard {
       transform: translateX(0);
     }
-
-    &.aside--onboard {
-      &:before {
-        content: ' ';
-        opacity: 1;
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        box-shadow: 0 0 0 1000em rgba(black, .7);
-        z-index: 150000;
-        padding: 0 262px;
-        padding-bottom: calc(100vh - 170px);
-      }
-    }
   }
 
   .aside__infos,

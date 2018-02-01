@@ -1,5 +1,5 @@
 <template>
-  <div id="map__heat" :class="onBoardMap ? 'map--onboard' : ''"></div>
+  <div id="map__heat"></div>
 <!--     <div id="number-records-nd"></div>
     <div id="departement-row-chart"></div>
     <div id="population-chart"></div> -->
@@ -205,29 +205,11 @@ export default {
 
       this.stream.point(point.x, point.y)
     }
-  },
-  computed: {
-    onBoardMap () {
-      return parseFloat(this.$route.params.id) === 2
-    }
   }
 }
 </script>
 
 <style lang='scss' scoped>
-  .map--onboard {
-    &:before {
-      content: ' ';
-      opacity: 1;
-      position: fixed;
-      top: 30vh;
-      left: 20%;
-      box-shadow: 0 0 0 1000em rgba(black, .7);
-      z-index: 9000;
-      padding: 20vh 15vw;
-    }
-  }
-
   .station {
     stroke: black;
   }

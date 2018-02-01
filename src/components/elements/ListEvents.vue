@@ -62,18 +62,6 @@
       .panel__body {
         height: 310px;
       }
-
-      &:before {
-        content: ' ';
-        width: 300px;
-        height: 350px;
-        opacity: 1;
-        position: fixed;
-        bottom: 90px;
-        left: 40px;
-        box-shadow: 0 0 0 1000em rgba(black, .7);
-        z-index: 9000;
-      }
     }
   }
 
