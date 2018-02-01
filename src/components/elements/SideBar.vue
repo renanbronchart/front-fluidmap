@@ -136,8 +136,9 @@
         bottom: 0;
         left: 0;
         box-shadow: 0 0 0 1000em rgba(black, .7);
-        z-index: 9000;
-        padding: 100vh 262px;
+        z-index: 150000;
+        padding: 0 262px;
+        padding-bottom: calc(100vh - 170px);
       }
     }
   }
