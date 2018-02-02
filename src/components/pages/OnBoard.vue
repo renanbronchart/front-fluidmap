@@ -31,7 +31,7 @@
           },
           {
             text: 'Ce volet affiche les détails de l’évènement choisi.',
-            extraClass: 'tooltip--aside'
+            extraClass: 'tooltip--aside tooltip--right'
           },
           {
             text: 'Ce tirroir vous affiche tous les évènements qui ont lieu pendant le jour et la tranche horaire que vous aurez choisie. En cliquant sur l’un d’eux, vous afficherez le détail de cet évènements dans le volet latéral droit.',
@@ -39,7 +39,7 @@
           },
           {
             text: 'Enfin, ce bouton vous permet de visualiser l’analyse complète de l’évènement choisi. Nous vous conseillons de créer un compte afin de pouvoir accéder à cette analyse et profiter plainement de ce que Fluidmap a à vous offrir. À vous de jouer !',
-            extraClass: 'tooltip--slider'
+            extraClass: 'tooltip--sliderRight tooltip--rightBottom'
           }
         ]
       }

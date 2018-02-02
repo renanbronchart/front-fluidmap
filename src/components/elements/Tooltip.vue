@@ -68,12 +68,12 @@
       width: 0;
       height: 0;
       position: absolute;
+      left: 8px;
+      top: 100%;
       border-top: 8px solid $color-caribbean-green;
       border-bottom: 8px solid transparent;
       border-right: 8px solid transparent;
       border-left: 8px solid transparent;
-      left: 8px;
-      top: 100%;
     }
 
     &:after {
@@ -92,6 +92,20 @@
       transform: translateX(-50%);
     }
 
+    &.tooltip--sliderRight {
+      right: 100px;
+      bottom: 130px;
+      &:before {
+        top: 100%;
+        left: auto;
+        right: 8px;
+        border-top: 8px solid $color-blue-ribbon;
+        border-bottom: 8px solid transparent;
+        border-right: 8px solid transparent;
+        border-left: 8px solid transparent;
+      }
+    }
+
     &.tooltip--map {
       top: 35vh;
       left: 35%;
@@ -102,11 +116,20 @@
       top: 50%;
       right: 550px;
       transform: translateY(-50%);
+      &:before {
+        left: 100%;
+        top: 50%;
+        transform: translateY(-50%);
+        border-top: 8px solid transparent;
+        border-bottom: 8px solid transparent;
+        border-right: 8px solid transparent;
+        border-left: 8px solid white;
+      }
     }
 
     &.tooltip--list {
-      bottom: 200px;
-      left: 400px;
+      bottom: 480px;
+      left: 150px;
     }
   }
 
