@@ -36,26 +36,20 @@
             count="90000"
           />
         </div>
-        <div class="stats__ratio">
-          <StatsRatio
-            countLocal="64"
-            countTourist="36"
-          />
-        </div>
       </div>
     </div>
-    <div class="aside__stations">
-      <div class="aside__container">
-        <Card>
-          <div class="card__header" slot="header">
-            <p>Stations à proximités</p>
-          </div>
-          <ul>
-            <li v-for='index in 100'>stations</li>
-          </ul>
-        </Card>
+    <ListAside
+      :title="getTitleList"
+    >
+      <ul v-if="viewEvent">
+        <li v-for="index in 100">stations</li>
+      </ul>
+      <div v-else>
+        <ul class="aside__list">
+          <EventDescription :event="event" extraClass="event--block" v-for="event in dataEvents" />
+        </ul>
       </div>
-    </div>
+    </ListAside>
   </aside>
 </template>
 
@@ -65,12 +59,40 @@
   import TextInfos from '@/components/molecules/TextInfos.vue'
   import StatsHint from '@/components/elements/stats/StatsHint.vue'
   import StatsPeople from '@/components/elements/stats/StatsPeople.vue'
-  import StatsRatio from '@/components/elements/stats/StatsRatio.vue'
-  import Card from '@/components/elements/Card.vue'
+  import ListAside from '@/components/elements/aside/ListAside.vue'
+  import EventDescription from '@/components/elements/events/EventDescription.vue'
 
   export default {
     data () {
       return {
+        viewEvent: false,
+        eventsNumber: 4,
+        dataEvents: [
+          {
+            name: 'Natation synchronisé',
+            step: 'Duo - Qualification',
+            hour: '14h00',
+            place: 'Champs de mars, Paris'
+          },
+          {
+            name: 'Natation synchronisé',
+            step: 'Duo - Qualification',
+            hour: '14h00',
+            place: 'Champs de mars, Paris'
+          },
+          {
+            name: 'Natation synchronisé',
+            step: 'Duo - Qualification',
+            hour: '14h00',
+            place: 'Champs de mars, Paris'
+          },
+          {
+            name: 'Natation synchronisé',
+            step: 'Duo - Qualification',
+            hour: '14h00',
+            place: 'Champs de mars, Paris'
+          }
+        ]
       }
     },
     methods: {
@@ -82,6 +104,13 @@
       ...mapState([
         'map'
       ]),
+      getTitleList () {
+        if (this.viewEvent) {
+          return 'Stations à proximité'
+        } else {
+          return `${this.eventsNumber} évènements dans cette tranche`
+        }
+      },
       getRoute () {
         return this.$route.params.id
       },
@@ -101,8 +130,8 @@
       TextInfos,
       StatsHint,
       StatsPeople,
-      StatsRatio,
-      Card
+      ListAside,
+      EventDescription
     }
   }
 </script>
@@ -180,23 +209,18 @@
   }
 
   .stats__hint {
+    width: 40%;
     border-right: 1px solid $dusty-gray;
     padding: 30px 40px;
   }
 
-  .aside__stations {
-    height: 100%;
-    position: relative;
+  .stats__people {
+    width: 60%;
+    border-right: 1px solid $dusty-gray;
+    padding: 30px 40px;
   }
 
-  .aside__container {
-    width: 100%;
-    height: 100%;
-    max-height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    overflow: auto;
-    padding: 30px 120px 30px 60px;
+  .aside__list {
+    padding: 30px;
   }
 </style>

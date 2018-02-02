@@ -18,6 +18,36 @@ const state = {
       'geo_point_2d': [48.754542648932755, 1.834361843330175], // mêmes que celles des places
       placeId: 12
     }
+  ],
+  eventsCloseToPlace: [
+    {
+      id: 34,
+      name: 'Natation synchronisé',
+      step: 'Duo - Qualification',
+      hour: '14h00',
+      placeName: 'Champs de mars, Paris'
+    },
+    {
+      id: 35,
+      name: 'Natation synchronisé',
+      step: 'Duo - Qualification',
+      hour: '14h00',
+      placeName: 'Champs de mars, Paris'
+    },
+    {
+      id: 36,
+      name: 'Natation synchronisé',
+      step: 'Duo - Qualification',
+      hour: '14h00',
+      placeName: 'Champs de mars, Paris'
+    },
+    {
+      id: 37,
+      name: 'Natation synchronisé',
+      step: 'Duo - Qualification',
+      hour: '14h00',
+      placeName: 'Champs de mars, Paris'
+    }
   ]
 }
 

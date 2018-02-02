@@ -7,24 +7,45 @@
     </div>
     <div class="panel__body" :class="panelOpen ? 'panel__body--active' : ''">
       <ul class="panel__container">
-        <li class="event" v-for='(ind, index) in 4'>
-          <a href="" class="event__link" >
-            <h4 class="event__name p">Natation synchronisé</h4>
-            <p class="event__step text--xs">Duo - Qualification</p>
-            <p class="event__hour text--xs">14h00</p>
-            <p class="event__place text--xs">Champs de mars, Paris</p>
-          </a>
-        </li>
+        <EventDescription v-for="event in dataEvents" :event="event" extraClass="event--timeline"/>
       </ul>
     </div>
   </div>
 </template>
 
 <script>
+  import EventDescription from '@/components/elements/events/EventDescription.vue'
+
   export default {
     data () {
       return {
-        panelOpen: false
+        panelOpen: false,
+        dataEvents: [
+          {
+            name: 'Natation synchronisé',
+            step: 'Duo - Qualification',
+            hour: '14h00',
+            place: 'Champs de mars, Paris'
+          },
+          {
+            name: 'Natation synchronisé',
+            step: 'Duo - Qualification',
+            hour: '14h00',
+            place: 'Champs de mars, Paris'
+          },
+          {
+            name: 'Natation synchronisé',
+            step: 'Duo - Qualification',
+            hour: '14h00',
+            place: 'Champs de mars, Paris'
+          },
+          {
+            name: 'Natation synchronisé',
+            step: 'Duo - Qualification',
+            hour: '14h00',
+            place: 'Champs de mars, Paris'
+          }
+        ]
       }
     },
     methods: {
@@ -36,6 +57,9 @@
       onBoardPanel () {
         return parseFloat(this.$route.params.id) === 4
       }
+    },
+    components: {
+      EventDescription
     }
   }
 </script>
