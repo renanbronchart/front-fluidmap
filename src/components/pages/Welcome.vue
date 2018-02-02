@@ -3,16 +3,18 @@
     <Modal open="true" noClose="true">
       <h1>Bienvenue sur Fluidmap !</h1>
       <p class="text--xs">Voulez vous que nous vous montrions le chemin ?</p>
-      <Button
-        label="Plus tard"
-        extraClass="button--ghost"
-      />
-      <Button
-        label="Je vous suis"
-        linkName="OnBoard"
-        :linkParams="linkParams"
-        linkTitle="Lien vers le onBoard"
-      />
+      <div class="modal__button">
+        <Button
+          label="Plus tard"
+          extraClass="button--ghost"
+        />
+        <Button
+          label="Je vous suis"
+          linkName="OnBoard"
+          :linkParams="linkParams"
+          linkTitle="Lien vers le onBoard"
+        />
+      </div>
     </Modal>
   </div>
 </template>
@@ -43,5 +45,10 @@
     height: 100vh;
   }
 
-
+  .modal__button {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    margin: 50px 0 0 0;
+  }
 </style>

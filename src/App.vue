@@ -18,6 +18,8 @@ export default {
 </script>
 
 <style lang='scss'>
+@import '~stylesheets/helpers/_variables.scss';
+
 body {
   margin: 0;
 }
@@ -40,7 +42,7 @@ header {
   top: 0;
   left: 0;
   background: white;
-  z-index: 9000;
+  z-index: $z-index-header;
   margin: 0;
   padding: 0 16px 0 24px;
 }

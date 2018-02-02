@@ -115,9 +115,10 @@
     height: calc(100vh - 170px);
     display: flex;
     flex-direction: column;
-    position: absolute;
+    position: fixed;
     top: 80px;
     right: 0;
+    overflow: auto;
     background: white;
     transform: translateX(524px);
     transition: transform .3s ease-in-out;
@@ -126,19 +127,6 @@
     &.aside--active,
     &.aside--onboard {
       transform: translateX(0);
-    }
-
-    &.aside--onboard {
-      &:before {
-        content: ' ';
-        opacity: 1;
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        box-shadow: 0 0 0 1000em rgba(black, .7);
-        z-index: 9000;
-        padding: 100vh 262px;
-      }
     }
   }
 
@@ -194,10 +182,6 @@
   .stats__hint {
     border-right: 1px solid $dusty-gray;
     padding: 30px 40px;
-  }
-
-  .stats__people {
-
   }
 
   .aside__stations {

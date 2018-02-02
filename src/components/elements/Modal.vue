@@ -24,6 +24,7 @@
 
 <style lang="scss" scoped>
   @import '~stylesheets/helpers/_variables.scss';
+  @import '~stylesheets/helpers/mixins/_media-queries.scss';
 
   .modal,
   .modal__background {
@@ -36,7 +37,7 @@
   }
 
   .modal__content {
-    width: 760px;
+    width: 90%;
     min-height: 380px;
     display: flex;
     align-items: center;
@@ -55,6 +56,10 @@
       left: 0;
       background: rgba($color-mine-shaft, 0.3);
       z-index: -1;
+    }
+
+    @include medium {
+      width: 760px;
     }
   }
 

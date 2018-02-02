@@ -1,5 +1,5 @@
 <template>
-  <div class="tooltip">
+  <div class="tooltip" :class="extraClass">
     <Notifications :count='count' v-if="count > 0" extraClass="tooltip__notification"/>
     <p class="tooltip__content text--xs">{{text}}</p>
     <Button
@@ -21,6 +21,10 @@
   export default {
     props: {
       text: {
+        type: String,
+        default: ''
+      },
+      extraClass: {
         type: String,
         default: ''
       },
@@ -53,7 +57,6 @@
     display: flex;
     align-items: flex-start;
     position: absolute;
-    top: 0;
     border-radius: $border-radius-base;
     background: white;
     z-index: $z-index-tooltip;
@@ -65,12 +68,12 @@
       width: 0;
       height: 0;
       position: absolute;
+      left: 8px;
+      top: 100%;
       border-top: 8px solid $color-caribbean-green;
       border-bottom: 8px solid transparent;
       border-right: 8px solid transparent;
       border-left: 8px solid transparent;
-      left: 8px;
-      top: 100%;
     }
 
     &:after {
@@ -82,7 +85,54 @@
       left: 0;
       background: linear-gradient(to left, $color-blue-ribbon, $color-caribbean-green);
     }
+
+    &.tooltip--slider {
+      bottom: 130px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    &.tooltip--sliderRight {
+      right: 100px;
+      bottom: 130px;
+      &:before {
+        top: 100%;
+        left: auto;
+        right: 8px;
+        border-top: 8px solid $color-blue-ribbon;
+        border-bottom: 8px solid transparent;
+        border-right: 8px solid transparent;
+        border-left: 8px solid transparent;
+      }
+    }
+
+    &.tooltip--map {
+      top: 35vh;
+      left: 35%;
+      transform: translateY(-50%);
+    }
+
+    &.tooltip--aside {
+      top: 50%;
+      right: 550px;
+      transform: translateY(-50%);
+      &:before {
+        left: 100%;
+        top: 50%;
+        transform: translateY(-50%);
+        border-top: 8px solid transparent;
+        border-bottom: 8px solid transparent;
+        border-right: 8px solid transparent;
+        border-left: 8px solid white;
+      }
+    }
+
+    &.tooltip--list {
+      bottom: 480px;
+      left: 150px;
+    }
   }
+
 
   .tooltip__notification {
     margin: 0 15px 0 0;

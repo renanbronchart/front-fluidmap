@@ -1,5 +1,5 @@
 <template>
-  <div class="sliders" :class="onBoardSlider ? 'sliders--onboard' : ''">
+  <div class="sliders">
     <div class="sliders__range" v-for="slider in sliders">
       <span>{{slider.label}}</span>
       <div class="slider__content" :class='slider.ref'>
@@ -196,11 +196,6 @@
         this.valueHour = newValueDate
       }
     },
-    computed: {
-      onBoardSlider () {
-        return parseFloat(this.$route.params.id) === 1
-      }
-    },
     components: {
       vueSlider,
       Button
@@ -212,25 +207,14 @@
   @import '~stylesheets/helpers/_variables.scss';
 
   .sliders {
+    width: 100%;
     height: 90px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 100%;
+    position: relative;
+    background: white;
     padding: 0 20px;
-  }
-
-  .sliders--onboard {
-    &:before {
-      content: ' ';
-      opacity: 1;
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      box-shadow: 0 0 0 1000em rgba(black, .7);
-      z-index: 9000;
-      padding: 45px 100vw;
-    }
   }
 
   .slider-date {
