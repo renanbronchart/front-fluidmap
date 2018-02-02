@@ -1,12 +1,13 @@
 <template>
   <div>
     <Tooltip
-      :text='getText'
+      :text='getTooltipInfos.text'
       :count='getStepId'
       :labelButton='getLabelButton'
       linkName="OnBoard"
       :linkParams="getLinkParams"
       :linkTitle="getLinkTitle"
+      :extraClass="getTooltipInfos.extraClass"
     />
     <OverlayHole />
   </div>
@@ -19,12 +20,27 @@
   export default {
     data () {
       return {
-        stepTexts: [
-          'Grâce à ces deux frises, vous pouvez sélectionner un jour et une tranche horaire, et ainsi influencer l’affichage de la carte de chaleur.',
-          'Ces points sont des lieux où un évènement des J.O. aura lieu. En cliquant dessus, vous pourrez affichez les détails prévisionnels liés à celui-ci. La carte de chaleur colorée que vous pouvez voir en fond sera influencée par l’évènement sélectionné.',
-          'Ce volet affiche les détails de l’évènement choisi.',
-          'Ce tirroir vous affiche tous les évènements qui ont lieu pendant le jour et la tranche horaire que vous aurez choisie. En cliquant sur l’un d’eux, vous afficherez le détail de cet évènements dans le volet latéral droit.',
-          'Enfin, ce bouton vous permet de visualiser l’analyse complète de l’évènement choisi. Nous vous conseillons de créer un compte afin de pouvoir accéder à cette analyse et profiter plainement de ce que Fluidmap a à vous offrir. À vous de jouer !'
+        step: [
+          {
+            text: 'Grâce à ces deux frises, vous pouvez sélectionner un jour et une tranche horaire, et ainsi influencer l’affichage de la carte de chaleur.',
+            extraClass: 'tooltip--slider'
+          },
+          {
+            text: 'Ces points sont des lieux où un évènement des J.O. aura lieu. En cliquant dessus, vous pourrez affichez les détails prévisionnels liés à celui-ci. La carte de chaleur colorée que vous pouvez voir en fond sera influencée par l’évènement sélectionné.',
+            extraClass: 'tooltip--map'
+          },
+          {
+            text: 'Ce volet affiche les détails de l’évènement choisi.',
+            extraClass: 'tooltip--aside'
+          },
+          {
+            text: 'Ce tirroir vous affiche tous les évènements qui ont lieu pendant le jour et la tranche horaire que vous aurez choisie. En cliquant sur l’un d’eux, vous afficherez le détail de cet évènements dans le volet latéral droit.',
+            extraClass: 'tooltip--list'
+          },
+          {
+            text: 'Enfin, ce bouton vous permet de visualiser l’analyse complète de l’évènement choisi. Nous vous conseillons de créer un compte afin de pouvoir accéder à cette analyse et profiter plainement de ce que Fluidmap a à vous offrir. À vous de jouer !',
+            extraClass: 'tooltip--slider'
+          }
         ]
       }
     },
@@ -32,8 +48,8 @@
       getStepId () {
         return this.$route.params.id
       },
-      getText () {
-        return this.stepTexts[this.getStepId - 1]
+      getTooltipInfos () {
+        return this.step[this.getStepId - 1]
       },
       getLabelButton () {
         return this.getStepId === 5 ? `C'est parti !` : 'Suivant'
