@@ -184,10 +184,6 @@
     padding: 30px 40px;
   }
 
-  .stats__people {
-
-  }
-
   .aside__stations {
     height: 100%;
     position: relative;

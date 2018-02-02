@@ -8,7 +8,7 @@
       :linkParams="getLinkParams"
       :linkTitle="getLinkTitle"
     />
-    <OverlayHole :extraClass="getClassOverlay"/>
+    <OverlayHole />
   </div>
 </template>
 
@@ -45,29 +45,6 @@
       },
       getLinkTitle () {
         return `Lien vers l'étape ${this.getStepId} du on board`
-      },
-      getClassOverlay () {
-        const onBoardNumber = parseFloat(this.$route.params.id)
-
-        switch (onBoardNumber) {
-          case 1:
-            return 'overlay--slider'
-
-          case 2:
-            return 'overlay--map'
-
-          case 3:
-            return 'overlay--aside'
-
-          case 4:
-            return 'overlay--list'
-
-          case 5:
-            return 'overlay--slider'
-
-          default:
-            return ''
-        }
       }
     },
     created () {
@@ -85,57 +62,5 @@
 </script>
 
 <style lang="scss" scoped>
-  .overlay--slider {
-    &:after {
-      content: ' ';
-      opacity: 1;
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      box-shadow: 0 0 0 1000em rgba(black, .7);
-      z-index: 9000;
-      padding: 45px 100vw;
-    }
-  }
 
-  .overlay--map {
-    &:after {
-      content: ' ';
-      opacity: 1;
-      position: fixed;
-      top: 30vh;
-      left: 20%;
-      box-shadow: 0 0 0 1000em rgba(black, .7);
-      z-index: 9000;
-      padding: 20vh 15vw;
-    }
-  }
-
-  .overlay--aside {
-    &:after {
-      content: ' ';
-      width: 524px;
-      height: calc(100vh - 170px);
-      opacity: 1;
-      position: fixed;
-      top: 80px;
-      right: 0;
-      box-shadow: 0 0 0 1000em rgba(black, .7);
-      z-index: 150000;
-    }
-  }
-
-  .overlay--list {
-    &:after {
-      content: ' ';
-      width: 300px;
-      height: 350px;
-      opacity: 1;
-      position: fixed;
-      bottom: 90px;
-      left: 40px;
-      box-shadow: 0 0 0 1000em rgba(black, .7);
-      z-index: 9000;
-    }
-  }
 </style>
