@@ -2,9 +2,11 @@
   <aside class="aside" :class="getClass">
     <div class="aside__infos">
       <div class="aside__title">
-        <i class="material-icons cursor--pointer" @click.prevent="backView" v-if="viewEvent">arrow_back</i>
-        <h2 class="h3">{{getTitleAside}}</h2>
-        <i class="material-icons cursor--pointer" @click.prevent="deselectPlace">close</i>
+        <h2 class="h3">
+          <i class="material-icons cursor--pointer" @click.prevent="backView" v-if="viewEvent">arrow_back</i>
+          <span class="title__text">{{getTitleAside}}</span>
+        </h2>
+        <i class="material-icons cursor--pointer" @click.prevent="closeAside">close</i>
       </div>
       <div class="aside__details">
         <div class="aside__infosEvent">
@@ -50,7 +52,12 @@
       </ul>
       <div v-else>
         <ul class="aside__list">
-          <EventDescription :event="event" extraClass="event--block" v-for="event in dataEvents" />
+          <EventDescription
+            :event="event"
+            extraClass="event--block"
+            @clickEvent="clickEvent(event)"
+            v-for="event in places.placeSelected.events"
+          />
         </ul>
       </div>
     </ListAside>
@@ -69,7 +76,7 @@
   export default {
     data () {
       return {
-        eventName: '',
+        eventSelected: '',
         viewEvent: false,
         eventsNumber: 4,
         dataEvents: [
@@ -106,6 +113,16 @@
       ]),
       backView () {
         this.viewEvent = false
+        document.querySelector('.aside__container').scrollTop = 0
+      },
+      closeAside () {
+        this.deselectPlace() // faire une promesse dans le store avec setTimeout
+        this.backView()
+      },
+      clickEvent (event) {
+        this.eventSelected = event
+        this.viewEvent = true
+        document.querySelector('.aside__container').scrollTop = 0
       }
     },
     computed: {
@@ -116,7 +133,7 @@
       getTitleAside () {
         const placeName = this.places.placeSelected.name
 
-        return this.viewEvent ? this.eventName : placeName
+        return this.viewEvent ? this.eventSelected.name : placeName
       },
       getTitleList () {
         if (this.viewEvent) {
@@ -187,6 +204,9 @@
     align-items: center;
     justify-content: space-between;
     padding: 0 40px 0 60px;
+    .title__text {
+      margin: 0 20px;
+    }
   }
 
   .aside__details {

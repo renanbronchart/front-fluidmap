@@ -1,17 +1,22 @@
 <template>
   <li class="event" :class="extraClass">
-    <a href="" class="event__link" >
+    <a href="#" class="event__link" @click.prevent="clickEvent" >
       <h4 class="event__name p">{{event.name}}</h4>
       <p class="event__step text--xs">{{event.step}}</p>
       <p class="event__hour text--xs">{{event.hour}}</p>
-      <p class="event__place text--xs">{{event.place}}</p>
+      <p class="event__place text--xs">{{event.placeName}}</p>
     </a>
   </li>
 </template>
 
 <script>
   export default {
-    props: ['event', 'extraClass']
+    props: ['event', 'extraClass'],
+    methods: {
+      clickEvent () {
+        this.$emit('clickEvent')
+      }
+    }
   }
 </script>
 
