@@ -26,6 +26,7 @@
   .aside__stations {
     height: 100%;
     position: relative;
+    margin: 30px 0 0 0;
   }
 
   .aside__container {
@@ -36,6 +37,6 @@
     top: 0;
     left: 0;
     overflow: auto;
-    padding: 30px 120px 30px 60px;
+    padding: 0 120px 30px 60px;
   }
 </style>

@@ -2,13 +2,14 @@
   <aside class="aside" :class="getClass">
     <div class="aside__infos">
       <div class="aside__title">
-        <h2 class="h3">Equitation - Femmes</h2>
-        <i class="material-icons cursor--pointer" @click.prevent="deselectPlace">arrow_forward</i>
+        <i class="material-icons cursor--pointer" @click.prevent="backView" v-if="viewEvent">arrow_back</i>
+        <h2 class="h3">{{getTitleAside}}</h2>
+        <i class="material-icons cursor--pointer" @click.prevent="deselectPlace">close</i>
       </div>
       <div class="aside__details">
         <div class="aside__infosEvent">
           <TextInfos
-            content="Champs de Mars, Paris"
+            content="12 H - 14 H"
             iconName="location_on"
             extraClass="information__primary"
           />
@@ -22,9 +23,12 @@
           class="aside__image"
           :style="{ backgroundImage: 'url(http://placekitten.com/g/900/500)' }"
         ></div>
+        <div class="aside__explanation" v-if="!viewEvent">
+          <p>Plusieurs évènements ont lieu à cet endroit et durant cette tranche horaire. Choisissez un évènement à afficher.</p>
+        </div>
       </div>
     </div>
-    <div class="aside__stats">
+    <div class="aside__stats" v-if="viewEvent">
       <div class="stats__hint">
         <StatsHint
           hintMark="4"
@@ -65,6 +69,7 @@
   export default {
     data () {
       return {
+        eventName: '',
         viewEvent: false,
         eventsNumber: 4,
         dataEvents: [
@@ -98,12 +103,21 @@
     methods: {
       ...mapActions([
         'deselectPlace'
-      ])
+      ]),
+      backView () {
+        this.viewEvent = false
+      }
     },
     computed: {
       ...mapState([
-        'map'
+        'map',
+        'places'
       ]),
+      getTitleAside () {
+        const placeName = this.places.placeSelected.name
+
+        return this.viewEvent ? this.eventName : placeName
+      },
       getTitleList () {
         if (this.viewEvent) {
           return 'Stations à proximité'
@@ -164,6 +178,10 @@
     flex-shrink: 0;
   }
 
+  .aside__explanation {
+    margin: 20px 0 0 0;
+  }
+
   .aside__title {
     display: flex;
     align-items: center;
@@ -172,7 +190,7 @@
   }
 
   .aside__details {
-    padding: 20px 120px 30px 60px;
+    padding: 20px 120px 0 60px;
   }
 
   .aside__infosEvent {
@@ -206,6 +224,7 @@
     align-items: center;
     border-top: 1px solid $dusty-gray;
     border-bottom: 1px solid $dusty-gray;
+    margin: 30px 0 0 0;
   }
 
   .stats__hint {
