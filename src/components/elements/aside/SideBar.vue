@@ -3,7 +3,7 @@
     <div class="aside__infos">
       <div class="aside__title">
         <h2 class="h3">
-          <i class="material-icons cursor--pointer" @click.prevent="backView" v-if="viewEvent">arrow_back</i>
+          <i class="material-icons cursor--pointer title__back" @click.prevent="backView" v-if="viewEvent">arrow_back</i>
           <span class="title__text">{{getTitleAside}}</span>
         </h2>
         <i class="material-icons cursor--pointer" @click.prevent="closeAside">close</i>
@@ -139,7 +139,7 @@
         if (this.viewEvent) {
           return 'Stations à proximité'
         } else {
-          return `${this.eventsNumber} évènements dans cette tranche`
+          return `${this.places.placeSelected.events.length} évènements dans cette tranche`
         }
       },
       getRoute () {
@@ -204,8 +204,9 @@
     align-items: center;
     justify-content: space-between;
     padding: 0 40px 0 60px;
-    .title__text {
-      margin: 0 20px;
+    .title__text,
+    .title__back {
+      margin: 0 20px 0 0;
     }
   }
 
