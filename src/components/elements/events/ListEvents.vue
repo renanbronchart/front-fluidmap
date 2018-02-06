@@ -7,53 +7,35 @@
     </div>
     <div class="panel__body" :class="panelOpen ? 'panel__body--active' : ''">
       <ul class="panel__container">
-        <EventDescription v-for="event in dataEvents" :event="event" extraClass="event--timeline"/>
+        <EventDescription v-for="event in events.eventsSchedules" :event="event" extraClass="event--timeline"/>
       </ul>
     </div>
   </div>
 </template>
 
 <script>
+  import { mapState, mapActions } from 'vuex'
+
   import EventDescription from '@/components/elements/events/EventDescription.vue'
 
   export default {
     data () {
       return {
-        panelOpen: false,
-        dataEvents: [
-          {
-            name: 'Natation synchronisé',
-            step: 'Duo - Qualification',
-            hour: '14h00',
-            place: 'Champs de mars, Paris'
-          },
-          {
-            name: 'Natation synchronisé',
-            step: 'Duo - Qualification',
-            hour: '14h00',
-            place: 'Champs de mars, Paris'
-          },
-          {
-            name: 'Natation synchronisé',
-            step: 'Duo - Qualification',
-            hour: '14h00',
-            place: 'Champs de mars, Paris'
-          },
-          {
-            name: 'Natation synchronisé',
-            step: 'Duo - Qualification',
-            hour: '14h00',
-            place: 'Champs de mars, Paris'
-          }
-        ]
+        panelOpen: false
       }
     },
     methods: {
+      ...mapActions([
+        'getEventsSchedules'
+      ]),
       toggle () {
         this.panelOpen = !this.panelOpen
       }
     },
     computed: {
+      ...mapState([
+        'events'
+      ]),
       onBoardPanel () {
         return parseFloat(this.$route.params.id) === 4
       }
