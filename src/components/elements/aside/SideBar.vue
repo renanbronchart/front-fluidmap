@@ -78,33 +78,7 @@
       return {
         eventSelected: '',
         viewEvent: false,
-        eventsNumber: 4,
-        dataEvents: [
-          {
-            name: 'Natation synchronisé',
-            step: 'Duo - Qualification',
-            hour: '14h00',
-            place: 'Champs de mars, Paris'
-          },
-          {
-            name: 'Natation synchronisé',
-            step: 'Duo - Qualification',
-            hour: '14h00',
-            place: 'Champs de mars, Paris'
-          },
-          {
-            name: 'Natation synchronisé',
-            step: 'Duo - Qualification',
-            hour: '14h00',
-            place: 'Champs de mars, Paris'
-          },
-          {
-            name: 'Natation synchronisé',
-            step: 'Duo - Qualification',
-            hour: '14h00',
-            place: 'Champs de mars, Paris'
-          }
-        ]
+        previewPlace: {}
       }
     },
     methods: {
@@ -113,7 +87,10 @@
       ]),
       backView () {
         this.viewEvent = false
-        document.querySelector('.aside__container').scrollTop = 0
+
+        if (document.querySelector('.aside__container')) {
+          document.querySelector('.aside__container').scrollTop = 0
+        }
       },
       closeAside () {
         this.deselectPlace() // faire une promesse dans le store avec setTimeout
@@ -122,6 +99,7 @@
       clickEvent (event) {
         this.eventSelected = event
         this.viewEvent = true
+
         document.querySelector('.aside__container').scrollTop = 0
       }
     },
@@ -131,6 +109,13 @@
         'places'
       ]),
       propertiesPlaceSelected () {
+        const place = this.places.placeSelected.properties
+
+        if (!(Object.is(this.previewPlace, place))) {
+          this.backView()
+        }
+
+        this.previewPlace = place
         return this.places.placeSelected.properties
       },
       getTitleAside () {

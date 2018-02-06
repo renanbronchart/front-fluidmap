@@ -55,12 +55,21 @@ export default {
         ],
         "events": [
           {
-            "id": 56789,
-            "name": "Escrime - homme",
+            "id": 56790,
+            "name": "Natation - Femme",
             "date": "0908",
             "hours": "1012",
             "placeName": "Champ de mars",
-            "geo_point_2d": [48.754542648932755, 1.834361843330175], // mêmes que celles des places
+            "geo_point_2d": [48.85990100000001, 2.3142669999999725], // mêmes que celles des places
+            "placeId": 12
+          },
+          {
+            "id": 56791,
+            "name": "Water Polo - Femme",
+            "date": "0908",
+            "hours": "1012",
+            "placeName": "Champ de mars",
+            "geo_point_2d": [48.85990100000001, 2.3142669999999725], // mêmes que celles des places
             "placeId": 12
           }
         ],
