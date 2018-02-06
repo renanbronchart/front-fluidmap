@@ -56,7 +56,7 @@
             :event="event"
             extraClass="event--block"
             @clickEvent="clickEvent(event)"
-            v-for="event in places.placeSelected.events"
+            v-for="event in propertiesPlaceSelected.events"
           />
         </ul>
       </div>
@@ -130,8 +130,11 @@
         'map',
         'places'
       ]),
+      propertiesPlaceSelected () {
+        return this.places.placeSelected.properties
+      },
       getTitleAside () {
-        const placeName = this.places.placeSelected.name
+        const placeName = this.propertiesPlaceSelected.name
 
         return this.viewEvent ? this.eventSelected.name : placeName
       },
@@ -139,7 +142,7 @@
         if (this.viewEvent) {
           return 'Stations à proximité'
         } else {
-          return `${this.places.placeSelected.events.length} évènements dans cette tranche`
+          return `${this.propertiesPlaceSelected.events.length} évènements dans cette tranche`
         }
       },
       getRoute () {

@@ -1,15 +1,10 @@
 <template>
   <div id="map__heat"></div>
-<!--     <div id="number-records-nd"></div>
-    <div id="departement-row-chart"></div>
-    <div id="population-chart"></div> -->
-
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 
-// const d3 = require('d3')
 import * as d3 from 'd3'
 import L from 'leaflet'
 import * as leafletHeat from '@/assets/js/leaflet-heat'
@@ -53,8 +48,6 @@ export default {
       zoom: 13
     })
 
-    var svg = d3.select(this.map.getPanes().overlayPane).append('svg')
-
     function makeGraphs (error, recordsJson) {
       if (error) {
         console.log('error')
@@ -68,15 +61,16 @@ export default {
       var allDim = ndx.dimension(function (d) { return d.fields })
 
       // Draw Map
-      self.drawMap(svg, allDim, true)
+      self.drawMap(allDim, true)
 
       dc.renderAll()
     }
   },
   methods: {
-    drawMap (svg, allDim, mapConstruct) {
-      // var commercesGroup = svg.append('g').attr('class', 'leaflet-zoom-hide')
-      // map.setView([31.75, 110], 4)
+    ...mapActions([
+      'selectPlaces'
+    ]),
+    drawMap (allDim, mapConstruct) {
       if (mapConstruct) {
         this.mapLayer = L.tileLayer('https://api.mapbox.com/styles/v1/renanbronchart/cjcjqu77v9elo2soyghb33i8h/tiles/256/{z}/{x}/{y}?access_token={accessToken}', {
           maxZoom: 30,
@@ -128,7 +122,7 @@ export default {
       var self = this
       var dataPlaces = this.places.places
 
-      var svgPlaces = d3.select(this.map.getPanes().overlayPane).append('svg')
+      var svgPlaces = d3.select(this.map.getPanes().overlayPane).append('svg').style('z-index', '10000')
       var placesGroup = svgPlaces.append('g').attr('class', 'leaflet-zoom-hide')
 
       var featureStation
@@ -138,64 +132,55 @@ export default {
 
       var rootWidth, previousWidth
 
-      ready(dataPlaces)
+      var radius = d3.scaleLinear()
+        .domain([0, d3.max(dataPlaces.features, function (d) { return +d.properties.capacity })])
+        .range([4, 8])
 
-      function ready (dataPlaces) {
-        // (dataPlaces are ordered from the bigger one to the smaller one
-        // like that, smaller circle will be on the top of bigger ones
+      featureStation = placesGroup.selectAll('.places')
+        .data(dataPlaces.features)
+        .enter().append('path')
+        .attr('class', 'places')
+        .attr('id', function (d) { return d.properties.id })
+        .attr('d', path.pointRadius(function (d) {
+          return radius(d.properties.capacity)
+        }))
+        .style('fill', 'black')
+        .style('opacity', '1')
+        .on('click', (d) => {
+          this.selectPlaces(d)
+        })
 
-        var radius = d3.scaleLinear()
-          .domain([0, d3.max(dataPlaces.features, function (d) { return +d.properties.capacity })])
-          .range([4, 8])
+      this.map.on('zoom', reset)
+      reset()
 
-        featureStation = placesGroup.selectAll('.places')
-          .data(dataPlaces.features)
-          .enter().append('path')
-          .attr('class', 'places')
-          .attr('id', function (d) { return d.properties.id })
-          .attr('d', path.pointRadius(function (d) {
-            return radius(d.properties.capacity)
-          }))
-          .style('fill', 'black')
-          .style('z-index', '100000')
-          .style('opacity', '1')
-          .on('click', (d) => {
-            console.log(d)
-          })
+      // Reposition the SVG to cover the features.
+      function reset () {
+        var bounds = path.bounds(dataPlaces)
+        var topLeft = bounds[0]
+        var bottomRight = bounds[1]
 
-        self.map.on('zoom', reset)
-        reset()
+        svgPlaces.attr('width', bottomRight[0] - topLeft[0])
+          .attr('height', bottomRight[1] - topLeft[1])
+          .style('left', topLeft[0] + 'px')
+          .style('top', topLeft[1] + 'px')
+          .style('overflow', 'visible')
 
-        // Reposition the SVG to cover the features.
-        function reset () {
-          var bounds = path.bounds(dataPlaces)
-          var topLeft = bounds[0]
-          var bottomRight = bounds[1]
+        placesGroup.attr('transform', 'translate(' + -topLeft[0] + ',' + -topLeft[1] + ')')
 
-          svgPlaces.attr('width', bottomRight[0] - topLeft[0])
-            .attr('height', bottomRight[1] - topLeft[1])
-            .style('left', topLeft[0] + 'px')
-            .style('top', topLeft[1] + 'px')
-            .style('overflow', 'visible')
-
-          placesGroup.attr('transform', 'translate(' + -topLeft[0] + ',' + -topLeft[1] + ')')
-
-          if (rootWidth === undefined) { // rootWidth means max range for(dataPlaces radius = 50
-            rootWidth = bottomRight[0] - topLeft[0]
-            previousWidth = rootWidth
-          }
-
-          var newWidth = bottomRight[0] - topLeft[0]
-          if (previousWidth !== newWidth) {
-            radius.range([4, 8 * (newWidth / rootWidth)])
-          }
-          featureStation.attr('d', path.pointRadius(function (d) {
-            return radius(d.properties.capacity)
-          }))
-          previousWidth = newWidth
+        if (rootWidth === undefined) { // rootWidth means max range for(dataPlaces radius = 50
+          rootWidth = bottomRight[0] - topLeft[0]
+          previousWidth = rootWidth
         }
-      }
 
+        var newWidth = bottomRight[0] - topLeft[0]
+        if (previousWidth !== newWidth) {
+          radius.range([4, 8 * (newWidth / rootWidth)])
+        }
+        featureStation.attr('d', path.pointRadius(function (d) {
+          return radius(d.properties.capacity)
+        }))
+        previousWidth = newWidth
+      }
       // Use Leaflet to implement a D3 geometric transformation.
       function projectPoint (y, x) {
         var point = self.map.latLngToLayerPoint(new L.LatLng(y, x))
