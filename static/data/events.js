@@ -6,7 +6,7 @@ export default [
     "hour": "1012",
     "placeName": "Stade Yves-du-Manoir",
     "geo_point_2d": [48.754542648932755, 1.834361843330175], // mêmes que celles des places
-    "placeId": 234567
+    "placeId": 12346
   },
   {
     "id": 56790,

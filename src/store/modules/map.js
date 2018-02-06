@@ -18,6 +18,9 @@ const mutations = {
   },
   [types.DESELECT_PLACE] (state) {
     state.placeSelected = false
+  },
+  [types.SELECT_EVENT] (state, {eventSelected}) {
+    state.placeSelected = true
   }
 }
 

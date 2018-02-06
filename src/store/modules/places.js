@@ -60,6 +60,14 @@ const mutations = {
   },
   [types.SELECT_PLACE] (state, {placeSelected}) {
     state.placeSelected = placeSelected
+  },
+  [types.SELECT_EVENT] (state, {eventSelected}) {
+    const placeId = eventSelected.placeId
+    const placeSelected = state.places.features.find((place) => {
+      return parseFloat(place.properties.id) === parseFloat(placeId)
+    })
+
+    state.placeSelected = placeSelected
   }
 }
 

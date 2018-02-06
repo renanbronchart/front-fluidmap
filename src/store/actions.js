@@ -5,3 +5,9 @@ export const selectPlaces = ({ commit }, place) => {
     placeSelected: place
   })
 }
+
+export const selectEvent = ({ commit }, event) => {
+  commit(types.SELECT_EVENT, {
+    eventSelected: event
+  })
+}

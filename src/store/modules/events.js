@@ -2,7 +2,7 @@ import * as types from '@/store/mutationTypes.js'
 import jsonEvents from '../../../static/data/events.js'
 
 const state = {
-  eventsSelected: {
+  eventSelected: {
     id: 56789,
     name: 'Escrime - homme',
     date: '0908',
@@ -20,7 +20,7 @@ const state = {
       hour: '1012',
       placeName: 'Stade Yves-du-Manoir',
       geo_point_2d: [48.754542648932755, 1.834361843330175], // mêmes que celles des places
-      placeId: 234567
+      placeId: 12346
     },
     {
       id: 56790,
@@ -79,8 +79,8 @@ const mutations = {
   [types.GET_EVENTS_SCHEDULES] (state, {events}) {
     state.eventsSchedules = events
   },
-  [types.SELECT_EVENT] (state, {placeSelected}) {
-    state.placeSelected = placeSelected
+  [types.SELECT_EVENT] (state, {eventSelected}) {
+    state.eventSelected = eventSelected
   }
 }
 

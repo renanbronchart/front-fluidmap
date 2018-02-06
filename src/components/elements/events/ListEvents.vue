@@ -7,7 +7,11 @@
     </div>
     <div class="panel__body" :class="panelOpen ? 'panel__body--active' : ''">
       <ul class="panel__container">
-        <EventDescription v-for="event in events.eventsSchedules" :event="event" extraClass="event--timeline"/>
+        <EventDescription
+          v-for="event in events.eventsSchedules"
+          :event="event"
+          @clickEvent="clickEvent(event)"
+          extraClass="event--timeline"/>
       </ul>
     </div>
   </div>
@@ -26,10 +30,14 @@
     },
     methods: {
       ...mapActions([
-        'getEventsSchedules'
+        'getEventsSchedules',
+        'selectEvent'
       ]),
       toggle () {
         this.panelOpen = !this.panelOpen
+      },
+      clickEvent (event) {
+        this.selectEvent(event)
       }
     },
     computed: {
