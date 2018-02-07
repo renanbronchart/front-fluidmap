@@ -3,7 +3,12 @@
     <div class="aside__infos">
       <div class="aside__title">
         <h2 class="h3">
-          <i class="material-icons cursor--pointer title__back" @click.prevent="backView" v-if="viewEvent">arrow_back</i>
+          <i
+            class="material-icons cursor--pointer title__back"
+            @click.prevent="backView"
+            v-if="map.eventSelected">
+            arrow_back
+          </i>
           <span class="title__text">{{getTitleAside}}</span>
         </h2>
         <i class="material-icons cursor--pointer" @click.prevent="closeAside">close</i>
@@ -25,12 +30,12 @@
           class="aside__image"
           :style="{ backgroundImage: 'url(http://placekitten.com/g/900/500)' }"
         ></div>
-        <div class="aside__explanation" v-if="!viewEvent">
+        <div class="aside__explanation" v-if="!map.eventSelected">
           <p>Plusieurs évènements ont lieu à cet endroit et durant cette tranche horaire. Choisissez un évènement à afficher.</p>
         </div>
       </div>
     </div>
-    <div class="aside__stats" v-if="viewEvent">
+    <div class="aside__stats" v-if="map.eventSelected">
       <div class="stats__hint">
         <StatsHint
           hintMark="4"
@@ -47,7 +52,7 @@
     <ListAside
       :title="getTitleList"
     >
-      <ul v-if="viewEvent">
+      <ul v-if="map.eventSelected">
         <li v-for="index in 100">stations</li>
       </ul>
       <div v-else>
@@ -74,22 +79,19 @@
   import EventDescription from '@/components/elements/events/EventDescription.vue'
 
   export default {
-    data () {
-      return {
-        eventSelected: '',
-        viewEvent: false,
-        previewPlace: {}
-      }
-    },
     methods: {
       ...mapActions([
-        'deselectPlace'
+        'deselectPlace',
+        'selectEvent',
+        'deselectEvent'
       ]),
       backView () {
-        this.viewEvent = false
+        const asideContainer = document.querySelector('.aside__container')
 
-        if (document.querySelector('.aside__container')) {
-          document.querySelector('.aside__container').scrollTop = 0
+        this.deselectEvent()
+
+        if (asideContainer) {
+          asideContainer.scrollTop = 0
         }
       },
       closeAside () {
@@ -97,8 +99,7 @@
         this.backView()
       },
       clickEvent (event) {
-        this.eventSelected = event
-        this.viewEvent = true
+        this.selectEvent(event)
 
         document.querySelector('.aside__container').scrollTop = 0
       }
@@ -106,25 +107,19 @@
     computed: {
       ...mapState([
         'map',
-        'places'
+        'places',
+        'events'
       ]),
       propertiesPlaceSelected () {
-        const place = this.places.placeSelected.properties
-
-        if (!(Object.is(this.previewPlace, place))) {
-          this.backView()
-        }
-
-        this.previewPlace = place
         return this.places.placeSelected.properties
       },
       getTitleAside () {
         const placeName = this.propertiesPlaceSelected.name
 
-        return this.viewEvent ? this.eventSelected.name : placeName
+        return this.map.eventSelected ? this.events.eventSelected.name : placeName
       },
       getTitleList () {
-        if (this.viewEvent) {
+        if (this.map.eventSelected) {
           return 'Stations à proximité'
         } else {
           return `${this.propertiesPlaceSelected.events.length} évènements dans cette tranche`

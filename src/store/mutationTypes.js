@@ -10,3 +10,4 @@ export const GET_PLACES = 'GET_PLACES'
 // events
 export const GET_EVENTS_SCHEDULES = 'GET_EVENTS_SCHEDULES'
 export const SELECT_EVENT = 'SELECT_EVENT'
+export const DESELECT_EVENT = 'DESELECT_EVENT'
