@@ -1,14 +1,10 @@
 <template>
   <div id="map__heat"></div>
-<!--     <div id="number-records-nd"></div>
-    <div id="departement-row-chart"></div>
-    <div id="population-chart"></div> -->
-
 </template>
 
 <script>
+import { mapState, mapActions } from 'vuex'
 
-// const d3 = require('d3')
 import * as d3 from 'd3'
 import L from 'leaflet'
 import * as leafletHeat from '@/assets/js/leaflet-heat'
@@ -35,6 +31,11 @@ export default {
       heatLayer: false
     }
   },
+  computed: {
+    ...mapState([
+      'places'
+    ])
+  },
   mounted () {
     var self = this
 
@@ -44,14 +45,8 @@ export default {
 
     this.map = L.map('map__heat', {
       center: [48.853, 2.333],
-      zoom: 10
+      zoom: 13
     })
-
-    var svg = d3.select(this.map.getPanes().overlayPane).append('svg')
-
-    // this.svg = svg
-    var transform = d3.geoTransform({ point: this.projectPoint })
-    self.path = d3.geoPath().projection(transform)
 
     function makeGraphs (error, recordsJson) {
       if (error) {
@@ -63,98 +58,19 @@ export default {
       var ndx = crossfilter(records)
 
       // Define Dimensions
-      var populationDim = ndx.dimension(function (d) {
-        return d.fields.population > 20 ? '< 20' : '> 20'
-      })
-      var departementDim = ndx.dimension(function (d) { return d.fields.nom_dept })
       var allDim = ndx.dimension(function (d) { return d.fields })
 
-      // Group Data
-      var populationGroup = populationDim.group()
-      var departementGroup = departementDim.group()
-      var all = ndx.groupAll()
-
-      // Charts
-      var numberRecordsND = dc.numberDisplay('#number-records-nd')
-      var populationBrandChart = dc.rowChart('#population-chart')
-      var departementChart = dc.rowChart('#departement-row-chart')
-
-      numberRecordsND
-        .formatNumber(d3.format('d'))
-        .valueAccessor(function (d) { return d })
-        .group(all)
-
-      departementChart
-        .width(200)
-        .height(510)
-        .dimension(departementDim)
-        .group(departementGroup)
-        .ordering(function (d) { return -d.value })
-        .colors(['#6baed6'])
-        .elasticX(true)
-        .labelOffsetY(10)
-        .xAxis()
-        .ticks(4)
-
-      populationBrandChart
-        .width(600)
-        .height(300)
-        .dimension(populationDim)
-        .group(populationGroup)
-        .colors(['#6baed6'])
-        .elasticX(true)
-        .labelOffsetY(20)
-        .xAxis()
-        .ticks(10)
-
       // Draw Map
-      self.drawMap(svg, allDim, true)
-
-      // Update the heatmap if any dc chart get filtered
-      var dcCharts = [populationBrandChart, departementChart]
-
-      dcCharts.forEach(function (dcChart) {
-        // stop here
-        dcChart.on('filtered', function (chart, filter) {
-          var transitionPoints = new Promise(
-            // La fonction de résolution est appelée avec la capacité de
-            // tenir ou de rompre la promesse
-            function (resolve, reject) {
-              d3.selectAll('.leaflet-heatmap-layer')
-                .transition()
-                .duration(700)
-                .style('opacity', '0')
-                .transition()
-                .duration(600)
-                .style('opacity', '1')
-
-              setTimeout(function () {
-                resolve('la promesse marche')
-              }, 550)
-            }
-          )
-
-          transitionPoints.then(
-            // On affiche un message avec la valeur
-            function () {
-              self.map.removeLayer(self.heatLayer)
-              self.drawMap(svg, allDim)
-            })
-            .catch(
-              // Promesse rejetée
-              function () {
-                console.log('promesse rompue')
-              })
-        })
-      })
+      self.drawMap(allDim, true)
 
       dc.renderAll()
     }
   },
   methods: {
-    drawMap (svg, allDim, mapConstruct) {
-      // var commercesGroup = svg.append('g').attr('class', 'leaflet-zoom-hide')
-      // map.setView([31.75, 110], 4)
+    ...mapActions([
+      'selectPlaces'
+    ]),
+    drawMap (allDim, mapConstruct) {
       if (mapConstruct) {
         this.mapLayer = L.tileLayer('https://api.mapbox.com/styles/v1/renanbronchart/cjcjqu77v9elo2soyghb33i8h/tiles/256/{z}/{x}/{y}?access_token={accessToken}', {
           maxZoom: 30,
@@ -162,6 +78,8 @@ export default {
           id: 'mapbox.streets',
           accessToken: 'pk.eyJ1IjoicmVuYW5icm9uY2hhcnQiLCJhIjoiY2o5OW82cG1jMHdxZTMzcXRxbThnczZuMSJ9.zrdXIR4UBPh8195XRQPLtQ'
         }).addTo(this.map)
+
+        this.drawPlaces()
       }
 
       const allDimTop = allDim.top(Infinity)
@@ -200,10 +118,75 @@ export default {
 
       d3.select('.leaflet-heatmap-layer')
     },
-    projectPoint (x, y) {
-      var point = this.map.latLngToLayerPoint(new L.LatLng(y, x))
+    drawPlaces () {
+      var self = this
+      var dataPlaces = this.places.places
 
-      this.stream.point(point.x, point.y)
+      var svgPlaces = d3.select(this.map.getPanes().overlayPane).append('svg').style('z-index', '10000')
+      var placesGroup = svgPlaces.append('g').attr('class', 'leaflet-zoom-hide')
+
+      var featureStation
+
+      var transform = d3.geoTransform({point: projectPoint})
+      var path = d3.geoPath().projection(transform)
+
+      var rootWidth, previousWidth
+
+      var radius = d3.scaleLinear()
+        .domain([0, d3.max(dataPlaces.features, function (d) { return +d.properties.capacity })])
+        .range([4, 8])
+
+      featureStation = placesGroup.selectAll('.places')
+        .data(dataPlaces.features)
+        .enter().append('path')
+        .attr('class', 'places')
+        .attr('id', function (d) { return d.properties.id })
+        .attr('d', path.pointRadius(function (d) {
+          return radius(d.properties.capacity)
+        }))
+        .style('fill', 'black')
+        .style('opacity', '1')
+        .on('click', (d) => {
+          this.selectPlaces(d)
+        })
+
+      this.map.on('zoom', reset)
+      reset()
+
+      // Reposition the SVG to cover the features.
+      function reset () {
+        var bounds = path.bounds(dataPlaces)
+        var topLeft = bounds[0]
+        var bottomRight = bounds[1]
+
+        svgPlaces.attr('width', bottomRight[0] - topLeft[0])
+          .attr('height', bottomRight[1] - topLeft[1])
+          .style('left', topLeft[0] + 'px')
+          .style('top', topLeft[1] + 'px')
+          .style('overflow', 'visible')
+
+        placesGroup.attr('transform', 'translate(' + -topLeft[0] + ',' + -topLeft[1] + ')')
+
+        if (rootWidth === undefined) { // rootWidth means max range for(dataPlaces radius = 50
+          rootWidth = bottomRight[0] - topLeft[0]
+          previousWidth = rootWidth
+        }
+
+        var newWidth = bottomRight[0] - topLeft[0]
+        if (previousWidth !== newWidth) {
+          radius.range([4, 8 * (newWidth / rootWidth)])
+        }
+        featureStation.attr('d', path.pointRadius(function (d) {
+          return radius(d.properties.capacity)
+        }))
+        previousWidth = newWidth
+      }
+      // Use Leaflet to implement a D3 geometric transformation.
+      function projectPoint (y, x) {
+        var point = self.map.latLngToLayerPoint(new L.LatLng(y, x))
+
+        this.stream.point(point.x, point.y)
+      }
     }
   }
 }

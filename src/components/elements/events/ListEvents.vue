@@ -7,20 +7,21 @@
     </div>
     <div class="panel__body" :class="panelOpen ? 'panel__body--active' : ''">
       <ul class="panel__container">
-        <li class="event" v-for='(ind, index) in 4'>
-          <a href="" class="event__link" >
-            <h4 class="event__name p">Natation synchronisé</h4>
-            <p class="event__step text--xs">Duo - Qualification</p>
-            <p class="event__hour text--xs">14h00</p>
-            <p class="event__place text--xs">Champs de mars, Paris</p>
-          </a>
-        </li>
+        <EventDescription
+          v-for="event in events.eventsSchedules"
+          :event="event"
+          @clickEvent="clickEvent(event)"
+          extraClass="event--timeline"/>
       </ul>
     </div>
   </div>
 </template>
 
 <script>
+  import { mapState, mapActions } from 'vuex'
+
+  import EventDescription from '@/components/elements/events/EventDescription.vue'
+
   export default {
     data () {
       return {
@@ -28,14 +29,27 @@
       }
     },
     methods: {
+      ...mapActions([
+        'getEventsSchedules',
+        'selectEvent'
+      ]),
       toggle () {
         this.panelOpen = !this.panelOpen
+      },
+      clickEvent (event) {
+        this.selectEvent(event)
       }
     },
     computed: {
+      ...mapState([
+        'events'
+      ]),
       onBoardPanel () {
         return parseFloat(this.$route.params.id) === 4
       }
+    },
+    components: {
+      EventDescription
     }
   }
 </script>

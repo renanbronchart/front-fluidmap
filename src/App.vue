@@ -11,9 +11,18 @@
 
 <script>
 import 'stylesheets/style.scss'
+import { mapActions } from 'vuex'
 
 export default {
-  name: 'app'
+  name: 'app',
+  created () {
+    this.getPlaces()
+  },
+  methods: {
+    ...mapActions([
+      'getPlaces'
+    ])
+  }
 }
 </script>
 

@@ -2,13 +2,21 @@
   <aside class="aside" :class="getClass">
     <div class="aside__infos">
       <div class="aside__title">
-        <h2 class="h3">Equitation - Femmes</h2>
-        <i class="material-icons cursor--pointer" @click.prevent="deselectPlace">arrow_forward</i>
+        <h2 class="h3">
+          <i
+            class="material-icons cursor--pointer title__back"
+            @click.prevent="backView"
+            v-if="map.eventSelected">
+            arrow_back
+          </i>
+          <span class="title__text">{{getTitleAside}}</span>
+        </h2>
+        <i class="material-icons cursor--pointer" @click.prevent="closeAside">close</i>
       </div>
       <div class="aside__details">
         <div class="aside__infosEvent">
           <TextInfos
-            content="Champs de Mars, Paris"
+            content="12 H - 14 H"
             iconName="location_on"
             extraClass="information__primary"
           />
@@ -22,9 +30,12 @@
           class="aside__image"
           :style="{ backgroundImage: 'url(http://placekitten.com/g/900/500)' }"
         ></div>
+        <div class="aside__explanation" v-if="!map.eventSelected">
+          <p>Plusieurs évènements ont lieu à cet endroit et durant cette tranche horaire. Choisissez un évènement à afficher.</p>
+        </div>
       </div>
     </div>
-    <div class="aside__stats">
+    <div class="aside__stats" v-if="map.eventSelected">
       <div class="stats__hint">
         <StatsHint
           hintMark="4"
@@ -36,26 +47,25 @@
             count="90000"
           />
         </div>
-        <div class="stats__ratio">
-          <StatsRatio
-            countLocal="64"
-            countTourist="36"
+      </div>
+    </div>
+    <ListAside
+      :title="getTitleList"
+    >
+      <ul v-if="map.eventSelected">
+        <li v-for="index in 100">stations</li>
+      </ul>
+      <div v-else>
+        <ul class="aside__list">
+          <EventDescription
+            :event="event"
+            extraClass="event--block"
+            @clickEvent="clickEvent(event)"
+            v-for="event in propertiesPlaceSelected.events"
           />
-        </div>
+        </ul>
       </div>
-    </div>
-    <div class="aside__stations">
-      <div class="aside__container">
-        <Card>
-          <div class="card__header" slot="header">
-            <p>Stations à proximités</p>
-          </div>
-          <ul>
-            <li v-for='index in 100'>stations</li>
-          </ul>
-        </Card>
-      </div>
-    </div>
+    </ListAside>
   </aside>
 </template>
 
@@ -65,23 +75,56 @@
   import TextInfos from '@/components/molecules/TextInfos.vue'
   import StatsHint from '@/components/elements/stats/StatsHint.vue'
   import StatsPeople from '@/components/elements/stats/StatsPeople.vue'
-  import StatsRatio from '@/components/elements/stats/StatsRatio.vue'
-  import Card from '@/components/elements/Card.vue'
+  import ListAside from '@/components/elements/aside/ListAside.vue'
+  import EventDescription from '@/components/elements/events/EventDescription.vue'
 
   export default {
-    data () {
-      return {
-      }
-    },
     methods: {
       ...mapActions([
-        'deselectPlace'
-      ])
+        'deselectPlace',
+        'selectEvent',
+        'deselectEvent'
+      ]),
+      backView () {
+        const asideContainer = document.querySelector('.aside__container')
+
+        this.deselectEvent()
+
+        if (asideContainer) {
+          asideContainer.scrollTop = 0
+        }
+      },
+      closeAside () {
+        this.deselectPlace() // faire une promesse dans le store avec setTimeout
+        this.backView()
+      },
+      clickEvent (event) {
+        this.selectEvent(event)
+
+        document.querySelector('.aside__container').scrollTop = 0
+      }
     },
     computed: {
       ...mapState([
-        'map'
+        'map',
+        'places',
+        'events'
       ]),
+      propertiesPlaceSelected () {
+        return this.places.placeSelected.properties
+      },
+      getTitleAside () {
+        const placeName = this.propertiesPlaceSelected.name
+
+        return this.map.eventSelected ? this.events.eventSelected.name : placeName
+      },
+      getTitleList () {
+        if (this.map.eventSelected) {
+          return 'Stations à proximité'
+        } else {
+          return `${this.propertiesPlaceSelected.events.length} évènements dans cette tranche`
+        }
+      },
       getRoute () {
         return this.$route.params.id
       },
@@ -101,8 +144,8 @@
       TextInfos,
       StatsHint,
       StatsPeople,
-      StatsRatio,
-      Card
+      ListAside,
+      EventDescription
     }
   }
 </script>
@@ -135,15 +178,23 @@
     flex-shrink: 0;
   }
 
+  .aside__explanation {
+    margin: 20px 0 0 0;
+  }
+
   .aside__title {
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 0 40px 0 60px;
+    .title__text,
+    .title__back {
+      margin: 0 20px 0 0;
+    }
   }
 
   .aside__details {
-    padding: 20px 120px 30px 60px;
+    padding: 20px 120px 0 60px;
   }
 
   .aside__infosEvent {
@@ -177,26 +228,22 @@
     align-items: center;
     border-top: 1px solid $dusty-gray;
     border-bottom: 1px solid $dusty-gray;
+    margin: 30px 0 0 0;
   }
 
   .stats__hint {
+    width: 40%;
     border-right: 1px solid $dusty-gray;
     padding: 30px 40px;
   }
 
-  .aside__stations {
-    height: 100%;
-    position: relative;
+  .stats__people {
+    width: 60%;
+    border-right: 1px solid $dusty-gray;
+    padding: 30px 40px;
   }
 
-  .aside__container {
-    width: 100%;
-    height: 100%;
-    max-height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    overflow: auto;
-    padding: 30px 120px 30px 60px;
+  .aside__list {
+    padding: 30px;
   }
 </style>
