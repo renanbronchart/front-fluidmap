@@ -94,17 +94,14 @@ export default {
       })
 
       this.population = geoData
-      console.log(geoData, 'geoData')
 
       var heatData = typeof this.heatLayer._heat === 'undefined' ? [] : this.heatLayer._heat._data
-      console.log(heatData, 'thisheatlayer')
 
       var newGeoData = heatData.filter((el) => {
         return geoData.indexOf(el) === -1
       })
 
       console.log(newGeoData, 'newGeoData')
-      console.log(geoData, '*****************************')
 
       this.heatLayer = L.heatLayer(geoData, {
         radius: 15,

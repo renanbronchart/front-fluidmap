@@ -3,7 +3,7 @@
     <div class="sliders__range" v-for="slider in sliders">
       <span>{{slider.label}}</span>
       <div class="slider__content" :class='slider.ref'>
-        <vue-slider @callback='onChange' v-bind="slider.slider" v-model="slider.slider.value" :ref="slider.ref">
+        <vue-slider @callback='onChange(slider.slider.value, slider.ref)' v-bind="slider.slider" v-model="slider.slider.value" :ref="slider.ref">
           <div class="tooltip__custom" slot="tooltip" slot-scope="{value}">
             <span>{{value}}</span>
           </div>
@@ -11,16 +11,12 @@
       </div>
     </div>
     <Button label="Accèder à l'analyse" />
-<!--     <Tooltip
-      text='salut'
-      count='1'
-      labelButton="Suivant"
-    /> -->
   </div>
 </template>
 
 <script>
   // import { mapActions } from 'vuex'
+  import timestamps from '../../../static/data/timestamps.js'
 
   import vueSlider from 'vue-slider-component'
   import Button from '@/components/molecules/Button.vue'
@@ -28,8 +24,8 @@
   export default {
     data () {
       return {
-        valueDate: '',
-        valueHour: '',
+        hoursValue: '',
+        dayValue: '',
         sliders: [
           {
             ref: 'slider-date',
@@ -156,8 +152,11 @@
         ]
       }
     },
-    methods: {
-      onChange (value) {
+    mounted () {
+      this.convertTimestamps(timestamps)
+    },
+    computed: {
+      getTimestamp () {
         const dateHash = {
           janvier: '01',
           fevrier: '02',
@@ -173,22 +172,69 @@
           decembre: '12'
         }
 
-        let valueTrim = value.trim()
-        let newValueHour = valueTrim.replace(/^(\d{2})H - (\d{2})H$/g, '$1$2')
-        let newValueDate = newValueHour.replace(/^[a-z]+ (\d{0,2}) ([a-zû]+)$/i, `$1/$2`)
+        let hoursTrim = this.hoursValue.trim()
+        let hourStartAt = hoursTrim.replace(/^(\d{2})H - (\d{2})H$/g, '$1:00')
+        let hourEndAt = hoursTrim.replace(/^(\d{2})H - (\d{2})H$/g, '$2:00')
 
-        if (newValueDate.includes('/')) {
-          const arrayValue = newValueDate.split('/')
-          const dayNumber = (parseFloat(arrayValue[0]) < 10 ? '0' : '') + arrayValue[0]
+        let dayTrim = this.dayValue.trim()
+        let newValueDate = dayTrim.replace(/^[a-z]+ (\d{0,2}) ([a-zû]+)$/i, `$1-$2-2018`)
+        let arrayValue = newValueDate.split('-')
+        let newValueDay = `${arrayValue[0]}-${dateHash[arrayValue[1]]}-${arrayValue[2]}`
 
-          newValueDate = `${dayNumber}/${dateHash[arrayValue[1]]}`
+        let startDate = `${newValueDay} ${hourStartAt}`
+        let endDate = `${newValueDay} ${hourEndAt}`
 
-          this.valueDate = newValueDate
+        startDate = this.$moment(startDate, 'DD-MM-YYYY HH:mm').locale('fr').unix()
+        endDate = this.$moment(endDate, 'DD-MM-YYYY HH:mm').locale('fr').unix()
 
-          return
+        return {
+          startDate,
+          endDate
+        }
+      }
+    },
+    methods: {
+      convertTimestamps (tableTimestamps) {
+        // faire avec lodash peut être ça va peut être optimisé la chose et faire moins de map
+        const dates = tableTimestamps
+          .map((time) => {
+            return this.$moment.unix(time).locale('fr').format('dddd Do MMMM')
+          })
+          .filter((elem, pos, arr) => {
+            return arr.indexOf(elem) === pos
+          })
+
+        const hours = tableTimestamps
+          .map((time) => {
+            const hour = this.$moment.unix(time).locale('fr').format('HH')
+            const hourEnd = this.$moment.unix(time).add(2, 'h').locale('fr').format('HH')
+
+            return `${hour}H - ${hourEnd}H`
+          })
+          .filter((elem, pos, arr) => {
+            return arr.indexOf(elem) === pos
+          })
+
+        this.sliders[0].slider.data = dates
+        this.sliders[1].slider.data = hours
+
+        this.initDate(dates[0], hours[0])
+      },
+      initDate (date, hours) {
+        this.dayValue = date
+        this.hoursValue = hours
+
+        console.log(this.getTimestamp) // remplacer : lancer appel API depuis une action du store
+      },
+      onChange (value, name) {
+        if (name === 'slider-date') {
+          this.dayValue = value
+        } else {
+          this.hoursValue = value
         }
 
-        this.valueHour = newValueDate
+        // faire peut être un debounce de lodash pour pas faire un appel API chaque fois qu'on bouge le curseur.
+        console.log(this.getTimestamp) // remplacer : lancer appel API depuis une action du store
       }
     },
     components: {
