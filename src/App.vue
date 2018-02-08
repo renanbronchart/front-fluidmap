@@ -31,6 +31,7 @@ export default {
 
 body {
   margin: 0;
+  background: $color-whisper;
 }
 
 #app {
@@ -42,6 +43,7 @@ body {
 
 main {
   padding: 80px 0 0 0;
+  min-height: calc(100vh);
 }
 
 header {
