@@ -42,10 +42,11 @@
     },
     methods: {
       ...mapActions([
-        'getPresets'
+        'getPresets',
+        'selectPreset'
       ]),
       update (preset) {
-        console.log(preset, 'update')
+        this.selectPreset(preset)
       },
       remove (preset) {
         console.log(preset, 'remove')

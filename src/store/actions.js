@@ -11,3 +11,9 @@ export const selectEvent = ({ commit }, event) => {
     eventSelected: event
   })
 }
+
+export const selectPreset = ({ commit }, preset) => {
+  commit(types.SELECT_PRESET, {
+    presetSelected: preset
+  })
+}
