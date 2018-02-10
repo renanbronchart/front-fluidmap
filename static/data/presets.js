@@ -1,4 +1,4 @@
-[
+export default [
   {
     name: 'Escrime 12H00',
     timestampStart: '1234567899',
