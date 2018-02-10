@@ -8,6 +8,7 @@ import events from './modules/events.js'
 import places from './modules/places.js'
 import planning from './modules/planning.js'
 import map from './modules/map.js'
+import presets from './modules/presets.js'
 
 Vue.use(Vuex)
 
@@ -21,7 +22,8 @@ const store = new Vuex.Store({
     planning,
     events,
     places,
-    map
+    map,
+    presets
   }
   // plugins: [vuexLocalStorage.plugin]
 })

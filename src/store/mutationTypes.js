@@ -11,3 +11,7 @@ export const GET_PLACES = 'GET_PLACES'
 export const GET_EVENTS_SCHEDULES = 'GET_EVENTS_SCHEDULES'
 export const SELECT_EVENT = 'SELECT_EVENT'
 export const DESELECT_EVENT = 'DESELECT_EVENT'
+
+// presets
+export const GET_PRESETS = 'GET_PRESETS'
+export const SELECT_PRESET = 'SELECT_PRESET'

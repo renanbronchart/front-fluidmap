@@ -6,7 +6,7 @@
         :subtitle="getSubtitle"
       />
 
-      <ListCardsPreview :previews="presets" @update="update" @remove="remove" /> <!-- changer le nom ppour ListCardsPreview -->
+      <ListCardsPreview :previews="presets" @update="update" @remove="remove" />
     </div>
   </section>
 </template>

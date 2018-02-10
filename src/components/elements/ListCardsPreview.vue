@@ -3,16 +3,18 @@
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" v-for="preview in previews">
       <Card>
         <div class="card__thumbnail">
-          <TextInfos
-            content="Modifier"
-            iconName="mode_edit"
-            alignIcon="right"
-            @eventClick="update(preview)"/>
-          <TextInfos
-            content="Supprimer"
-            iconName="delete"
-            alignIcon="right"
-            @eventClick="remove(preview)"/>
+          <div class="card__actions">
+            <TextInfos
+              content="Modifier"
+              iconName="mode_edit"
+              alignIcon="right"
+              @eventClick="update(preview)"/>
+            <TextInfos
+              content="Supprimer"
+              iconName="delete"
+              alignIcon="right"
+              @eventClick="remove(preview)"/>
+          </div>
         </div>
         <div class="card__informations">
           <h3>{{preview.title}}</h3>
