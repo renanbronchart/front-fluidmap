@@ -1,17 +1,33 @@
 <template>
-  <div class="information" :class="extraClass">
-    <i class="material-icons information__icon">{{iconName}}</i>
+  <div class="information" :class="extraClass" @click.prevent="eventClick">
+    <i class="material-icons information__icon" v-if="alignIcon === 'left'">{{iconName}}</i>
     <p class="text-sm">{{content}}</p>
+    <i class="material-icons information__icon" v-if="alignIcon === 'right'">{{iconName}}</i>
   </div>
 </template>
 
 <script>
   export default {
-    props: [
-      'content',
-      'iconName',
-      'extraClass'
-    ]
+    props: {
+      content: {
+        type: String
+      },
+      iconName: {
+        type: String
+      },
+      extraClass: {
+        type: String
+      },
+      alignIcon: {
+        type: String,
+        default: 'left'
+      }
+    },
+    methods: {
+      eventClick () {
+        this.$emit('eventClick')
+      }
+    }
   }
 </script>
 
@@ -21,7 +37,6 @@
   .information {
     display: flex;
     align-items: center;
-    /*justify-content: space-between;*/
   }
 
   .information__primary {
