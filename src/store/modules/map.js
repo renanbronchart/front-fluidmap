@@ -31,6 +31,20 @@ const mutations = {
   [types.SELECT_EVENT] (state, {eventSelected}) {
     state.placeSelected = true
     state.eventSelected = true
+  },
+  [types.SELECT_PRESET] (state, {presetSelected}) {
+    const lengthPresets = presetSelected.eventsId.length
+
+    if (lengthPresets > 1) {
+      state.placeSelected = true
+      state.eventSelected = false
+    } else if (lengthPresets === 1) {
+      state.placeSelected = true
+      state.eventSelected = true
+    } else {
+      state.placeSelected = false
+      state.eventSelected = false
+    }
   }
 }
 

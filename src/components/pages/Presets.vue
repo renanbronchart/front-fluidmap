@@ -47,6 +47,7 @@
       ]),
       update (preset) {
         this.selectPreset(preset)
+        this.$router.push({name: 'Home'})
       },
       remove (preset) {
         console.log(preset, 'remove')

@@ -63,12 +63,25 @@ const mutations = {
   },
   [types.SELECT_EVENT] (state, {eventSelected}) {
     const placeId = eventSelected.placeId
-    const placeSelected = state.places.features.find((place) => {
-      return parseFloat(place.properties.id) === parseFloat(placeId)
-    })
 
-    state.placeSelected = placeSelected
+    state.placeSelected = findPlaceSelected(placeId, state.places.features)
+  },
+  [types.SELECT_PRESET] (state, {presetSelected}) {
+    const lengthPresets = presetSelected.eventsId.length
+    const placeId = presetSelected.placeId
+
+    if (lengthPresets > 0) {
+      state.placeSelected = findPlaceSelected(placeId, state.places.features)
+    }
   }
+}
+
+const findPlaceSelected = function findPlaceSelected (placeId, places) {
+  const placeSelected = places.find((place) => {
+    return parseFloat(place.properties.id) === parseFloat(placeId)
+  })
+
+  return placeSelected
 }
 
 export default {
