@@ -28,8 +28,8 @@
       presetsFormating () {
         const presetsFomat = this.presets.presets.map((preset) => {
           preset.title = preset.name
-          preset.infos = preset.timestampStart
-          preset.details = preset.timestampStart
+          preset.infos = preset.timestamps[0]
+          preset.details = preset.timestamps[1]
 
           return preset
         })

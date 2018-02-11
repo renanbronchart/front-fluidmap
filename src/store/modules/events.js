@@ -4,92 +4,88 @@ import jsonEvents from '../../../static/data/events.js'
 const state = {
   events: [
     {
-      id: 56789,
-      name: 'Escrime - homme',
-      timestampStart: '0908',
-      timestampEnd: '1012',
-      placeName: 'Stade Yves-du-Manoir',
-      geo_point_2d: [48.754542648932755, 1.834361843330175], // mêmes que celles des places
-      placeId: 12346
+      'id': 56789,
+      'name': 'Escrime - homme',
+      'timestamps': ['0908', '1012'],
+      'placeName': 'Stade Yves-du-Manoir',
+      'geo_point_2d': [48.754542648932755, 1.834361843330175], // mêmes que celles des places
+      'placeId': 12346
     },
     {
-      id: 56790,
-      name: 'Natation - Femme',
-      timestampStart: '0908',
-      timestampEnd: '1012',
-      placeName: 'Invalides',
-      geo_point_2d: [48.85990100000001, 2.3142669999999725], // mêmes que celles des places
-      placeId: 12345
+      'id': 56790,
+      'name': 'Natation - Femme',
+      'timestamps': ['0908', '1012'],
+      'placeName': 'Invalides',
+      'geo_point_2d': [48.85990100000001, 2.3142669999999725], // mêmes que celles des places
+      'placeId': 12345
     },
     {
-      id: 56791,
-      name: 'Water Polo - Femme',
-      timestampStart: '0908',
-      timestampEnd: '1012',
-      placeName: 'Invalides',
-      geo_point_2d: [48.85990100000001, 2.3142669999999725], // mêmes que celles des places
-      placeId: 12345
+      'id': 56791,
+      'name': 'Water Polo - Femme',
+      'timestamps': ['0908', '1012'],
+      'placeName': 'Invalides',
+      'geo_point_2d': [48.85990100000001, 2.3142669999999725], // mêmes que celles des places
+      'placeId': 12345
     }
   ],
   eventSelected: {
-    id: 56789,
-    name: 'Escrime - homme',
-    date: '0908',
-    hour: '1012',
-    placeName: 'Champ de mars',
+    'id': 56789,
+    'name': 'Escrime - homme',
+    'timestamps': ['0908', '1012'],
+    'placeName': 'Stade Yves-du-Manoir',
     'geo_point_2d': [48.754542648932755, 1.834361843330175], // mêmes que celles des places
-    placeId: 12
+    'placeId': 12346
   },
   eventsSchedules: [
     {
-      id: 56789,
-      name: 'Escrime - homme',
-      step: 'Duo - Qualification',
-      date: '0908',
-      hour: '1012',
-      placeName: 'Stade Yves-du-Manoir',
-      geo_point_2d: [48.754542648932755, 1.834361843330175], // mêmes que celles des places
-      placeId: 12346
+      'id': 56789,
+      'name': 'Escrime - homme',
+      'timestamps': ['0908', '1012'],
+      'placeName': 'Stade Yves-du-Manoir',
+      'geo_point_2d': [48.754542648932755, 1.834361843330175], // mêmes que celles des places
+      'placeId': 12346
     },
     {
-      id: 56790,
-      name: 'Natation - Femme',
-      step: 'Duo - Qualification',
-      date: '0908',
-      hour: '1012',
-      placeName: 'Invalides',
-      geo_point_2d: [48.85990100000001, 2.3142669999999725], // mêmes que celles des places
-      placeId: 12345
+      'id': 56790,
+      'name': 'Natation - Femme',
+      'timestamps': ['0908', '1012'],
+      'placeName': 'Invalides',
+      'geo_point_2d': [48.85990100000001, 2.3142669999999725], // mêmes que celles des places
+      'placeId': 12345
+    },
+    {
+      'id': 56791,
+      'name': 'Water Polo - Femme',
+      'timestamps': ['0908', '1012'],
+      'placeName': 'Invalides',
+      'geo_point_2d': [48.85990100000001, 2.3142669999999725], // mêmes que celles des places
+      'placeId': 12345
     }
   ],
   eventsCloseToPlace: [
     {
-      id: 34,
-      name: 'Natation synchronisé',
-      step: 'Duo - Qualification',
-      hour: '14h00',
-      placeName: 'Champs de mars, Paris'
+      'id': 56789,
+      'name': 'Escrime - homme',
+      'timestamps': ['0908', '1012'],
+      'placeName': 'Stade Yves-du-Manoir',
+      'geo_point_2d': [48.754542648932755, 1.834361843330175], // mêmes que celles des places
+      'placeId': 12346
     },
     {
-      id: 35,
-      name: 'Natation synchronisé',
-      step: 'Duo - Qualification',
-      hour: '14h00',
-      placeName: 'Champs de mars, Paris'
+      'id': 56790,
+      'name': 'Natation - Femme',
+      'timestamps': ['0908', '1012'],
+      'placeName': 'Invalides',
+      'geo_point_2d': [48.85990100000001, 2.3142669999999725], // mêmes que celles des places
+      'placeId': 12345
     },
     {
-      id: 36,
-      name: 'Natation synchronisé',
-      step: 'Duo - Qualification',
-      hour: '14h00',
-      placeName: 'Champs de mars, Paris'
-    },
-    {
-      id: 37,
-      name: 'Natation synchronisé',
-      step: 'Duo - Qualification',
-      hour: '14h00',
-      placeName: 'Champs de mars, Paris'
+      'id': 56791,
+      'name': 'Water Polo - Femme',
+      'timestamps': ['0908', '1012'],
+      'placeName': 'Invalides',
+      'geo_point_2d': [48.85990100000001, 2.3142669999999725], // mêmes que celles des places
+      'placeId': 12345
     }
   ]
 }
