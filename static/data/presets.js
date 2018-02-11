@@ -2,7 +2,7 @@ export default [
   {
     id: 1,
     name: 'Escrime 12H00',
-    timestamps: ['1234567899', '12345678909'],
+    timestamps: [1533542400, 1533549600],
     placeId: '12346',
     eventsId: ['56789'],
     schedulesMap: {
@@ -12,7 +12,7 @@ export default [
   {
     id: 2,
     name: 'Natation - Femme',
-    timestamps: ['1234567899', '12345678909'],
+    timestamps: [1533945600, 1533952800],
     placeId: '12345',
     eventsId: ['56790'],
     schedulesMap: {
@@ -22,7 +22,7 @@ export default [
   {
     id: 3,
     name: 'Water',
-    timestamps: ['1234567899', '12345678909'],
+    timestamps: [1533441600, 1533448800],
     placeId: '12345',
     eventsId: ['56791'],
     schedulesMap: {
