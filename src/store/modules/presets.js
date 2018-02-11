@@ -4,6 +4,7 @@ import jsonPresets from '../../../static/data/presets.js'
 const state = {
   presets: [],
   presetSelected: {
+    id: 2,
     name: 'Natation - Femme',
     timestampStart: '1234567899',
     timestampEnd: '12345678909',
@@ -23,6 +24,11 @@ const actions = {
     commit(types.GET_PRESETS, {
       presets: jsonPresets
     })
+  },
+  deletePreset ({ commit }, preset) {
+    commit(types.DELETE_PRESET, {
+      presetRemoved: preset
+    })
   }
 }
 
@@ -32,6 +38,13 @@ const mutations = {
   },
   [types.SELECT_PRESET] (state, {presetSelected}) {
     state.presetSelected = presetSelected
+  },
+  [types.DELETE_PRESET] (state, {presetRemoved}) {
+    const newPresets = state.presets.filter((preset) => {
+      return parseFloat(preset.id) !== parseFloat(presetRemoved.id)
+    })
+
+    state.presets = newPresets
   }
 }
 

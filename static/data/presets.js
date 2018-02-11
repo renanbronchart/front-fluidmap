@@ -1,5 +1,6 @@
 export default [
   {
+    id: 1,
     name: 'Escrime 12H00',
     timestampStart: '1234567899',
     timestampEnd: '12345678909',
@@ -11,6 +12,7 @@ export default [
     }
   },
   {
+    id: 2,
     name: 'Natation - Femme',
     timestampStart: '1234567899',
     timestampEnd: '12345678909',
@@ -22,6 +24,7 @@ export default [
     }
   },
   {
+    id: 3,
     name: 'Water',
     timestampStart: '1234567899',
     timestampEnd: '12345678909',

@@ -43,14 +43,15 @@
     methods: {
       ...mapActions([
         'getPresets',
-        'selectPreset'
+        'selectPreset',
+        'deletePreset'
       ]),
       update (preset) {
         this.selectPreset(preset)
         this.$router.push({name: 'Home'})
       },
       remove (preset) {
-        console.log(preset, 'remove')
+        this.deletePreset(preset)
       }
     },
     components: {
