@@ -4,7 +4,7 @@
       :text='getTooltipInfos.text'
       :count='getStepId'
       :labelButton='getLabelButton'
-      linkName="OnBoard"
+      :linkName="getLinkName"
       :linkParams="getLinkParams"
       :linkTitle="getLinkTitle"
       :extraClass="getTooltipInfos.extraClass"
@@ -46,7 +46,7 @@
     },
     computed: {
       getStepId () {
-        return this.$route.params.id
+        return parseFloat(this.$route.params.id)
       },
       getTooltipInfos () {
         return this.step[this.getStepId - 1]
@@ -54,8 +54,11 @@
       getLabelButton () {
         return this.getStepId === 5 ? `C'est parti !` : 'Suivant'
       },
+      getLinkName () {
+        return this.getStepId === 5 ? 'Home' : 'OnBoard'
+      },
       getLinkParams () {
-        const nextStepId = parseFloat(this.getStepId) + 1
+        const nextStepId = this.getStepId === 5 ? '' : this.getStepId + 1
 
         return {id: nextStepId}
       },

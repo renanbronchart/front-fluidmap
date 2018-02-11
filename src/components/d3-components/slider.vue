@@ -10,7 +10,7 @@
         </vue-slider>
       </div>
     </div>
-    <Button label="Accèder à l'analyse" />
+    <Button label="Accèder à l'analyse" @eventClick="showModal" />
   </div>
 </template>
 
@@ -35,8 +35,14 @@
     },
     methods: {
       ...mapActions([
-        'setNewDate'
+        'setNewDate',
+        'openModal'
       ]),
+      showModal () {
+        this.openModal({
+          component: 'ModalBeforeAnalyse'
+        }, 5000)
+      },
       convertTimestamps (tableTimestamps) {
         // faire avec lodash peut être ça va peut être optimisé la chose et faire moins de map
         const dates = tableTimestamps

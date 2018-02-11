@@ -7,7 +7,7 @@ const state = {
 }
 
 const actions = {
-  openModal ({commit}, {component, noClose}) {
+  openModal ({commit}, {component, noClose = false}) {
     commit(types.OPEN_MODAL, {
       component,
       noClose

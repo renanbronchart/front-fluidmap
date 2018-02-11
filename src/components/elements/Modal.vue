@@ -2,7 +2,7 @@
   <transition name="fade">
     <div class="modal" v-if="modal.open">
       <div class="modal__content">
-        <a href="#" @click.prevent="close" v-if="!modal.noClose" class="modal__close">
+        <a href="#" @click.prevent="closeModal" v-if="!modal.noClose" class="modal__close">
           <i class="material-icons">close</i>
         </a>
         <div class="modal__body">
