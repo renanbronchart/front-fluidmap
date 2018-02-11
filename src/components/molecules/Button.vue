@@ -1,5 +1,5 @@
 <template>
-  <button class="button" :class="extraClass" @click="callback">
+  <button class="button" :class="extraClass" @click.prevent="eventClick">
     <router-link :to="{name: linkName, params: linkParams}" :title="linkTitle" v-if='linkName'>
       {{label}}
     </router-link>
@@ -32,15 +32,11 @@
       },
       iconName: {
         type: String
-      },
-      click: {
-        type: Function,
-        default: () => {}
       }
     },
     methods: {
-      callback () {
-        this.click()
+      eventClick () {
+        this.$emit('eventClick')
       }
     }
   }

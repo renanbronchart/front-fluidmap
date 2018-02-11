@@ -8,7 +8,6 @@ const state = {
 
 const actions = {
   openModal ({commit}, {component, noClose}) {
-    console.log('openModal')
     commit(types.OPEN_MODAL, {
       component,
       noClose
@@ -25,7 +24,7 @@ const mutations = {
     state.component = component
     state.noClose = noClose
   },
-  [types.CLOSE_MODAL] (state, {component, noClose}) {
+  [types.CLOSE_MODAL] (state) {
     state.open = false
     state.component = ``
     state.noClose = false
