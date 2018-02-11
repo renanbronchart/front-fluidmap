@@ -15,7 +15,7 @@
 </template>
 
 <script>
-  // import { mapActions } from 'vuex'
+  import { mapActions } from 'vuex'
   import timestamps from '../../../static/data/timestamps.js'
 
   import vueSlider from 'vue-slider-component'
@@ -155,45 +155,10 @@
     mounted () {
       this.convertTimestamps(timestamps)
     },
-    computed: {
-      getTimestamp () {
-        const dateHash = {
-          janvier: '01',
-          fevrier: '02',
-          mars: '03',
-          avril: '04',
-          mai: '05',
-          juin: '06',
-          juillet: '07',
-          août: '08',
-          septembre: '09',
-          octobre: '10',
-          novembre: '11',
-          decembre: '12'
-        }
-
-        let hoursTrim = this.hoursValue.trim()
-        let hourStartAt = hoursTrim.replace(/^(\d{2})H - (\d{2})H$/g, '$1:00')
-        let hourEndAt = hoursTrim.replace(/^(\d{2})H - (\d{2})H$/g, '$2:00')
-
-        let dayTrim = this.dayValue.trim()
-        let newValueDate = dayTrim.replace(/^[a-z]+ (\d{0,2}) ([a-zû]+)$/i, `$1-$2-2018`)
-        let arrayValue = newValueDate.split('-')
-        let newValueDay = `${arrayValue[0]}-${dateHash[arrayValue[1]]}-${arrayValue[2]}`
-
-        let startDate = `${newValueDay} ${hourStartAt}`
-        let endDate = `${newValueDay} ${hourEndAt}`
-
-        startDate = this.$moment(startDate, 'DD-MM-YYYY HH:mm').locale('fr').unix()
-        endDate = this.$moment(endDate, 'DD-MM-YYYY HH:mm').locale('fr').unix()
-
-        return {
-          startDate,
-          endDate
-        }
-      }
-    },
     methods: {
+      ...mapActions([
+        'setNewDate'
+      ]),
       convertTimestamps (tableTimestamps) {
         // faire avec lodash peut être ça va peut être optimisé la chose et faire moins de map
         const dates = tableTimestamps
@@ -224,7 +189,10 @@
         this.dayValue = date
         this.hoursValue = hours
 
-        console.log(this.getTimestamp) // remplacer : lancer appel API depuis une action du store
+        this.setNewDate({
+          date: this.dayValue,
+          schedules: this.hoursValue
+        })
       },
       onChange (value, name) {
         if (name === 'slider-date') {
@@ -233,8 +201,10 @@
           this.hoursValue = value
         }
 
-        // faire peut être un debounce de lodash pour pas faire un appel API chaque fois qu'on bouge le curseur.
-        console.log(this.getTimestamp) // remplacer : lancer appel API depuis une action du store
+        this.setNewDate({
+          date: this.dayValue,
+          schedules: this.hoursValue
+        })
       }
     },
     components: {

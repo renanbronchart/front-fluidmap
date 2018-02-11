@@ -6,11 +6,11 @@ const state = {
   presetSelected: {
     id: 2,
     name: 'Natation - Femme',
-    timestamps: ['1234567899', '12345678909'],
+    timestamps: [1234567899, 12345678909],
     placeId: '12345',
     eventsId: ['56790'],
     schedulesMap: {
-      timestamps: ['1234567899', '12345678909']
+      timestamps: [1234567899, 12345678909]
     }
   }
 }

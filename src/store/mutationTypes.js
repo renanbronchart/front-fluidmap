@@ -1,5 +1,6 @@
 // schedules
 export const SET_NEW_DATE = 'SET_NEW_DATE'
+export const SET_EXPANDED_DATE = 'SET_EXPANDED_DATE'
 export const SET_NEW_SCHEDULES = 'SET_NEW_SCHEDULES'
 
 // places
