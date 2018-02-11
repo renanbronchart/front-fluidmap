@@ -61,19 +61,6 @@
     top: 0;
     left: 0;
     z-index: 15000;
-  }
-
-  .modal__content {
-    width: 90%;
-    min-height: 380px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: white;
-    border-radius: $border-radius-base;
-    box-shadow: 0 26px 163px 0 rgba(0, 0, 0, 0.11);
-    padding: 50px 60px;
-    margin: 50px auto;
     &:after {
       content: ' ';
       width: 100vw;
@@ -84,10 +71,31 @@
       background: rgba($color-mine-shaft, 0.3);
       z-index: -1;
     }
+  }
+
+  .modal__content {
+    width: 90%;
+    min-height: 380px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    border-radius: $border-radius-base;
+    box-shadow: 0 26px 163px 0 rgba(0, 0, 0, 0.11);
+    z-index: 20000;
+    padding: 50px 60px;
+    margin: 50px auto;
 
     @include medium {
       width: 760px;
     }
+  }
+
+  .modal__close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
   }
 
   .fade-enter-active, .fade-leave-active {
