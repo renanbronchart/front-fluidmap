@@ -1,12 +1,12 @@
 <template>
   <transition name="fade">
-    <div class="modal" v-if="open">
+    <div class="modal" v-if="modal.open">
       <div class="modal__content">
-        <a href="#" @click.prevent="close" v-if="!noClose" class="modal__close">
+        <a href="#" @click.prevent="close" v-if="!modal.noClose" class="modal__close">
           <i class="material-icons">close</i>
         </a>
         <div class="modal__body">
-          <slot></slot>
+          <component :is="getComponentModal"></component>
         </div>
       </div>
     </div>
@@ -14,11 +14,38 @@
 </template>
 
 <script>
+  import Vue from 'vue'
+  import { mapState, mapActions } from 'vuex'
+
   export default {
-    props: [
-      'noClose',
-      'open'
-    ]
+    data () {
+      return {
+        component: null
+      }
+    },
+    computed: {
+      ...mapState([
+        'modal'
+      ]),
+      getComponentModal () {
+        const componentName = this.modal.component
+
+        if (!componentName) return
+
+        Vue.component(componentName, () => import(`@/components/modals/${componentName}`))
+
+        return this.modal.component
+      }
+    },
+    methods: {
+      ...mapActions([
+        'closeModal'
+      ])
+    },
+    mounted () {
+      console.log('mounted modal.vue')
+      console.log(this.modal, 'modal')
+    }
   }
 </script>
 

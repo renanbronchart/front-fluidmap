@@ -6,12 +6,15 @@
     <main>
       <router-view></router-view>
     </main>
+    <Modal></Modal>
   </div>
 </template>
 
 <script>
 import 'stylesheets/style.scss'
 import { mapActions } from 'vuex'
+
+import Modal from '@/components/elements/Modal.vue'
 
 export default {
   name: 'app',
@@ -22,6 +25,9 @@ export default {
     ...mapActions([
       'getPlaces'
     ])
+  },
+  components: {
+    Modal
   }
 }
 </script>

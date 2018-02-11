@@ -17,3 +17,7 @@ export const DESELECT_EVENT = 'DESELECT_EVENT'
 export const GET_PRESETS = 'GET_PRESETS'
 export const SELECT_PRESET = 'SELECT_PRESET'
 export const DELETE_PRESET = 'DELETE_PRESET'
+
+// modals
+export const OPEN_MODAL = 'OPEN_MODAL'
+export const CLOSE_MODAL = 'CLOSE_MODAL'
