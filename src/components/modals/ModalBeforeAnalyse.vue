@@ -81,9 +81,10 @@
         'setNewPlacePreset'
       ]),
       setNormalPreset () {
+        const timestamps = this.planning.map.timestamps
+
         if (this.map.eventSelected) {
           const event = this.getEventSelected
-          const timestamps = this.planning.map.timestamps
 
           this.setNewEventPreset({
             event,
@@ -93,7 +94,6 @@
           this.$router.push({name: 'newPreset'})
         } else if (this.map.placeSelected) {
           const place = this.getPlaceSelected
-          const timestamps = this.planning.map.timestamps
 
           this.setNewPlacePreset({
             place,
@@ -108,6 +108,20 @@
         this.closeModal()
       },
       setExtandedPreset () {
+        if (this.map.placeSelected) {
+          const timestamps = this.planning.expanded.timestamps
+          const place = this.getPlaceSelected
+
+          this.setNewPlacePreset({
+            place,
+            timestamps
+          })
+
+          this.$router.push({name: 'newPreset'})
+        } else {
+          this.$router.push({name: 'Home'})
+        }
+
         this.closeModal()
       },
       onChange (value) {

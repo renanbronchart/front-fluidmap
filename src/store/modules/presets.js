@@ -52,6 +52,7 @@ const actions = {
 
     const name = propertiesPlace.name
     const newTimestamps = [...timestamps]
+    const newTimestampsMap = `${newTimestamps[0]}, ${newTimestamps[0] + 7200}`.split(', ')
     const placeId = propertiesPlace.id
     const eventsId = propertiesPlace.events.map(event => {
       return event.id
@@ -63,7 +64,7 @@ const actions = {
       placeId,
       eventsId,
       map: {
-        timestamps: newTimestamps
+        timestamps: newTimestampsMap
       }
     }
 
