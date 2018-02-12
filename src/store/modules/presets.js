@@ -43,7 +43,31 @@ const actions = {
       }
     }
 
-    commit(types.SET_NEW_EVENT_PRESET, {
+    commit(types.SET_NEW_PRESET, {
+      currentPreset
+    })
+  },
+  setNewPlacePreset ({commit}, {place, timestamps}) {
+    const propertiesPlace = place.properties
+
+    const name = propertiesPlace.name
+    const newTimestamps = [...timestamps]
+    const placeId = propertiesPlace.id
+    const eventsId = propertiesPlace.events.map(event => {
+      return event.id
+    })
+
+    const currentPreset = {
+      name,
+      timestamps: newTimestamps,
+      placeId,
+      eventsId,
+      map: {
+        timestamps: newTimestamps
+      }
+    }
+
+    commit(types.SET_NEW_PRESET, {
       currentPreset
     })
   },
@@ -60,7 +84,7 @@ const actions = {
 }
 
 const mutations = {
-  [types.SET_NEW_EVENT_PRESET] (state, {currentPreset}) {
+  [types.SET_NEW_PRESET] (state, {currentPreset}) {
     state.currentPreset = currentPreset
   },
   [types.GET_PRESETS] (state, {presets}) {

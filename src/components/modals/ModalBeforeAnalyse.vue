@@ -58,7 +58,8 @@
       ...mapGetters([
         'getDayValue',
         'getSchedulesValue',
-        'getEventSelected'
+        'getEventSelected',
+        'getPlaceSelected'
       ]),
       getLinkParams () {
         return {id: 0} // regarder les presets de l'utilisateur courant, ou faire une requete de preset.
@@ -76,7 +77,8 @@
       ...mapActions([
         'closeModal',
         'setExpandedDate',
-        'setNewEventPreset'
+        'setNewEventPreset',
+        'setNewPlacePreset'
       ]),
       setNormalPreset () {
         if (this.map.eventSelected) {
@@ -88,24 +90,19 @@
             timestamps
           })
 
-          // requete de tous les events avec ces timestamps en parametres (attendre API)
-          // requete de tous les events avec les timestamps suivants, dans une période de deux heures (attendre API)
-
-          // requete de tous les hints de la place. (attendre l'API)
-
-          // Go vers la page de preset/new
+          this.$router.push({name: 'newPreset'})
         } else if (this.map.placeSelected) {
-          alert('place')
-          // requete de la place d'evenement OU on prend juste celui qui est dans le store placeSelected
+          const place = this.getPlaceSelected
+          const timestamps = this.planning.map.timestamps
 
-          // requete de tous les evenements de la place selon les timestamps. (attendre l'API)
+          this.setNewPlacePreset({
+            place,
+            timestamps
+          })
 
-          // requete de tous les hints de la place. (attendre l'API)
-
-          // Go vers la page de preset/new
+          this.$router.push({name: 'newPreset'})
         } else {
-          alert('rien du tout')
-          // Page home, false à tous les events selected et place selected
+          this.$router.push({name: 'Home'})
         }
 
         this.closeModal()

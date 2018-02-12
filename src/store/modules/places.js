@@ -44,7 +44,9 @@ const state = {
   }
 }
 
-const getters = {}
+const getters = {
+  getPlaceSelected: state => state.placeSelected
+}
 
 const actions = {
   getPlaces ({commit}) {

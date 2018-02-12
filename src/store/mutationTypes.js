@@ -14,7 +14,7 @@ export const SELECT_EVENT = 'SELECT_EVENT'
 export const DESELECT_EVENT = 'DESELECT_EVENT'
 
 // presets
-export const SET_NEW_EVENT_PRESET = 'SET_NEW_EVENT_PRESET'
+export const SET_NEW_PRESET = 'SET_NEW_PRESET'
 export const GET_PRESETS = 'GET_PRESETS'
 export const SELECT_PRESET = 'SELECT_PRESET'
 export const DELETE_PRESET = 'DELETE_PRESET'
