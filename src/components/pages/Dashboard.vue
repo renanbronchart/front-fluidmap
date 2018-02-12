@@ -31,7 +31,7 @@
             {
               name: 'preset',
               objectParams: {
-                id: 0
+                id: 0 // change en computed
               },
               iconName: 'layers'
             },

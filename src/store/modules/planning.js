@@ -17,7 +17,10 @@ const state = {
   }
 }
 
-const getters = {}
+const getters = {
+  getDayValue: state => state.map.date,
+  getSchedulesValue: state => state.map.schedules
+}
 
 const actions = {
   setNewDate ({commit}, {date, schedules}) {
@@ -79,6 +82,8 @@ const getTimestamps = function getTimestamps (date, schedules) {
   let hoursTrim = schedules.trim()
   let hourStartAt = hoursTrim.replace(/^(\d{2})H - (\d{2})H$/g, '$1:00')
   let hourEndAt = hoursTrim.replace(/^(\d{2})H - (\d{2})H$/g, '$2:00')
+
+  hourEndAt = hourStartAt === hourEndAt ? `${parseFloat(hourEndAt) + 2}:00` : hourEndAt
 
   let dayTrim = date.trim()
   let newValueDate = dayTrim.replace(/^[a-z]+ (\d{0,2}) ([a-zû]+)$/i, `$1-$2-2018`)
