@@ -66,7 +66,10 @@
     mounted () {
       this.hoursValue = this.getSchedulesValue
       this.dayValue = this.getDayValue
-      this.slider.slider.value = ['20H', '22H']
+
+      const arrayHoursValue = this.getSchedulesValue.split('-')
+
+      this.slider.slider.value = [arrayHoursValue[0].trim(), arrayHoursValue[1].trim()]
     },
     methods: {
       ...mapActions([
