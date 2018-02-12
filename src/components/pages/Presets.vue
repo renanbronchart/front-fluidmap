@@ -6,7 +6,12 @@
         :subtitle="getSubtitle"
       />
 
-      <ListCardsPreview :previews="presetsFormating" @update="update" @remove="remove" />
+      <ListCardsPreview
+        :previews="presetsFormating"
+        @update="update"
+        @remove="remove"
+        @clickOnInformations="showPreset"
+      />
     </div>
   </section>
 </template>
@@ -52,6 +57,11 @@
       },
       remove (preset) {
         this.deletePreset(preset)
+      },
+      showPreset (preset) {
+        console.log(preset, 'preset')
+
+        this.$router.push({name: 'preset', params: {id: preset.id}})
       }
     },
     components: {

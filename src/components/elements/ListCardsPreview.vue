@@ -16,7 +16,7 @@
               @eventClick="remove(preview)"/>
           </div>
         </div>
-        <div class="card__informations">
+        <div class="card__informations" @click="clickOnInformations(preview)">
           <h3>{{preview.title}}</h3>
           <p class="text--secondary">{{preview.infos}}</p>
           <p class="text--secondary">{{preview.details}}</p>
@@ -42,6 +42,9 @@
       },
       remove (preview) {
         this.$emit('remove', preview)
+      },
+      clickOnInformations (preview) {
+        this.$emit('clickOnInformations', preview)
       }
     }
   }
