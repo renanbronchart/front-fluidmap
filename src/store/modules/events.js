@@ -90,7 +90,10 @@ const state = {
   ]
 }
 
-const getters = {}
+const getters = {
+  getEventSelected: state => state.eventSelected,
+  getEventsSchedules: state => state.eventsSchedules
+}
 
 const actions = {
   getEventsSchedules ({commit}) {

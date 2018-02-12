@@ -7,6 +7,7 @@ import Dashboard from '@/components/pages/Dashboard'
 import Profile from '@/components/pages/Profile'
 import Presets from '@/components/pages/Presets'
 import Preset from '@/components/pages/Preset'
+import ViewPreset from '@/components/pages/ViewPreset'
 import Api from '@/components/pages/Api'
 
 Vue.use(Router)
@@ -36,6 +37,9 @@ export default new Router({
       path: '/dashboard/',
       name: 'dashboard',
       component: Dashboard,
+      redirect: {
+        name: 'Home'
+      },
       children: [
         {
           path: 'user/:name',
@@ -48,9 +52,24 @@ export default new Router({
           component: Presets
         },
         {
-          path: 'preset/:id',
+          path: 'preset/',
           name: 'preset',
-          component: Preset
+          component: Preset,
+          redirect: {
+            name: 'presets'
+          },
+          children: [
+            {
+              path: ':id',
+              name: 'presetId',
+              component: ViewPreset
+            },
+            {
+              path: 'new',
+              name: 'newPreset',
+              component: ViewPreset
+            }
+          ]
         },
         {
           path: 'api',

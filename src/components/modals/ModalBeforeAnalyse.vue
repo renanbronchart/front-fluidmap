@@ -16,11 +16,10 @@
         </div>
         <Button
           label="Accéder à l'analyse"
-          linkName="preset"
-          :linkParams="getLinkParams"
+          linkName="newPreset"
           linkTitle="Lien vers l'analyse"
           extraClass="button--ghost"
-          @eventClick="closeModal"
+          @eventClick="setExtandedPreset"
         />
       </div>
       <div class="col-xs-12 col-sm-5">
@@ -28,11 +27,8 @@
         <p>Non, merci. Je souhaite accéder à l’analyse de la tranche horaire de 2h que j’ai déjà choisie.</p>
         <Button
           label="Accéder à l'analyse"
-          linkName="preset"
-          :linkParams="getLinkParams"
-          linkTitle="Lien vers l'analyse"
           extraClass="button--ghost"
-          @eventClick="closeModal"
+          @eventClick="setNormalPreset"
         />
       </div>
     </div>
@@ -40,7 +36,7 @@
 </template>
 
 <script>
-  import { mapActions, mapGetters } from 'vuex'
+  import { mapActions, mapGetters, mapState } from 'vuex'
   import vueSlider from 'vue-slider-component'
   import slider from '../../../static/data/sliderExtend.js'
 
@@ -55,9 +51,14 @@
       }
     },
     computed: {
+      ...mapState([
+        'map',
+        'planning'
+      ]),
       ...mapGetters([
         'getDayValue',
-        'getSchedulesValue'
+        'getSchedulesValue',
+        'getEventSelected'
       ]),
       getLinkParams () {
         return {id: 0} // regarder les presets de l'utilisateur courant, ou faire une requete de preset.
@@ -74,8 +75,44 @@
     methods: {
       ...mapActions([
         'closeModal',
-        'setExpandedDate'
+        'setExpandedDate',
+        'setNewEventPreset'
       ]),
+      setNormalPreset () {
+        if (this.map.eventSelected) {
+          const event = this.getEventSelected
+          const timestamps = this.planning.map.timestamps
+
+          this.setNewEventPreset({
+            event,
+            timestamps
+          })
+
+          // requete de tous les events avec ces timestamps en parametres (attendre API)
+          // requete de tous les events avec les timestamps suivants, dans une période de deux heures (attendre API)
+
+          // requete de tous les hints de la place. (attendre l'API)
+
+          // Go vers la page de preset/new
+        } else if (this.map.placeSelected) {
+          alert('place')
+          // requete de la place d'evenement OU on prend juste celui qui est dans le store placeSelected
+
+          // requete de tous les evenements de la place selon les timestamps. (attendre l'API)
+
+          // requete de tous les hints de la place. (attendre l'API)
+
+          // Go vers la page de preset/new
+        } else {
+          alert('rien du tout')
+          // Page home, false à tous les events selected et place selected
+        }
+
+        this.closeModal()
+      },
+      setExtandedPreset () {
+        this.closeModal()
+      },
       onChange (value) {
         const newHours = `${value[0]} - ${value[1]}`
 
