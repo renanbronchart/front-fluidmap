@@ -1,9 +1,13 @@
 <template>
   <button class="button" :class="extraClass" @click.prevent="eventClick">
-    <router-link :to="{name: linkName, params: linkParams}" :title="linkTitle" v-if='linkName'>
-      {{label}}
+    <router-link
+      :to="{name: linkName, params: linkParams}"
+      :title="linkTitle"
+      class="button__link"
+      v-if='linkName'
+    >
     </router-link>
-    <span v-else>
+    <span>
       {{label}}
     </span>
     <i class="material-icons" v-if='iconName'>{{iconName}}</i>
@@ -48,13 +52,15 @@
   .button {
     display: flex;
     align-items: center;
+    position: relative;
     color: white;
     background-color: $color-blue-ribbon;
+    border: 1px solid $color-blue-ribbon;
     box-shadow: 0 3px 12px 0 rgba(0, 0, 0, 0.1);
     border-radius: 3px;
-    padding: 10px 20px;
     white-space: nowrap;
     text-transform: uppercase;
+    padding: 10px 20px;
     a, i {
       color: white;
     }
@@ -63,7 +69,6 @@
     }
     &.button--ghost {
       background-color: transparent;
-      border: 1px solid $color-blue-ribbon;
       box-shadow: none;
       span, a, i {
         color: $color-blue-ribbon;
@@ -73,5 +78,13 @@
       font-size: 15px;
       margin: 0 0 0 10px;
     }
+  }
+
+  .button__link {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
   }
 </style>
