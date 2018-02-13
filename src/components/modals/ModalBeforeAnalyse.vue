@@ -1,35 +1,39 @@
 <template>
   <div>
-    <h3>Bienvenue sur Fluidmap !</h3>
+    <h3>Voulez-vous élargir votre tranche horaires ?</h3>
     <div class="row">
-      <div class="col-xs-12 col-sm-7">
-        <h4>Oui</h4>
-        <p>Oui, je souhaite élargir la tranche horaire à analyser sur le lieu choisi. Dans ce cas, l’analyse ne se basera plus sur l’épreuve spécifique choisie.</p>
-        <div class="slider--extend">
-          <div class="slider__content" :class='slider.ref'>
-            <vue-slider @callback='onChange(slider.slider.value)' v-bind="slider.slider" v-model="slider.slider.value" :ref="slider.ref">
-              <div class="tooltip__custom" slot="tooltip" slot-scope="{value}">
-                <span>{{value}}</span>
-              </div>
-            </vue-slider>
+      <div class="col-xs-12 col-sm-6 col-lg-7 modal__block--left m-t-lg">
+        <div class="p-r-lg">
+          <h4 class="m-b-sm">Oui</h4>
+          <p>Oui, je souhaite élargir la tranche horaire à analyser sur le lieu choisi. Dans ce cas, l’analyse ne se basera plus sur l’épreuve spécifique choisie.</p>
+          <div class="slider--extend">
+            <div class="slider__content" :class='slider.ref'>
+              <vue-slider @callback='onChange(slider.slider.value)' v-bind="slider.slider" v-model="slider.slider.value" :ref="slider.ref">
+                <div class="tooltip__custom" slot="tooltip" slot-scope="{value}">
+                  <span>{{value}}</span>
+                </div>
+              </vue-slider>
+            </div>
           </div>
+          <Button
+            label="Accéder à l'analyse"
+            linkName="newPreset"
+            linkTitle="Lien vers l'analyse"
+            extraClass="button--ghost button--primary"
+            @eventClick="setExtandedPreset"
+          />
         </div>
-        <Button
-          label="Accéder à l'analyse"
-          linkName="newPreset"
-          linkTitle="Lien vers l'analyse"
-          extraClass="button--ghost button--primary"
-          @eventClick="setExtandedPreset"
-        />
       </div>
-      <div class="col-xs-12 col-sm-5">
-        <h4>Non</h4>
-        <p>Non, merci. Je souhaite accéder à l’analyse de la tranche horaire de 2h que j’ai déjà choisie.</p>
-        <Button
-          label="Accéder à l'analyse"
-          extraClass="button--ghost button--primary"
-          @eventClick="setNormalPreset"
-        />
+      <div class="col-xs-12 col-sm-6 col-lg-5 m-t-lg">
+        <div class="p-l-lg">
+          <h4 class="m-b-sm">Non</h4>
+          <p>Non, merci. Je souhaite accéder à l’analyse de la tranche horaire de 2h que j’ai déjà choisie.</p>
+          <Button
+            label="Accéder à l'analyse"
+            extraClass="button--ghost button--primary m-t-xl"
+            @eventClick="setNormalPreset"
+          />
+        </div>
       </div>
     </div>
   </div>
@@ -145,7 +149,22 @@
 <style lang="scss">
   @import '~stylesheets/helpers/_variables.scss';
 
+  .modal__block--left {
+    position: relative;
+    &:after {
+      content: ' ';
+      width: 1px;
+      height: 170px;
+      max-height: 100%;
+      position: absolute;
+      top: 0;
+      right: 0;
+      background: $gray-lighter;
+    }
+  }
+
   .slider--extend {
+    margin: 40px 0 60px 0;
     .slider-hour {
       color: white;
       .tooltip__custom {

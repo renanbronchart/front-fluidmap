@@ -88,7 +88,7 @@
     margin: 50px auto;
 
     @include medium {
-      width: 760px;
+      width: 870px;
     }
   }
 
