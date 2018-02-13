@@ -4,7 +4,7 @@
       <h4 class="event__name p">{{event.name}}</h4>
       <p class="event__step text--xs">{{event.step}}</p>
       <p class="event__hour text--xs">{{event.hour}}</p>
-      <p class="event__place text--xs">{{event.placeName}}</p>
+      <p class="event__place text--xs">{{event.place_name}}</p>
     </a>
   </li>
 </template>

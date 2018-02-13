@@ -16,7 +16,7 @@
 
 <script>
   import { mapActions } from 'vuex'
-  import timestamps from '../../../static/data/timestamps.js'
+  import dates from '../../../static/data/timestamps.js'
   import sliders from '../../../static/data/slider.js'
 
   import vueSlider from 'vue-slider-component'
@@ -31,7 +31,7 @@
       }
     },
     mounted () {
-      this.convertTimestamps(timestamps)
+      this.convertdates(dates)
     },
     methods: {
       ...mapActions([
@@ -43,9 +43,9 @@
           component: 'ModalBeforeAnalyse'
         }, 5000)
       },
-      convertTimestamps (tableTimestamps) {
+      convertdates (tabledates) {
         // faire avec lodash peut être ça va peut être optimisé la chose et faire moins de map
-        const dates = tableTimestamps
+        const dates = tabledates
           .map((time) => {
             return this.$moment.unix(time).locale('fr').format('dddd Do MMMM')
           })
@@ -53,7 +53,7 @@
             return arr.indexOf(elem) === pos
           })
 
-        const hours = tableTimestamps
+        const hours = tabledates
           .map((time) => {
             const hour = this.$moment.unix(time).locale('fr').format('HH')
             const hourEnd = this.$moment.unix(time).add(2, 'h').locale('fr').format('HH')

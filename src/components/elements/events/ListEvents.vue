@@ -28,24 +28,33 @@
         panelOpen: false
       }
     },
+    computed: {
+      ...mapState([
+        'events',
+        'planning'
+      ]),
+      onBoardPanel () {
+        return parseFloat(this.$route.params.id) === 4
+      }
+    },
+    mounted () {
+      this.callGetEventsSchedules()
+    },
     methods: {
       ...mapActions([
         'getEventsSchedules',
         'selectEvent'
       ]),
+      callGetEventsSchedules () {
+        const dates = [...this.planning.map.dates]
+
+        this.getEventsSchedules(dates)
+      },
       toggle () {
         this.panelOpen = !this.panelOpen
       },
       clickEvent (event) {
         this.selectEvent(event)
-      }
-    },
-    computed: {
-      ...mapState([
-        'events'
-      ]),
-      onBoardPanel () {
-        return parseFloat(this.$route.params.id) === 4
       }
     },
     components: {

@@ -7,6 +7,7 @@ export const selectPlaces = ({ commit }, place) => {
 }
 
 export const selectEvent = ({ commit }, event) => {
+  console.log(event)
   commit(types.SELECT_EVENT, {
     eventSelected: event
   })

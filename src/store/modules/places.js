@@ -22,9 +22,9 @@ const state = {
           'name': 'Escrime - homme',
           'date': '0908',
           'hour': '1012',
-          'placeName': 'Champ de mars',
+          'place_name': 'Champ de mars',
           'geo_point_2d': [48.754542648932755, 1.834361843330175], // mêmes que celles des places
-          'placeId': 12
+          'place_id': 12
         }
       ],
       'totalHints': [
@@ -70,13 +70,15 @@ const mutations = {
     state.placeSelected = placeSelected
   },
   [types.SELECT_EVENT] (state, {eventSelected}) {
-    const placeId = eventSelected.placeId
+    const placeId = eventSelected.place_id
+
+    console.log(placeId, 'place_id')
 
     state.placeSelected = findPlaceSelected(placeId, state.places.features)
   },
   [types.SELECT_PRESET] (state, {presetSelected}) {
     const lengthPresets = presetSelected.eventsId.length
-    const placeId = presetSelected.placeId
+    const placeId = presetSelected.place_id
 
     if (lengthPresets > 0) {
       state.placeSelected = findPlaceSelected(placeId, state.places.features)

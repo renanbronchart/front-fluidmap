@@ -8,22 +8,22 @@ const state = {
     name: 'Natation - Femme',
     type: 'event',
     extanded: false,
-    timestamps: [1234567899, 12345678909],
-    placeId: '12345',
+    dates: [1234567899, 12345678909],
+    place_id: '12345',
     eventsId: ['56790'],
     map: {
-      timestamps: [1234567899, 12345678909]
+      dates: [1234567899, 12345678909]
     }
   },
   currentPreset: {
     name: 'Natation - Femme',
     type: 'place',
     extanded: false,
-    timestamps: [1234567899, 12345678909],
-    placeId: '12345',
+    dates: [1234567899, 12345678909],
+    place_id: '12345',
     eventsId: ['56790'],
     map: {
-      timestamps: [1234567899, 12345678909]
+      dates: [1234567899, 12345678909]
     }
   }
 }
@@ -33,21 +33,21 @@ const getters = {
 }
 
 const actions = {
-  setNewEventPreset ({commit}, {event, timestamps}) {
+  setNewEventPreset ({commit}, {event, dates}) {
     const name = event.name
-    const newTimestamps = [...timestamps]
-    const placeId = event.placeId
+    const newdates = [...dates]
+    const placeId = event.place_id
     const eventsId = [event.id]
 
     const currentPreset = {
       name,
       type: 'event',
       extanded: false,
-      timestamps: newTimestamps,
-      placeId,
+      dates: newdates,
+      place_id: placeId,
       eventsId,
       map: {
-        timestamps: newTimestamps
+        dates: newdates
       }
     }
 
@@ -55,14 +55,14 @@ const actions = {
       currentPreset
     })
   },
-  setNewPlacePreset ({commit}, {place, timestamps}) {
+  setNewPlacePreset ({commit}, {place, dates}) {
     const propertiesPlace = place.properties
 
     const name = propertiesPlace.name
-    const newTimestamps = [...timestamps]
-    const newTimestampsMap = `${newTimestamps[0]}, ${newTimestamps[0] + 7200}`.split(', ')
+    const newdates = [...dates]
+    const newdatesMap = `${newdates[0]}, ${newdates[0] + 7200}`.split(', ')
     const placeId = propertiesPlace.id
-    const extanded = parseFloat(newTimestamps[1]) !== parseFloat(newTimestampsMap[1])
+    const extanded = parseFloat(newdates[1]) !== parseFloat(newdatesMap[1])
     const eventsId = propertiesPlace.events.map(event => {
       return event.id
     })
@@ -71,11 +71,11 @@ const actions = {
       name,
       type: 'place',
       extanded,
-      timestamps: newTimestamps,
-      placeId,
+      dates: newdates,
+      place_id: placeId,
       eventsId,
       map: {
-        timestamps: newTimestampsMap
+        dates: newdatesMap
       }
     }
 

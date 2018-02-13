@@ -1,105 +1,115 @@
 import * as types from '@/store/mutationTypes.js'
-// import HTTP from '@/utils/httpRequest.js'
-import jsonEvents from '../../../static/data/events.js'
+import HTTP from '@/utils/httpRequest.js'
+// import jsonEvents from '../../../static/data/events.js'
 
 const state = {
   events: [
     {
       'id': 56789,
       'name': 'Escrime - homme',
-      'timestamps': ['0908', '1012'],
-      'placeName': 'Stade Yves-du-Manoir',
+      'dates': ['0908', '1012'],
+      'place_name': 'Stade Yves-du-Manoir',
       'geo_point_2d': [48.754542648932755, 1.834361843330175], // mêmes que celles des places
-      'placeId': 12346
+      'place_id': 12346
     },
     {
       'id': 56790,
       'name': 'Natation - Femme',
-      'timestamps': ['0908', '1012'],
-      'placeName': 'Invalides',
+      'dates': ['0908', '1012'],
+      'place_name': 'Invalides',
       'geo_point_2d': [48.85990100000001, 2.3142669999999725], // mêmes que celles des places
-      'placeId': 12345
+      'place_id': 12345
     },
     {
       'id': 56791,
       'name': 'Water Polo - Femme',
-      'timestamps': ['0908', '1012'],
-      'placeName': 'Invalides',
+      'dates': ['0908', '1012'],
+      'place_name': 'Invalides',
       'geo_point_2d': [48.85990100000001, 2.3142669999999725], // mêmes que celles des places
-      'placeId': 12345
+      'place_id': 12345
     }
   ],
   eventSelected: {
     'id': 56789,
     'name': 'Escrime - homme',
-    'timestamps': ['0908', '1012'],
-    'placeName': 'Stade Yves-du-Manoir',
+    'dates': ['0908', '1012'],
+    'place_name': 'Stade Yves-du-Manoir',
     'geo_point_2d': [48.754542648932755, 1.834361843330175], // mêmes que celles des places
-    'placeId': 12346
+    'place_id': 12346
   },
   eventsSchedules: [
     {
       'id': 56789,
       'name': 'Escrime - homme',
-      'timestamps': ['0908', '1012'],
-      'placeName': 'Stade Yves-du-Manoir',
+      'dates': ['0908', '1012'],
+      'place_name': 'Stade Yves-du-Manoir',
       'geo_point_2d': [48.754542648932755, 1.834361843330175], // mêmes que celles des places
-      'placeId': 12346
+      'place_id': 12346
     },
     {
       'id': 56790,
       'name': 'Natation - Femme',
-      'timestamps': ['0908', '1012'],
-      'placeName': 'Invalides',
+      'dates': ['0908', '1012'],
+      'place_name': 'Invalides',
       'geo_point_2d': [48.85990100000001, 2.3142669999999725], // mêmes que celles des places
-      'placeId': 12345
+      'place_id': 12345
     },
     {
       'id': 56791,
       'name': 'Water Polo - Femme',
-      'timestamps': ['0908', '1012'],
-      'placeName': 'Invalides',
+      'dates': ['0908', '1012'],
+      'place_name': 'Invalides',
       'geo_point_2d': [48.85990100000001, 2.3142669999999725], // mêmes que celles des places
-      'placeId': 12345
+      'place_id': 12345
     }
   ],
   eventsCloseToPlace: [
     {
       'id': 56789,
       'name': 'Escrime - homme',
-      'timestamps': ['0908', '1012'],
-      'placeName': 'Stade Yves-du-Manoir',
+      'dates': ['0908', '1012'],
+      'place_name': 'Stade Yves-du-Manoir',
       'geo_point_2d': [48.754542648932755, 1.834361843330175], // mêmes que celles des places
-      'placeId': 12346
+      'place_id': 12346
     },
     {
       'id': 56790,
       'name': 'Natation - Femme',
-      'timestamps': ['0908', '1012'],
-      'placeName': 'Invalides',
+      'dates': ['0908', '1012'],
+      'place_name': 'Invalides',
       'geo_point_2d': [48.85990100000001, 2.3142669999999725], // mêmes que celles des places
-      'placeId': 12345
+      'place_id': 12345
     },
     {
       'id': 56791,
       'name': 'Water Polo - Femme',
-      'timestamps': ['0908', '1012'],
-      'placeName': 'Invalides',
+      'dates': ['0908', '1012'],
+      'place_name': 'Invalides',
       'geo_point_2d': [48.85990100000001, 2.3142669999999725], // mêmes que celles des places
-      'placeId': 12345
+      'place_id': 12345
     }
   ]
 }
 
 const getters = {
   getEventSelected: state => state.eventSelected,
-  getEventsSchedules: state => state.eventsSchedules
+  getEventsBySchedules: state => state.eventsSchedules
 }
 
 const actions = {
-  getEventsSchedules ({commit}) {
-    commit(types.GET_EVENTS_SCHEDULES, {
-      events: jsonEvents
+  getEventsSchedules ({commit}, dates) {
+    // Faire recherche sur l'api par rapport aux timestamps
+    // const timestampStart = dates[0]
+    // const timestampEnd = dates[1]
+
+    // HTTP.get(`event/all?timestamp_start=${dates[0]}&timestamp_start=${dates[1]}`).then(({data}) => {
+
+    HTTP.get('event/all').then(({data}) => {
+      commit(types.GET_EVENTS_SCHEDULES, {
+        events: data
+      })
+    }).catch(error => {
+      console.log(error, 'error')
     })
   }
 }

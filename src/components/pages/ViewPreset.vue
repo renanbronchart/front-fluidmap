@@ -21,8 +21,8 @@
       }
     },
     mounted () {
-      // requete de tous les events avec ces timestamps en parametres (attendre API)
-      // requete de tous les events avec les timestamps suivants, dans une période de deux heures (attendre API)
+      // requete de tous les events avec ces dates en parametres (attendre API)
+      // requete de tous les events avec les dates suivants, dans une période de deux heures (attendre API)
 
       // requete de tous les hints de la place. (attendre l'API)
     }

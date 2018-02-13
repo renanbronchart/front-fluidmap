@@ -3,15 +3,15 @@ import moment from 'moment'
 import * as types from '../mutationTypes'
 
 const state = {
-  timestamps: [
+  dates: [
   ],
   expanded: {
-    timestamps: [1234567899, 12345678909],
+    dates: [1234567899, 12345678909],
     date: 'Vendredi 8 août',
     schedules: '08H - 10H'
   },
   map: {
-    timestamps: [1234567899, 12345678909],
+    dates: [1234567899, 12345678909],
     date: 'Vendredi 8 août',
     schedules: '08H - 10H'
   }
@@ -44,26 +44,26 @@ const actions = {
 
 const mutations = {
   [types.SET_NEW_DATE] (state, {date, schedules}) {
-    const timestamps = getTimestamps(date, schedules)
+    const dates = getdates(date, schedules)
 
     state.map = {
-      timestamps,
+      dates,
       date,
       schedules
     }
   },
   [types.SET_EXPANDED_DATE] (state, {date, schedules}) {
-    const timestamps = getTimestamps(date, schedules)
+    const dates = getdates(date, schedules)
 
     state.expanded = {
-      timestamps,
+      dates,
       date,
       schedules
     }
   }
 }
 
-const getTimestamps = function getTimestamps (date, schedules) {
+const getdates = function getdates (date, schedules) {
   const dateHash = {
     janvier: '01',
     fevrier: '02',
