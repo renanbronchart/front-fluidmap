@@ -6,6 +6,8 @@ const state = {
   presetSelected: {
     id: 2,
     name: 'Natation - Femme',
+    type: 'event',
+    extanded: false,
     timestamps: [1234567899, 12345678909],
     placeId: '12345',
     eventsId: ['56790'],
@@ -15,6 +17,8 @@ const state = {
   },
   currentPreset: {
     name: 'Natation - Femme',
+    type: 'place',
+    extanded: false,
     timestamps: [1234567899, 12345678909],
     placeId: '12345',
     eventsId: ['56790'],
@@ -24,7 +28,9 @@ const state = {
   }
 }
 
-const getters = {}
+const getters = {
+  getCurrentPreset: state => state.currentPreset
+}
 
 const actions = {
   setNewEventPreset ({commit}, {event, timestamps}) {
@@ -35,6 +41,8 @@ const actions = {
 
     const currentPreset = {
       name,
+      type: 'event',
+      extanded: false,
       timestamps: newTimestamps,
       placeId,
       eventsId,
@@ -54,12 +62,15 @@ const actions = {
     const newTimestamps = [...timestamps]
     const newTimestampsMap = `${newTimestamps[0]}, ${newTimestamps[0] + 7200}`.split(', ')
     const placeId = propertiesPlace.id
+    const extanded = parseFloat(newTimestamps[1]) !== parseFloat(newTimestampsMap[1])
     const eventsId = propertiesPlace.events.map(event => {
       return event.id
     })
 
     const currentPreset = {
       name,
+      type: 'place',
+      extanded,
       timestamps: newTimestamps,
       placeId,
       eventsId,
