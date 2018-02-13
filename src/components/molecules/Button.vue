@@ -10,7 +10,7 @@
     <span v-if="label">
       {{label}}
     </span>
-    <i class="material-icons" v-if='iconName'>{{iconName}}</i>
+    <i class="material-icons" v-if='iconName' :class="extraClassIcon">{{iconName}}</i>
   </button>
 </template>
 
@@ -30,6 +30,10 @@
         default: 'Lien vers une nouvelle étape'
       },
       extraClass: {
+        type: String,
+        default: ''
+      },
+      extraClassIcon: {
         type: String,
         default: ''
       },

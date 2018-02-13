@@ -1,9 +1,18 @@
 <template>
-  <div id="map__heat"></div>
+  <div id="map__heat">
+    <Button
+      iconName="layers"
+      linkName="presets"
+      linkTitle="Lien vers les presets"
+      extraClass="button--round map__presetLink"
+      extraClassIcon="m-n"
+    />
+  </div>
 </template>
 
 <script>
 import { mapState, mapActions } from 'vuex'
+import Button from '@/components/molecules/Button.vue'
 
 import * as d3 from 'd3'
 import L from 'leaflet'
@@ -187,6 +196,9 @@ export default {
         this.stream.point(point.x, point.y)
       }
     }
+  },
+  components: {
+    Button
   }
 }
 </script>
@@ -196,6 +208,7 @@ export default {
   @import '~stylesheets/components/_buttons.scss';
 
   .map {
+    position: relative;
     .station {
       stroke: black;
     }
@@ -241,6 +254,14 @@ export default {
       position: absolute;
       bottom: 0;
       left: 40px;
+    }
+
+
+    .map__presetLink {
+      position: absolute;
+      top: 40px;
+      left: 40px;
+      z-index: 200000;
     }
 
     /* leaflet overide */
