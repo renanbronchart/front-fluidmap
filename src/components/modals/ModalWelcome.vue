@@ -6,13 +6,14 @@
       <Button
         label="Plus tard"
         linkName="Home"
-        extraClass="button--ghost"
+        extraClass="button--ghost button--primary"
         @eventClick="closeModal"
       />
       <Button
         label="Je vous suis"
         linkName="OnBoard"
         :linkParams="linkParams"
+        extraClass="button--primary"
         linkTitle="Lien vers le onBoard"
         @eventClick="closeModal"
       />

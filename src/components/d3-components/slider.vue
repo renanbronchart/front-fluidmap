@@ -10,7 +10,7 @@
         </vue-slider>
       </div>
     </div>
-    <Button label="Accèder à l'analyse" @eventClick="showModal" />
+    <Button label="Accèder à l'analyse" @eventClick="showModal" extraClass="button--primary"/>
   </div>
 </template>
 

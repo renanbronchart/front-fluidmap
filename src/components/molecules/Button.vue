@@ -7,7 +7,7 @@
       v-if='linkName'
     >
     </router-link>
-    <span>
+    <span v-if="label">
       {{label}}
     </span>
     <i class="material-icons" v-if='iconName'>{{iconName}}</i>
@@ -18,8 +18,7 @@
   export default {
     props: {
       label: {
-        type: String,
-        default: 'Button'
+        type: String
       },
       linkName: {
         type: String
@@ -53,27 +52,46 @@
     display: flex;
     align-items: center;
     position: relative;
+    background-color: $color-mine-shaft;
+    border: 1px solid $color-mine-shaft;
     color: white;
-    background-color: $color-blue-ribbon;
-    border: 1px solid $color-blue-ribbon;
     box-shadow: 0 3px 12px 0 rgba(0, 0, 0, 0.1);
     border-radius: 3px;
     white-space: nowrap;
     text-transform: uppercase;
     padding: 10px 20px;
+    &.button--round {
+      border-radius: 100%;
+    }
     a, i {
       color: white;
     }
+
+    &.button--primary {
+      background-color: $color-blue-ribbon;
+      border: 1px solid $color-blue-ribbon;
+    }
+
     &.button--block {
       display: block;
     }
+
     &.button--ghost {
       background-color: transparent;
       box-shadow: none;
+
       span, a, i {
-        color: $color-blue-ribbon;
+        color: $color-mine-shaft;
+      }
+
+      &.button--primary {
+        background-color: transparent;
+        span, a, i {
+          color: $color-blue-ribbon;
+        }
       }
     }
+
     .material-icons {
       font-size: 15px;
       margin: 0 0 0 10px;

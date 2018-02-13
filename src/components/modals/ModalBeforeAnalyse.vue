@@ -18,7 +18,7 @@
           label="Accéder à l'analyse"
           linkName="newPreset"
           linkTitle="Lien vers l'analyse"
-          extraClass="button--ghost"
+          extraClass="button--ghost button--primary"
           @eventClick="setExtandedPreset"
         />
       </div>
@@ -27,7 +27,7 @@
         <p>Non, merci. Je souhaite accéder à l’analyse de la tranche horaire de 2h que j’ai déjà choisie.</p>
         <Button
           label="Accéder à l'analyse"
-          extraClass="button--ghost"
+          extraClass="button--ghost button--primary"
           @eventClick="setNormalPreset"
         />
       </div>
