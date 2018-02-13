@@ -1,4 +1,5 @@
 import * as types from '@/store/mutationTypes.js'
+// import HTTP from '@/utils/httpRequest.js'
 import jsonEvents from '../../../static/data/events.js'
 
 const state = {

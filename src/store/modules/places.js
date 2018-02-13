@@ -1,5 +1,5 @@
 import * as types from '@/store/mutationTypes.js'
-import jsonPlaces from '../../../static/data/places.js'
+import HTTP from '@/utils/httpRequest.js'
 
 const state = {
   places: [],
@@ -50,8 +50,14 @@ const getters = {
 
 const actions = {
   getPlaces ({commit}) {
-    commit(types.GET_PLACES, {
-      places: jsonPlaces
+    HTTP.get('event/places').then(({data}) => {
+      console.log(data, 'data')
+
+      commit(types.GET_PLACES, {
+        places: data
+      })
+    }).catch(error => {
+      console.log(error, 'error')
     })
   }
 }
