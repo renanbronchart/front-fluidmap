@@ -48,6 +48,8 @@ export default {
       zoom: 13
     })
 
+    this.map.zoomControl.setPosition('bottomright')
+
     function makeGraphs (error, recordsJson) {
       if (error) {
         console.log('error')
@@ -189,56 +191,87 @@ export default {
 }
 </script>
 
-<style lang='scss' scoped>
-  .station {
-    stroke: black;
-  }
+<style lang='scss'>
+  @import '~stylesheets/helpers/_variables.scss';
+  @import '~stylesheets/components/_buttons.scss';
 
-  .line {
-    stroke-width: 5;
-    fill: none;
-    z-index: 1;
-  }
+  .map {
+    .station {
+      stroke: black;
+    }
 
-  .box {
-    background: none repeat scroll 0 0 rgba(0, 0, 0, 0.8);
-    border-radius: 6px;
-    box-sizing: border-box;
-    display: none;
-    padding: 10px;
-    display: block;
-    color: white;
-  }
+    .line {
+      stroke-width: 5;
+      fill: none;
+      z-index: 1;
+    }
 
-  .box-title {
-    width: 100%;
-    font-weight: bold;
-    font-size: 150%;
-    border-bottom: 1px solid white;
-  }
+    .box {
+      background: none repeat scroll 0 0 rgba(0, 0, 0, 0.8);
+      border-radius: 6px;
+      box-sizing: border-box;
+      display: none;
+      padding: 10px;
+      display: block;
+      color: white;
+    }
 
-  .right-box {
-    position: absolute;
-    right: 15px;
-    top: 15px;
-    min-width: 300px;
-  }
+    .box-title {
+      width: 100%;
+      font-weight: bold;
+      font-size: 150%;
+      border-bottom: 1px solid white;
+    }
+
+    .right-box {
+      position: absolute;
+      right: 15px;
+      top: 15px;
+      min-width: 300px;
+    }
 
 
-  #map__heat {
-    width: 100vw;
-    height: calc(100vh - 170px);
-    position: relative;
-  }
+    #map__heat {
+      width: 100vw;
+      height: calc(100vh - 170px);
+      position: relative;
+    }
 
-  .events {
-    position: absolute;
-    bottom: 0;
-    left: 40px;
-  }
+    .events {
+      position: absolute;
+      bottom: 0;
+      left: 40px;
+    }
 
-  .leaflet-tile-pane {
-    z-index: -1;
+    /* leaflet overide */
+    /****************************/
+    /****************************/
+    /****************************/
+    .leaflet-tile-pane {
+      z-index: -1;
+    }
+
+    .leaflet-touch .leaflet-control-layers,
+    .leaflet-touch .leaflet-bar {
+      border: 0;
+    }
+
+    .leaflet-control-zoom {
+      a.leaflet-control-zoom-in,
+      a.leaflet-control-zoom-out {
+        @extend .button;
+        @extend .button--round;
+        font-size: 18px;
+        line-height: 40px;
+        margin: 30px 30px 10px 30px;
+      }
+      a.leaflet-control-zoom-out {
+        margin-top: 0;
+      }
+    }
+
+    /****************************/
+    /****************************/
   }
 
 </style>
