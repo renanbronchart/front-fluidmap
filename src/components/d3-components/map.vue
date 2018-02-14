@@ -41,9 +41,28 @@ export default {
     }
   },
   computed: {
-    ...mapState([
-      'places'
-    ])
+    ...mapState({
+      'places': 'places',
+      'mapState': 'map'
+    }),
+    removePlaceActive () {
+      if (!this.mapState.placeSelected) {
+        console.log('plop')
+        d3.selectAll('.place--active').classed('.place--active', false)
+      }
+    }
+  },
+  watch: {
+    'mapState.placeSelected' (newState, oldState) {
+      if (!newState) {
+        console.log('false false')
+        d3.selectAll('.place--active')
+          .classed('place--active', false)
+          .style('fill', 'black')
+          .style('stroke-width', '0')
+          .classed('place--hover', false)
+      }
+    }
   },
   mounted () {
     var self = this
@@ -163,15 +182,27 @@ export default {
           d3.select(this).classed('place--hover', true)
         })
         .on('mouseout', function (d) {
-          d3.select(this).style('fill', 'black')
-          d3.select(this).style('stroke-width', '0')
-          d3.select(this).classed('place--hover', false)
+          if (!d3.select(this).classed('place--active') || !self.mapState.placeSelected) {
+            d3.select(this).style('fill', 'black')
+            d3.select(this).style('stroke-width', '0')
+            d3.select(this).classed('place--hover', false)
+          }
         })
         .on('click', function (d) {
+          const strokeWidth = this.getBoundingClientRect().width / 2
           self.selectPlaces(d)
 
-          d3.selectAll('.place').classed('place--active', false)
-          d3.select(this).classed('place--active', true)
+          d3.selectAll('.place')
+            .classed('place--active', false)
+            .classed('place--hover', false)
+            .style('fill', 'black')
+            .style('stroke-width', '0')
+
+          d3.select(this)
+            .classed('place--active', true)
+            .style('fill', 'white')
+            .style('stroke', 'black')
+            .style('stroke-width', strokeWidth)
         })
 
       this.map.on('zoom', reset)
@@ -274,12 +305,6 @@ export default {
 
     .place--hover {
       cursor: pointer;
-    }
-
-    .place--active {
-      fill: white !important;
-      stroke: black !important;
-      stroke-width: 2 !important;
     }
 
 
