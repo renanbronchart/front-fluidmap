@@ -133,7 +133,7 @@ export default {
       var svgPlaces = d3.select(this.map.getPanes().overlayPane).append('svg').style('z-index', '10000')
       var placesGroup = svgPlaces.append('g').attr('class', 'leaflet-zoom-hide')
 
-      var featureStation
+      var featurePlaces
 
       var transform = d3.geoTransform({point: projectPoint})
       var path = d3.geoPath().projection(transform)
@@ -142,20 +142,36 @@ export default {
 
       var radius = d3.scaleLinear()
         .domain([0, d3.max(dataPlaces.features, function (d) { return +d.properties.capacity })])
-        .range([4, 8])
+        .range([4, 6])
 
-      featureStation = placesGroup.selectAll('.places')
+      featurePlaces = placesGroup.selectAll('.place')
         .data(dataPlaces.features)
         .enter().append('path')
-        .attr('class', 'places')
+        .attr('class', 'place')
         .attr('id', function (d) { return d.properties.id })
         .attr('d', path.pointRadius(function (d) {
           return radius(d.properties.capacity)
         }))
         .style('fill', 'black')
         .style('opacity', '1')
-        .on('click', (d) => {
-          this.selectPlaces(d)
+        .on('mouseover', function (d) {
+          const strokeWidth = this.getBoundingClientRect().width / 2
+
+          d3.select(this).style('fill', 'white')
+          d3.select(this).style('stroke', 'black')
+          d3.select(this).style('stroke-width', strokeWidth)
+          d3.select(this).classed('place--hover', true)
+        })
+        .on('mouseout', function (d) {
+          d3.select(this).style('fill', 'black')
+          d3.select(this).style('stroke-width', '0')
+          d3.select(this).classed('place--hover', false)
+        })
+        .on('click', function (d) {
+          self.selectPlaces(d)
+
+          d3.selectAll('.place').classed('place--active', false)
+          d3.select(this).classed('place--active', true)
         })
 
       this.map.on('zoom', reset)
@@ -182,9 +198,9 @@ export default {
 
         var newWidth = bottomRight[0] - topLeft[0]
         if (previousWidth !== newWidth) {
-          radius.range([4, 8 * (newWidth / rootWidth)])
+          radius.range([4, 6 * (newWidth / rootWidth)])
         }
-        featureStation.attr('d', path.pointRadius(function (d) {
+        featurePlaces.attr('d', path.pointRadius(function (d) {
           return radius(d.properties.capacity)
         }))
         previousWidth = newWidth
@@ -254,6 +270,16 @@ export default {
       position: absolute;
       bottom: 0;
       left: 40px;
+    }
+
+    .place--hover {
+      cursor: pointer;
+    }
+
+    .place--active {
+      fill: white !important;
+      stroke: black !important;
+      stroke-width: 2 !important;
     }
 
 
