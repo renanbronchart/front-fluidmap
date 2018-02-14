@@ -1,5 +1,5 @@
 <template>
-  <div class="card">
+  <div class="card" :class="extraClass">
     <slot name="header"></slot>
     <slot></slot>
   </div>
@@ -7,6 +7,7 @@
 
 <script>
   export default {
+    props: ['extraClass'],
     data () {
       return {}
     }
