@@ -60,13 +60,13 @@ export default new Router({
           },
           children: [
             {
-              path: ':id',
-              name: 'presetId',
+              path: 'new',
+              name: 'newPreset',
               component: ViewPreset
             },
             {
-              path: 'new',
-              name: 'newPreset',
+              path: ':id',
+              name: 'presetId',
               component: ViewPreset
             }
           ]
