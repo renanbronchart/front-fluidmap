@@ -39,6 +39,10 @@
     align-items: center;
   }
 
+  .information--right {
+    justify-content: flex-end;
+  }
+
   .information__primary {
     .information__icon {
       color: $color-caribbean-green;

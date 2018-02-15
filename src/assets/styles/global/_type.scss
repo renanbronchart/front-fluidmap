@@ -112,11 +112,15 @@ a, a:visited {
 }
 
 .text--primary {
-  color: blue;
+  color: $color-blue-ribbon;
+}
+
+.text--info {
+  color: $color-caribbean-green;
 }
 
 .text--danger {
-  color: red;
+  color: $color-torch-red;
 }
 
 .text--base {

@@ -80,34 +80,38 @@
       </Card>
       <div class="analyse__secondaryInfos row m-t-md">
         <div class="col-xs-12 col-md-6">
-          <Card>
+          <Card extraClass="p-lg">
             <div class="analyse__eventsSchedules">
-              <h4>Autres évènements dans cette tranche horiare 12H-14H</h4> // get dates current precet
-              <EventInfo
-                v-for="event in getEventsSchedules"  // récupérer sur le store
-                :event="event"
-                @clickEvent="clickEvent(event)"
-                extraClass="event--timeline"/>
+              <h4>Autres évènements dans cette tranche horiare 12H-14H</h4>
+              <ul>
+                <EventInfo
+                  v-for="event in events.events"
+                  :event="event"
+                  @clickEvent="clickEvent(event)"
+                  extraClass="event--dashboard p-t-md p-b-md"/>
+              </ul>
               <TextInfos
                 content="Afficher plus"
                 iconName="add"
-                extraClass="information__primary text--primary"
+                extraClass="information__primary text--info cursor--pointer information--right"
                 alignIcon="right"
                 @eventClick="moreEventsSchedules"
               />
 
             </div>
-            <div class="analyse__eventsNext" v-if="isEventPreset">
-              <h4>Évènements suivants entre {{getNextSchedules}}</h4> // get dates current precet
-              <EventInfo
-                v-for="event in events.eventsSchedules" // récupérer sur le store
-                :event="event"
-                @clickEvent="clickEvent(event)"
-                extraClass="event--timeline"/>
+            <div class="analyse__eventsNext m-t-lg" v-if="isEventPreset">
+              <h4>Évènements suivants entre {{getNextSchedules}}</h4>
+              <ul>
+                <EventInfo
+                  v-for="event in events.eventsSchedules"
+                  :event="event"
+                  @clickEvent="clickEvent(event)"
+                  extraClass="event--dashboard p-t-md p-b-md"/>
+              </ul>
               <TextInfos
                 content="Afficher plus"
                 iconName="add"
-                extraClass="information__primary text--primary"
+                extraClass="information__primary text--info cursor--pointer information--right"
                 alignIcon="right"
                 @eventClick="moreEventsNext"
               />
@@ -116,7 +120,7 @@
         </div>
 
         <div class="col-xs-12 col-md-6">
-          <Card>
+          <Card extraClass="p-lg">
             <div class="analyse__eventsStations">
               <h4>Stations à proximiter du lieu</h4> // à récupérer sur la place
               <Table
@@ -126,7 +130,7 @@
               <TextInfos
                 content="Afficher plus"
                 iconName="add"
-                extraClass="information__primary text--primary"
+                extraClass="information__primary text--info cursor--pointer information--right"
                 alignIcon="right"
                 @eventClick="moreEventsStations"
               />
@@ -151,8 +155,9 @@
   import TextInfos from '@/components/molecules/TextInfos.vue'
   import Card from '@/components/elements/Card.vue'
   import TableComponent from '@/components/elements/TableComponent.vue'
+  import EventInfo from '@/components/elements/events/EventInfo.vue'
 
-  import { mapGetters } from 'vuex'
+  import { mapGetters, mapState } from 'vuex'
 
   export default {
     data () {
@@ -202,6 +207,9 @@
     computed: {
       ...mapGetters([
         'getCurrentPreset'
+      ]),
+      ...mapState([
+        'events'
       ]),
       isPlacePreset () {
         return this.getCurrentPreset.type === 'place'
@@ -254,7 +262,8 @@
       Card,
       Button,
       TextInfos,
-      TableComponent
+      TableComponent,
+      EventInfo
     }
   }
 </script>
@@ -297,6 +306,12 @@
   .analyse__exportAction {
     display: flex;
     justify-content: flex-end;
+  }
+
+  .event--dashboard {
+    & + .event--dashboard {
+      border-top: 1px solid $gray-lighter;
+    }
   }
 
 </style>
