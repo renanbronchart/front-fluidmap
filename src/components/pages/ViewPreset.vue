@@ -65,7 +65,7 @@
               title="Pics hauts sur cette période"
               :columns="hightHints.columns"
               :data="hightHints.data"
-              extraClass="m-t-lg table--left"
+              extraClass="m-t-lg table--left table--lastColumnLeft"
             />
           </div>
           <div class="col-xs-12 col-md-6">
@@ -73,7 +73,7 @@
               title="Pics bas sur cette période"
               :columns="hightHints.columns"
               :data="hightHints.data"
-              extraClass="m-t-lg table--right"
+              extraClass="m-t-lg table--right table--lastColumnLeft"
             />
           </div>
         </div>
@@ -92,7 +92,7 @@
               </ul>
               <TextInfos
                 :content="eventsShow.showMoreLabel ? 'Afficher plus' : 'Afficher moins'"
-                iconName="add"
+                :iconName="eventsShow.showMoreLabel ? 'add' : 'remove'"
                 extraClass="information__primary text--info cursor--pointer information--right"
                 alignIcon="right"
                 @eventClick="showOrHide('eventsShow')"
@@ -110,7 +110,7 @@
               </ul>
               <TextInfos
                 :content="eventSchedulesShow.showMoreLabel ? 'Afficher plus' : 'Afficher moins'"
-                iconName="add"
+                :iconName="eventSchedulesShow.showMoreLabel ? 'add' : 'remove'"
                 extraClass="information__primary text--info cursor--pointer information--right"
                 alignIcon="right"
                 @eventClick="showOrHide('eventSchedulesShow')"
@@ -123,13 +123,24 @@
           <Card extraClass="p-lg">
             <div class="analyse__eventsStations">
               <h4>Stations à proximiter du lieu</h4> // à récupérer sur la place
-              <Table
-                titlesColumns="un array"
-                data="un array d'objet"
-              />
+              <TableComponent
+                :columns="stationsData.columns"
+                :data="stationsData.data"
+                extraClass="m-t-lg table--lastColumnLeft"
+                :rowTodisplay="stationsShow.count"
+              >
+                <div v-for="(data, index) in stationsData.data" :slot="`station-${index}`">
+                  <p>{{data.station.name}}</p>
+                  <span v-for="line in data.station.lines" class="m-r-sm">{{line}}</span>
+                </div>
+
+                <div v-for="(data, index) in stationsData.data" :slot="`indice-${index}`">
+                  <p class="text--primary">{{data.indice}}</p>
+                </div>
+              </TableComponent>
               <TextInfos
                 :content="stationsShow.showMoreLabel ? 'Afficher plus' : 'Afficher moins'"
-                iconName="add"
+                :iconName="stationsShow.showMoreLabel ? 'add' : 'remove'"
                 extraClass="information__primary text--info cursor--pointer information--right"
                 alignIcon="right"
                 @eventClick="showOrHide('stationsShow')"
@@ -171,7 +182,7 @@
           showMoreLabel: true
         },
         stationsShow: {
-          count: 6,
+          count: 3,
           showMoreLabel: true
         },
         hightHints: {
@@ -210,6 +221,72 @@
             },
             {
               field: 'hint',
+              label: 'Indice'
+            }
+          ]
+        },
+        stationsData: {
+          data: [
+            {
+              station: {
+                name: `Gare de l'Est`,
+                lines: ['RER A', 'M14', 'M3']
+              },
+              people: '7900',
+              indice: '6'
+            },
+            {
+              station: {
+                name: 'Gare du Nord',
+                lines: ['RER A', 'M14', 'M3']
+              },
+              people: '8600',
+              indice: '5'
+            },
+            {
+              station: {
+                name: 'Vincennes',
+                lines: ['RER A', 'M14', 'M3']
+              },
+              people: '4899',
+              indice: '9'
+            },
+            {
+              station: {
+                name: `Gare de l'Est`,
+                lines: ['RER A', 'M14', 'M3']
+              },
+              people: '7900',
+              indice: '6'
+            },
+            {
+              station: {
+                name: 'Gare du Nord',
+                lines: ['RER A', 'M14', 'M3']
+              },
+              people: '8600',
+              indice: '5'
+            },
+            {
+              station: {
+                name: 'Vincennes',
+                lines: ['RER A', 'M14', 'M3']
+              },
+              people: '4899',
+              indice: '9'
+            }
+          ],
+          columns: [
+            {
+              field: 'station',
+              label: 'Gare'
+            },
+            {
+              field: 'people',
+              label: 'Fréquentation'
+            },
+            {
+              field: 'indice',
               label: 'Indice'
             }
           ]
@@ -291,7 +368,7 @@
   }
 </script>
 
-<style lang="scss">
+<style lang='scss'>
   @import '~stylesheets/helpers/_variables.scss';
   @import '~stylesheets/helpers/mixins/_media-queries.scss';
 

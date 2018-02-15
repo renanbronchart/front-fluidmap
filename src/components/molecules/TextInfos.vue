@@ -1,8 +1,8 @@
 <template>
   <div class="information" :class="extraClass" @click.prevent="eventClick">
-    <i class="material-icons information__icon" v-if="alignIcon === 'left'">{{iconName}}</i>
+    <i class="material-icons information__icon m-r-sm" v-if="alignIcon === 'left'">{{iconName}}</i>
     <p class="text-sm">{{content}}</p>
-    <i class="material-icons information__icon" v-if="alignIcon === 'right'">{{iconName}}</i>
+    <i class="material-icons information__icon m-l-sm" v-if="alignIcon === 'right'">{{iconName}}</i>
   </div>
 </template>
 
@@ -47,9 +47,5 @@
     .information__icon {
       color: $color-caribbean-green;
     }
-  }
-
-  .information__icon {
-    margin: 0 8px 0 0;
   }
 </style>

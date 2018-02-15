@@ -11,9 +11,11 @@
           </tr>
         </thead>
         <tbody class="table__body">
-          <tr v-for="element in data" class="table__row">
+          <tr v-for="(element, index) in data" class="table__row" v-if="index <= rowTodisplay">
             <td v-for="column in columns" class="table__cell">
-              {{element[column.field]}}
+              <slot :name="`${column.field}-${index}`">
+                {{element[column.field]}}
+              </slot>
             </td>
           </tr>
         </tbody>
@@ -24,17 +26,38 @@
 
 <script>
   export default {
-    props: [
-      'title',
-      'data',
-      'columns',
-      'extraClass'
-    ]
+    props: {
+      'title': {
+        type: String
+      },
+      'data': {
+        type: Array
+      },
+      'columns': {
+        type: Array
+      },
+      'extraClass': {
+        type: String
+      },
+      'rowTodisplay': {
+        default: 10000
+      }
+    }
   }
 </script>
 
-<style lang="scss" scoped>
+<style lang='scss' scoped>
   @import '~stylesheets/helpers/_variables.scss';
+
+
+  .table--lastColumnLeft {
+    table {
+      th:last-child,
+      td:last-child {
+        text-align: right;
+      }
+    }
+  }
 
   .table__container {
     max-width: 100%;
