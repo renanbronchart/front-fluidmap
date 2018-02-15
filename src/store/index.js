@@ -10,6 +10,7 @@ import planning from './modules/planning.js'
 import map from './modules/map.js'
 import presets from './modules/presets.js'
 import modal from './modules/modal.js'
+import timestamps from './modules/timestamps.js'
 
 Vue.use(Vuex)
 
@@ -25,7 +26,8 @@ const store = new Vuex.Store({
     places,
     map,
     presets,
-    modal
+    modal,
+    timestamps
   }
   // plugins: [vuexLocalStorage.plugin]
 })

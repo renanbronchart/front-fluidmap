@@ -10,9 +10,11 @@ import Preset from '@/components/pages/Preset'
 import ViewPreset from '@/components/pages/ViewPreset'
 import Api from '@/components/pages/Api'
 
+import store from '@/store'
+
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
   mode: 'history',
   base: '/',
   routes: [
@@ -86,3 +88,15 @@ export default new Router({
     }
   ]
 })
+
+router.beforeEach((to, from, next) => {
+  async function getTimestamps () {
+    await store.dispatch('getTimestampsApi')
+
+    next()
+  }
+
+  getTimestamps()
+})
+
+export default router

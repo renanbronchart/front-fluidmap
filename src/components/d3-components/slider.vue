@@ -15,8 +15,8 @@
 </template>
 
 <script>
-  import { mapActions } from 'vuex'
-  import dates from '../../../static/data/timestamps.js'
+  import { mapGetters, mapActions } from 'vuex'
+  // import dates from '../../../static/data/timestamps.js'
   import sliders from '../../../static/data/slider.js'
 
   import vueSlider from 'vue-slider-component'
@@ -25,13 +25,21 @@
   export default {
     data () {
       return {
-        hoursValue: '',
         dayValue: '',
+        hoursValue: '',
         sliders
       }
     },
     mounted () {
-      this.convertdates(dates)
+      this.initSlider()
+      this.initDates(this.getAllDays[0], this.getAllSchedules[0])
+    },
+    computed: {
+      ...mapGetters([
+        'getAllTimestamps',
+        'getAllDays',
+        'getAllSchedules'
+      ])
     },
     methods: {
       ...mapActions([
@@ -43,33 +51,11 @@
           component: 'ModalBeforeAnalyse'
         }, 5000)
       },
-      convertdates (tabledates) {
-        // faire avec lodash peut être ça va peut être optimisé la chose et faire moins de map
-        const dates = tabledates
-          .map((time) => {
-            return this.$moment.unix(time).locale('fr').format('dddd Do MMMM')
-          })
-          .filter((elem, pos, arr) => {
-            return arr.indexOf(elem) === pos
-          })
-
-        const hours = tabledates
-          .map((time) => {
-            const hour = this.$moment.unix(time).locale('fr').format('HH')
-            const hourEnd = this.$moment.unix(time).add(2, 'h').locale('fr').format('HH')
-
-            return `${hour}H - ${hourEnd}H`
-          })
-          .filter((elem, pos, arr) => {
-            return arr.indexOf(elem) === pos
-          })
-
-        this.sliders[0].slider.data = dates
-        this.sliders[1].slider.data = hours
-
-        this.initDate(dates[0], hours[0])
+      initSlider () {
+        this.sliders[0].slider.data = this.getAllDays
+        this.sliders[1].slider.data = this.getAllSchedules
       },
-      initDate (date, hours) {
+      initDates (date, hours) {
         this.dayValue = date
         this.hoursValue = hours
 

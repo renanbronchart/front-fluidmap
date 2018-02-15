@@ -18,7 +18,7 @@ import Modal from '@/components/elements/Modal.vue'
 
 export default {
   name: 'app',
-  created () {
+  mounted () {
     this.getPlaces()
   },
   methods: {

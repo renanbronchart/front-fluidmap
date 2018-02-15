@@ -47,7 +47,6 @@ export default {
     }),
     removePlaceActive () {
       if (!this.mapState.placeSelected) {
-        console.log('plop')
         d3.selectAll('.place--active').classed('.place--active', false)
       }
     }
@@ -55,7 +54,6 @@ export default {
   watch: {
     'mapState.placeSelected' (newState, oldState) {
       if (!newState) {
-        console.log('false false')
         d3.selectAll('.place--active')
           .classed('place--active', false)
           .style('fill', 'black')
