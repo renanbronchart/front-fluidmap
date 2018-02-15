@@ -18,6 +18,7 @@
   import { mapGetters, mapActions } from 'vuex'
   // import dates from '../../../static/data/timestamps.js'
   import sliders from '../../../static/data/slider.js'
+  import _ from 'lodash'
 
   import vueSlider from 'vue-slider-component'
   import Button from '@/components/molecules/Button.vue'
@@ -64,18 +65,19 @@
           schedules: this.hoursValue
         })
       },
-      onChange (value, name) {
+      onChange: _.debounce(function (value, name) {
         if (name === 'slider-date') {
           this.dayValue = value
         } else {
           this.hoursValue = value
         }
 
+        this.initSlider()
         this.setNewDate({
           date: this.dayValue,
           schedules: this.hoursValue
         })
-      }
+      }, 500)
     },
     components: {
       vueSlider,
