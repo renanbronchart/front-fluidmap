@@ -85,35 +85,35 @@
               <h4>Autres évènements dans cette tranche horiare 12H-14H</h4>
               <ul>
                 <EventInfo
-                  v-for="event in events.events"
+                  v-for="(event, index) in events.events"
                   :event="event"
-                  @clickEvent="clickEvent(event)"
+                  v-if="index <= eventsShow.count"
                   extraClass="event--dashboard p-t-md p-b-md"/>
               </ul>
               <TextInfos
-                content="Afficher plus"
+                :content="eventsShow.showMoreLabel ? 'Afficher plus' : 'Afficher moins'"
                 iconName="add"
                 extraClass="information__primary text--info cursor--pointer information--right"
                 alignIcon="right"
-                @eventClick="moreEventsSchedules"
+                @eventClick="showOrHide('eventsShow')"
               />
 
             </div>
             <div class="analyse__eventsNext m-t-lg" v-if="isEventPreset">
-              <h4>Évènements suivants entre {{getNextSchedules}}</h4>
+              <h4>Évènements suivants entre </h4>
               <ul>
                 <EventInfo
-                  v-for="event in events.eventsSchedules"
+                  v-for="(event, index) in events.eventsSchedules"
                   :event="event"
-                  @clickEvent="clickEvent(event)"
+                  v-if="index <= eventSchedulesShow.count"
                   extraClass="event--dashboard p-t-md p-b-md"/>
               </ul>
               <TextInfos
-                content="Afficher plus"
+                :content="eventSchedulesShow.showMoreLabel ? 'Afficher plus' : 'Afficher moins'"
                 iconName="add"
                 extraClass="information__primary text--info cursor--pointer information--right"
                 alignIcon="right"
-                @eventClick="moreEventsNext"
+                @eventClick="showOrHide('eventSchedulesShow')"
               />
             </div>
           </Card>
@@ -128,11 +128,11 @@
                 data="un array d'objet"
               />
               <TextInfos
-                content="Afficher plus"
+                :content="stationsShow.showMoreLabel ? 'Afficher plus' : 'Afficher moins'"
                 iconName="add"
                 extraClass="information__primary text--info cursor--pointer information--right"
                 alignIcon="right"
-                @eventClick="moreEventsStations"
+                @eventClick="showOrHide('stationsShow')"
               />
             </div>
           </Card>
@@ -162,6 +162,18 @@
   export default {
     data () {
       return {
+        eventsShow: {
+          count: 3,
+          showMoreLabel: true
+        },
+        eventSchedulesShow: {
+          count: 3,
+          showMoreLabel: true
+        },
+        stationsShow: {
+          count: 6,
+          showMoreLabel: true
+        },
         hightHints: {
           data: [
             {
@@ -240,6 +252,17 @@
       // après avoir reçu tous les hints, mettre le graph en place
     },
     methods: {
+      showOrHide (section) {
+        const showMoreLabel = this[section]['showMoreLabel']
+
+        if (showMoreLabel) {
+          this[section]['count'] += 100
+        } else {
+          this[section]['count'] -= 100
+        }
+
+        this[section]['showMoreLabel'] = !showMoreLabel
+      },
       exportPdf () {
         alert('export to pdf')
 
