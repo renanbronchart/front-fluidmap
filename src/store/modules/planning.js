@@ -1,5 +1,6 @@
 import moment from 'moment'
 
+import store from '@/store'
 import * as types from '../mutationTypes'
 
 const state = {
@@ -46,6 +47,8 @@ const mutations = {
   [types.SET_NEW_DATE] (state, {date, schedules}) {
     const dates = getdates(date, schedules)
 
+    store.dispatch('getEventsSchedules', dates)
+
     state.map = {
       dates,
       date,
@@ -86,7 +89,7 @@ const getdates = function getdates (date, schedules) {
   hourEndAt = hourStartAt === hourEndAt ? `${parseFloat(hourEndAt) + 2}:00` : hourEndAt
 
   let dayTrim = date.trim()
-  let newValueDate = dayTrim.replace(/^[a-z]+ (\d{0,2}) ([a-zû]+)$/i, `$1-$2-2018`)
+  let newValueDate = dayTrim.replace(/^[a-z]+ (\d{0,2}) ([a-zû]+)$/i, `$1-$2-2024`)
   let arrayValue = newValueDate.split('-')
   let newValueDay = `${arrayValue[0]}-${dateHash[arrayValue[1]]}-${arrayValue[2]}`
 

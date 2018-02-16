@@ -11,22 +11,6 @@ const state = {
       'place_name': 'Stade Yves-du-Manoir',
       'geo_point_2d': [48.754542648932755, 1.834361843330175], // mêmes que celles des places
       'place_id': 12346
-    },
-    {
-      'id': 56790,
-      'name': 'Natation - Femme',
-      'dates': ['0908', '1012'],
-      'place_name': 'Invalides',
-      'geo_point_2d': [48.85990100000001, 2.3142669999999725], // mêmes que celles des places
-      'place_id': 12345
-    },
-    {
-      'id': 56791,
-      'name': 'Water Polo - Femme',
-      'dates': ['0908', '1012'],
-      'place_name': 'Invalides',
-      'geo_point_2d': [48.85990100000001, 2.3142669999999725], // mêmes que celles des places
-      'place_id': 12345
     }
   ],
   eventSelected: {
@@ -45,22 +29,6 @@ const state = {
       'place_name': 'Stade Yves-du-Manoir',
       'geo_point_2d': [48.754542648932755, 1.834361843330175], // mêmes que celles des places
       'place_id': 12346
-    },
-    {
-      'id': 56790,
-      'name': 'Natation - Femme',
-      'dates': ['0908', '1012'],
-      'place_name': 'Invalides',
-      'geo_point_2d': [48.85990100000001, 2.3142669999999725], // mêmes que celles des places
-      'place_id': 12345
-    },
-    {
-      'id': 56791,
-      'name': 'Water Polo - Femme',
-      'dates': ['0908', '1012'],
-      'place_name': 'Invalides',
-      'geo_point_2d': [48.85990100000001, 2.3142669999999725], // mêmes que celles des places
-      'place_id': 12345
     }
   ],
   eventsCloseToPlace: [
@@ -71,22 +39,6 @@ const state = {
       'place_name': 'Stade Yves-du-Manoir',
       'geo_point_2d': [48.754542648932755, 1.834361843330175], // mêmes que celles des places
       'place_id': 12346
-    },
-    {
-      'id': 56790,
-      'name': 'Natation - Femme',
-      'dates': ['0908', '1012'],
-      'place_name': 'Invalides',
-      'geo_point_2d': [48.85990100000001, 2.3142669999999725], // mêmes que celles des places
-      'place_id': 12345
-    },
-    {
-      'id': 56791,
-      'name': 'Water Polo - Femme',
-      'dates': ['0908', '1012'],
-      'place_name': 'Invalides',
-      'geo_point_2d': [48.85990100000001, 2.3142669999999725], // mêmes que celles des places
-      'place_id': 12345
     }
   ]
 }
@@ -98,13 +50,7 @@ const getters = {
 
 const actions = {
   getEventsSchedules ({commit}, dates) {
-    // Faire recherche sur l'api par rapport aux timestamps
-    // const timestampStart = dates[0]
-    // const timestampEnd = dates[1]
-
-    // HTTP.get(`event/all?timestamp_start=${dates[0]}&timestamp_start=${dates[1]}`).then(({data}) => {
-
-    HTTP.get('event/all').then(({data}) => {
+    HTTP.get(`event/all?timestampStart=${dates[0]}&timestampEnd=${dates[1]}`).then(({data}) => {
       commit(types.GET_EVENTS_SCHEDULES, {
         events: data
       })

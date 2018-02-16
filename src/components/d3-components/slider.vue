@@ -31,7 +31,7 @@
         sliders
       }
     },
-    mounted () {
+    created () {
       this.initSlider()
       this.initDates(this.getAllDays[0], this.getAllSchedules[0])
     },
