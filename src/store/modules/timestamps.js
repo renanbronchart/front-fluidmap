@@ -1,7 +1,6 @@
-import moment from 'moment'
-
 import * as types from '@/store/mutationTypes.js'
 import HTTP from '@/utils/httpRequest.js'
+import mapDate from '@/utils/manipulateDate.js'
 
 const state = {
   data: [],
@@ -24,16 +23,11 @@ const actions = {
         })
 
         const dates = data.timestamps
-          .map(time => moment.unix(time).locale('fr').format('dddd Do MMMM'))
+          .map(mapDate.getDateDisplay)
           .filter((elem, pos, arr) => arr.indexOf(elem) === pos)
 
         const hours = data.timestamps
-          .map((time) => {
-            const hour = moment.unix(time).locale('fr').format('HH')
-            const hourEnd = moment.unix(time).add(2, 'h').locale('fr').format('HH')
-
-            return `${hour}H - ${hourEnd}H`
-          })
+          .map(mapDate.getSchedulesDisplay)
           .filter((elem, pos, arr) => arr.indexOf(elem) === pos)
 
         commit(types.SET_NEW_DAYS, {allDays: dates})
