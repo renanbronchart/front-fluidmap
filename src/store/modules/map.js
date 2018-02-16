@@ -5,7 +5,10 @@ const state = {
   eventSelected: false
 }
 
-const getters = {}
+const getters = {
+  isPlaceSelected: () => state.placeSelected,
+  isEventSelected: () => state.eventSelected
+}
 
 const actions = {
   deselectPlace ({commit}) {

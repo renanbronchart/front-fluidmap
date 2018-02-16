@@ -17,8 +17,6 @@
           </div>
           <Button
             label="Accéder à l'analyse"
-            linkName="newPreset"
-            linkTitle="Lien vers l'analyse"
             extraClass="button--ghost button--primary"
             @eventClick="setExtandedPreset"
           />
@@ -63,7 +61,8 @@
         'getDayValue',
         'getSchedulesValue',
         'getEventSelected',
-        'getPlaceSelected'
+        'getPlaceSelected',
+        'isPlaceSelected'
       ]),
       getLinkParams () {
         return {id: 0} // regarder les presets de l'utilisateur courant, ou faire une requete de preset.
@@ -87,7 +86,7 @@
       setNormalPreset () {
         const dates = this.planning.map.dates
 
-        if (this.map.eventSelected) {
+        if (this.isPlaceSelected) {
           const event = this.getEventSelected
 
           this.setNewEventPreset({
@@ -112,7 +111,7 @@
         this.closeModal()
       },
       setExtandedPreset () {
-        if (this.map.placeSelected) {
+        if (this.isPlaceSelected) {
           const dates = this.planning.expanded.dates
           const place = this.getPlaceSelected
 

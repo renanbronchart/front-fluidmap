@@ -4,33 +4,33 @@ import HTTP from '@/utils/httpRequest.js'
 const state = {
   places: [],
   placeSelected: {
-    'type': 'Feature',
+    'type': '',
     'properties': {
-      'id': '12345',
-      'name': 'Stade Yves-du-Manoir',
-      'capacity': '49977513',
+      'id': '',
+      'name': '',
+      'capacity': '',
       'stationsClosest': [
         {
-          'id': 234567,
-          'name': 'Gare de Lyon',
-          'hint': 4
+          'id': 0,
+          'name': '',
+          'hint': 0
         }
       ],
       'events': [
         {
-          'id': 56789,
-          'name': 'Escrime - homme',
-          'date': '0908',
-          'hour': '1012',
-          'place_name': 'Champ de mars',
+          'id': '',
+          'name': '',
+          'date': '',
+          'hour': '',
+          'place_name': '',
           'geo_point_2d': [48.754542648932755, 1.834361843330175], // mêmes que celles des places
-          'place_id': 12
+          'place_id': 0
         }
       ],
       'totalHints': [
         {
-          'timestamp': 23456100,
-          'hint': 0.3
+          'timestamp': 0,
+          'hint': 0
         }
       ]
     },
