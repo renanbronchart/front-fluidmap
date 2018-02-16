@@ -31,7 +31,9 @@
         return `${this.presets.presets.length} favoris enregistrés`
       },
       presetsFormating () {
-        const presetsFomat = this.presets.presets.map((preset) => {
+        const presets = [...this.presets.presets]
+
+        const presetsFomat = presets.map((preset) => {
           preset.title = preset.name
           preset.infos = preset.dates[0]
           preset.details = preset.dates[1]
@@ -59,9 +61,7 @@
         this.deletePreset(preset)
       },
       showPreset (preset) {
-        console.log(preset, 'preset')
-
-        this.$router.push({name: 'preset', params: {id: preset.id}})
+        this.$router.push({name: 'presetId', params: {id: preset.id}})
       }
     },
     components: {

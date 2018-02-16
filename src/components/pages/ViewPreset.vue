@@ -21,9 +21,9 @@
           />
         </div>
       </div>
-      <p class="m-t-xl" v-if="isPlacePreset">L'indice de fréquentation est une moyenne faite sur la tranche horaire que vous avez séléctionnée.</p> // à emplacer par le composant
+      <p class="m-t-xl" v-if="isPlacePreset">L'indice de fréquentation est une moyenne faite sur la tranche horaire que vous avez séléctionnée.</p> <!-- à remplacer par le composant -->
       <div class="analyse__generalInfos">
-        <h3 class="analyse__eventTitle m-t-xl" v-if="isEventPreset">{{getCurrentPreset.name}}</h3>
+        <h3 class="analyse__eventTitle m-t-xl" v-if="isEventPreset">{{preset.name}}</h3>
         <div class="general__agenda m-t-md">
           <TextInfos
             content="Lundi ..."
@@ -168,11 +168,12 @@
   import TableComponent from '@/components/elements/TableComponent.vue'
   import EventInfo from '@/components/elements/events/EventInfo.vue'
 
-  import { mapGetters, mapState } from 'vuex'
+  import { mapState, mapGetters } from 'vuex'
 
   export default {
     data () {
       return {
+        preset: {},
         eventsShow: {
           count: 3,
           showMoreLabel: true
@@ -294,26 +295,32 @@
       }
     },
     computed: {
-      ...mapGetters([
-        'getCurrentPreset'
-      ]),
       ...mapState([
         'events'
       ]),
+      ...mapGetters([
+        'getCurrentPreset',
+        'getNewPreset'
+      ]),
       isPlacePreset () {
-        return this.getCurrentPreset.type === 'place'
+        return this.preset.type === 'place'
       },
       isEventPreset () {
-        return this.getCurrentPreset.type === 'place'
+        return this.preset.type === 'place'
       },
       isNewPreset () {
         return this.$route.name === 'newPreset'
       },
       getTitlePage () {
-        return this.isNewPreset ? 'Analyse' : this.getCurrentPreset.name
+        return this.isNewPreset ? 'Analyse' : this.preset.name
       }
     },
     mounted () {
+      this.preset = this.$route.name === 'newPreset' ? this.getNewPreset : this.getCurrentPreset
+
+      if (typeof this.preset.name === 'undefined') {
+        this.$router.push({name: 'Home'})
+      }
       // Si eventsId.length > 1 ,
       // alors requete api de currentPreset.place_id ou chercher par l'id avec tous les places
       // + requete events place_id dans la tranche horaire : `event/place/${currentPreset.place_id}/events?time`
@@ -327,6 +334,9 @@
       // requete de tous les hints de la place. (attendre l'API)
 
       // après avoir reçu tous les hints, mettre le graph en place
+    },
+    destroy () {
+
     },
     methods: {
       showOrHide (section) {

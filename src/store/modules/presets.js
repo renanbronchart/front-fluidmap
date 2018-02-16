@@ -2,6 +2,7 @@ import * as types from '@/store/mutationTypes.js'
 import jsonPresets from '../../../static/data/presets.js'
 
 const state = {
+  edition: false,
   presets: [],
   presetSelected: {
     id: 2,
@@ -16,30 +17,42 @@ const state = {
     }
   },
   currentPreset: {
-    name: 'Natation - Femme',
-    type: 'place',
-    extanded: false,
-    dates: [1234567899, 12345678909],
-    place_id: '12345',
-    eventsId: ['56790'],
-    map: {
-      dates: [1234567899, 12345678909]
-    }
+    // name: 'Natation - Femme',
+    // type: 'place',
+    // extanded: false,
+    // dates: [1234567899, 12345678909],
+    // place_id: '12345',
+    // eventsId: ['56790'],
+    // map: {
+    //   dates: [1234567899, 12345678909]
+    // }
+  },
+  newPreset: {
+
   }
 }
 
 const getters = {
-  getCurrentPreset: state => state.currentPreset
+  getCurrentPreset: state => state.currentPreset,
+  getNewPreset: state => state.newPreset
 }
 
 const actions = {
+  removeNewPreset ({commit}) {
+    commit(types.REMOVE_NEW_PRESET)
+  },
+  saveNewPreset ({commit}, preset) {
+    commit(types.SAVE_NEW_PRESET, {
+      preset: preset
+    })
+  },
   setNewEventPreset ({commit}, {event, dates}) {
     const name = event.name
     const newdates = [...dates]
     const placeId = event.place_id
     const eventsId = [event.id]
 
-    const currentPreset = {
+    const newPreset = {
       name,
       type: 'event',
       extanded: false,
@@ -52,7 +65,7 @@ const actions = {
     }
 
     commit(types.SET_NEW_PRESET, {
-      currentPreset
+      newPreset
     })
   },
   setNewPlacePreset ({commit}, {place, dates}) {
@@ -67,7 +80,7 @@ const actions = {
       return event.id
     })
 
-    const currentPreset = {
+    const newPreset = {
       name,
       type: 'place',
       extanded,
@@ -80,7 +93,7 @@ const actions = {
     }
 
     commit(types.SET_NEW_PRESET, {
-      currentPreset
+      newPreset
     })
   },
   getPresets ({commit}) {
@@ -96,8 +109,14 @@ const actions = {
 }
 
 const mutations = {
-  [types.SET_NEW_PRESET] (state, {currentPreset}) {
-    state.currentPreset = currentPreset
+  [types.SAVE_NEW_PRESET] (state, {preset}) {
+    state.presets.unshift(preset)
+  },
+  [types.REMOVE_NEW_PRESET] (state) {
+    state.newPreset = {}
+  },
+  [types.SET_NEW_PRESET] (state, {newPreset}) {
+    state.newPreset = newPreset
   },
   [types.GET_PRESETS] (state, {presets}) {
     state.presets = presets
