@@ -45,7 +45,9 @@
     methods: {
       ...mapActions([
         'setNewDate',
-        'openModal'
+        'openModal',
+        'deselectPlace',
+        'deselectEvent'
       ]),
       showModal () {
         this.openModal({
@@ -72,12 +74,13 @@
           this.hoursValue = value
         }
 
-        this.initSlider()
+        this.deselectPlace()
+        this.deselectEvent()
         this.setNewDate({
           date: this.dayValue,
           schedules: this.hoursValue
         })
-      }, 500)
+      }, 450)
     },
     components: {
       vueSlider,
