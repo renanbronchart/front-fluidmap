@@ -1,5 +1,5 @@
 import * as types from '@/store/mutationTypes.js'
-import jsonPresets from '../../../static/data/presets.js'
+// import jsonPresets from '../../../static/data/presets.js'
 
 const state = {
   edition: false,
@@ -16,20 +16,8 @@ const state = {
       dates: [1234567899, 12345678909]
     }
   },
-  currentPreset: {
-    // name: 'Natation - Femme',
-    // type: 'place',
-    // extanded: false,
-    // dates: [1234567899, 12345678909],
-    // place_id: '12345',
-    // eventsId: ['56790'],
-    // map: {
-    //   dates: [1234567899, 12345678909]
-    // }
-  },
-  newPreset: {
-
-  }
+  currentPreset: {},
+  newPreset: {}
 }
 
 const getters = {
@@ -48,6 +36,11 @@ const actions = {
     commit(types.REMOVE_NEW_PRESET)
   },
   saveNewPreset ({commit}, preset) {
+    const presets = JSON.parse(localStorage.getItem('fluidmap-presets')) || []
+
+    presets.unshift(preset)
+    localStorage.setItem('fluidmap-presets', JSON.stringify(presets))
+
     commit(types.SAVE_NEW_PRESET, {
       preset: preset
     })
@@ -111,8 +104,10 @@ const actions = {
     })
   },
   getPresets ({commit}) {
+    const presets = JSON.parse(localStorage.getItem('fluidmap-presets')) || []
+
     commit(types.GET_PRESETS, {
-      presets: jsonPresets
+      presets: presets
     })
   },
   deletePreset ({ commit }, preset) {

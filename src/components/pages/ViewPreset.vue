@@ -12,7 +12,7 @@
           <Button
             label="Ajouter aux favoris"
             extraClass="button--primary button--ghost button__analyseAction"
-            @eventClick="addToPreset"
+            @eventClick="savePreset"
           />
           <Button
             label="Exporter en PDF"
@@ -349,6 +349,7 @@
     },
     methods: {
       ...mapActions([
+        'saveNewPreset',
         'removeNewPreset',
         'removeCurrentPreset',
         'switchEditionMode'
@@ -369,8 +370,8 @@
 
         // ajouter le plugin qui permet de prendre en pdf les éléments d'une page
       },
-      addToPreset () {
-        alert('add to preset')
+      savePreset () {
+        this.saveNewPreset(this.preset)
 
         // l'ajouter en front aux presets.
         // Faire une action dans le store. elle modifie le state des presets et push sur l'api
