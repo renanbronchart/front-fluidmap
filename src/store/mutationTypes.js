@@ -32,3 +32,6 @@ export const CLOSE_MODAL = 'CLOSE_MODAL'
 export const GET_TIMESTAMPS_API = 'GET_TIMESTAMPS_API'
 export const SET_NEW_DAYS = 'SET_NEW_DAYS'
 export const SET_NEW_HOURS = 'SET_NEW_HOURS'
+
+// sliders
+export const SET_NEW_DATA_SLIDER = 'SET_NEW_DATA_SLIDER'

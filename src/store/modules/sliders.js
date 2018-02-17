@@ -1,3 +1,5 @@
+import * as types from '../mutationTypes'
+
 const state = {
   config: [
     {
@@ -130,11 +132,23 @@ const getters = {
 }
 
 const actions = {
-
+  setNewDataSlider ({commit}, {refSlider, data}) {
+    commit(types.SET_NEW_DATA_SLIDER, {
+      refSlider,
+      data
+    })
+  }
 }
 
 const mutations = {
+  [types.SET_NEW_DATA_SLIDER] (state, {refSlider, data}) {
+    const slider = state.config.find(conf => {
+      return conf.ref === refSlider
+    })
+    const indexSlider = state.config.indexOf(slider)
 
+    state.config[indexSlider].slider.data = data
+  }
 }
 
 export default {

@@ -1,6 +1,6 @@
 <template>
   <div class="sliders">
-    <div class="sliders__range" v-for="slider in sliders">
+    <div class="sliders__range" v-for="slider in getConfigSliders">
       <span>{{slider.label}}</span>
       <div class="slider__content" :class='slider.ref'>
         <vue-slider @callback='onChange(slider.slider.value, slider.ref)' v-bind="slider.slider" v-model="slider.slider.value" :ref="slider.ref">
@@ -16,8 +16,6 @@
 
 <script>
   import { mapGetters, mapActions } from 'vuex'
-  // import dates from '../../../static/data/timestamps.js'
-  // import sliders from '../../../static/data/slider.js'
   import _ from 'lodash'
 
   import vueSlider from 'vue-slider-component'
@@ -27,12 +25,10 @@
     data () {
       return {
         dayValue: '',
-        hoursValue: '',
-        sliders: []
+        hoursValue: ''
       }
     },
     created () {
-      this.sliders = this.getConfigSliders
       this.initSlider()
       this.initDates(this.getAllDays[0], this.getAllSchedules[0])
     },
@@ -49,7 +45,8 @@
         'setNewDate',
         'openModal',
         'deselectPlace',
-        'deselectEvent'
+        'deselectEvent',
+        'setNewDataSlider'
       ]),
       showModal () {
         this.openModal({
@@ -57,8 +54,18 @@
         }, 5000)
       },
       initSlider () {
-        this.sliders[0].slider.data = this.getAllDays
-        this.sliders[1].slider.data = this.getAllSchedules
+        const allDataDays = [...this.getAllDays]
+        const allDataSchedules = [...this.getAllSchedules]
+
+        this.setNewDataSlider({
+          refSlider: 'slider-date',
+          data: allDataDays
+        })
+
+        this.setNewDataSlider({
+          refSlider: 'slider-hour',
+          data: allDataSchedules
+        })
       },
       initDates (date, hours) {
         this.dayValue = date
