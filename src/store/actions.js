@@ -7,7 +7,26 @@ export const selectPlaces = ({ commit }, place) => {
 }
 
 export const selectEvent = ({ commit }, event) => {
+  console.log(event)
   commit(types.SELECT_EVENT, {
     eventSelected: event
+  })
+}
+
+export const selectPreset = ({ commit }, preset) => {
+  commit(types.SELECT_PRESET, {
+    presetSelected: preset
+  })
+}
+
+export const setNewDate = ({commit}, {date, schedules}) => {
+  commit(types.SET_NEW_DATE, {
+    date,
+    schedules
+  })
+
+  commit(types.SET_EXPANDED_DATE, {
+    date,
+    schedules
   })
 }

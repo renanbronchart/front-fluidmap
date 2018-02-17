@@ -4,10 +4,14 @@ import Vuex from 'vuex'
 
 import * as actions from './actions.js'
 
+import sliders from './modules/sliders.js'
 import events from './modules/events.js'
 import places from './modules/places.js'
 import planning from './modules/planning.js'
 import map from './modules/map.js'
+import presets from './modules/presets.js'
+import modal from './modules/modal.js'
+import timestamps from './modules/timestamps.js'
 
 Vue.use(Vuex)
 
@@ -18,10 +22,14 @@ Vue.use(Vuex)
 const store = new Vuex.Store({
   actions,
   modules: {
+    sliders,
     planning,
     events,
     places,
-    map
+    map,
+    presets,
+    modal,
+    timestamps
   }
   // plugins: [vuexLocalStorage.plugin]
 })

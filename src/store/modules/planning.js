@@ -1,29 +1,57 @@
+import store from '@/store'
 import * as types from '../mutationTypes'
+import mapDate from '@/utils/manipulateDate.js'
 
 const state = {
-  selectedDate: {
-    date: '0908',
-    schedules: '0608'
+  dates: [
+  ],
+  expanded: {
+    dates: [1234567899, 12345678909],
+    date: 'Vendredi 8 août',
+    schedules: '08H - 10H'
+  },
+  map: {
+    dates: [1234567899, 12345678909],
+    date: 'Vendredi 8 août',
+    schedules: '08H - 10H'
   }
 }
 
-const getters = {}
+const getters = {
+  getDayValue: state => state.map.date,
+  getSchedulesValue: state => state.map.schedules,
+  getTimestampsMap: state => state.map.dates
+}
 
 const actions = {
-  setNewDate ({commit}, date) {
-    commit(types.SET_NEW_DATE, {date})
-  },
-  setNewHours ({commit}, hours) {
-    commit(types.SET_NEW_SCHEDULES, {hours})
+  setExpandedDate ({commit}, {date, schedules}) {
+    commit(types.SET_EXPANDED_DATE, {
+      date,
+      schedules
+    })
   }
 }
 
 const mutations = {
-  [types.SET_NEW_DATE] (state, {date}) {
-    state.date = date
+  [types.SET_NEW_DATE] (state, {date, schedules}) {
+    const dates = mapDate.getdates(date, schedules)
+
+    store.dispatch('getEventsSchedules', dates)
+
+    state.map = {
+      dates,
+      date,
+      schedules
+    }
   },
-  [types.SET_NEW_SCHEDULES] (state, {hours}) {
-    state.schedules = hours
+  [types.SET_EXPANDED_DATE] (state, {date, schedules}) {
+    const dates = mapDate.getdates(date, schedules)
+
+    state.expanded = {
+      dates,
+      date,
+      schedules
+    }
   }
 }
 

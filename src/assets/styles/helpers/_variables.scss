@@ -10,19 +10,22 @@ $color-hollywood-cerise: #FE029B; // pink
 $color-sun: #FEA910; // orange
 $color-whisper: #FAFAFC; // white broken
 $color-cyan: #00FEFB; // cyan
-$dusty-gray: #9B9B9B;
-
+$dusty-gray: #9B9B9B; // gray
+$gray-light: #CECECE; // gray ligth
+$gray-lighter: #e3e3e3; // gray lighter
 
 ////////////
 // fonts  //
 ////////////
 $font-family-title: 'Oswald', sans-serif;
 $font-family-base: 'Lato', sans-serif;
+$font-family-icon: 'icomoon';
 
 /////////////////
 // fonts-size  //
 /////////////////
 $font-size-icon: 3.5rem;
+$font-size-icon: 20px;
 
 ///////////////////
 // Break points  //
@@ -41,6 +44,14 @@ $screen-lg-min: 1281px;
 ///////////////////
 $border-radius-xs: 2px;
 $border-radius-base: 4px;
+
+///////////////////////////////
+///// Element dimensions //////
+///////////////////////////////
+$height-header-nav: 80px;
+$height-footer: 90px;
+$width-aside-event: 525px;
+$width-aside-dashboard: 80px;
 
 ///////////////////
 //   z-index     //

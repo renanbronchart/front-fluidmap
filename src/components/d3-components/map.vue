@@ -1,16 +1,23 @@
 <template>
-  <div id="map__heat"></div>
+  <div id="map__heat">
+    <Button
+      iconName="layers"
+      linkName="presets"
+      linkTitle="Lien vers les presets"
+      extraClass="button--round map__presetLink"
+      extraClassIcon="m-n"
+    />
+  </div>
 </template>
 
 <script>
+// import HTTP from '@/utils/httpRequest.js'
 import { mapState, mapActions } from 'vuex'
+import Button from '@/components/molecules/Button.vue'
 
 import * as d3 from 'd3'
 import L from 'leaflet'
 import * as leafletHeat from '@/assets/js/leaflet-heat'
-import dc from 'dc'
-import crossfilter from 'crossfilter'
-import * as d3Queue from 'd3-queue'
 
 console.log(leafletHeat, 'leaflet')
 
@@ -32,76 +39,69 @@ export default {
     }
   },
   computed: {
-    ...mapState([
-      'places'
-    ])
+    ...mapState({
+      'places': 'places',
+      'mapState': 'map'
+    }),
+    removePlaceActive () {
+      if (!this.mapState.placeSelected) {
+        d3.selectAll('.place--active').classed('.place--active', false)
+      }
+    }
+  },
+  watch: {
+    'mapState.placeSelected' (newState, oldState) {
+      if (!newState) {
+        d3.selectAll('.place--active')
+          .classed('place--active', false)
+          .style('fill', 'black')
+          .style('stroke-width', '0')
+          .classed('place--hover', false)
+      }
+    },
+    'mapState.dataHeat' (newState, oldState) {
+      // console.log(this.heatLayer, 'this.heatLayer')
+      // this.heatLayer.redraw()
+      // this.map.removeLayer(layer)
+      this.redrawHeatMap(newState)
+    }
   },
   mounted () {
-    var self = this
-
-    d3Queue.queue()
-      .defer(d3.json, '/static/data/densite.json')
-      .await(makeGraphs)
+    // HTTP.get('heat/1722679201').then(({data}) => {
+    //   console.log('*********************')
+    //   console.log(this.mapState.dataHeat, 'data heat')
+    //   console.log('*********************')
+    //   this.drawMap(this.mapState.dataHeat)
+    // })
+    // const heats = this.mapState.dataHeat
+    // console.log(heats, 'this.mapState.dataHeatthis.mapState.dataHeatthis.mapState.dataHeatthis.mapState.dataHeatthis.mapState.dataHeat')
+    // this.drawMap(heats)
 
     this.map = L.map('map__heat', {
       center: [48.853, 2.333],
       zoom: 13
     })
 
-    function makeGraphs (error, recordsJson) {
-      if (error) {
-        console.log('error')
-      }
-      // Clean data
-      var records = [...recordsJson]
-      // Create a Crossfilter instance
-      var ndx = crossfilter(records)
+    this.map.zoomControl.setPosition('bottomright')
 
-      // Define Dimensions
-      var allDim = ndx.dimension(function (d) { return d.fields })
+    setTimeout(() => {
+      const heatPoints = this.mapState.dataHeat
 
-      // Draw Map
-      self.drawMap(allDim, true)
-
-      dc.renderAll()
-    }
+      this.drawMap()
+      this.drawHeatMap(heatPoints)
+    }, 100)
   },
   methods: {
     ...mapActions([
       'selectPlaces'
     ]),
-    drawMap (allDim, mapConstruct) {
-      if (mapConstruct) {
-        this.mapLayer = L.tileLayer('https://api.mapbox.com/styles/v1/renanbronchart/cjcjqu77v9elo2soyghb33i8h/tiles/256/{z}/{x}/{y}?access_token={accessToken}', {
-          maxZoom: 30,
-          minZoom: 10,
-          id: 'mapbox.streets',
-          accessToken: 'pk.eyJ1IjoicmVuYW5icm9uY2hhcnQiLCJhIjoiY2o5OW82cG1jMHdxZTMzcXRxbThnczZuMSJ9.zrdXIR4UBPh8195XRQPLtQ'
-        }).addTo(this.map)
+    drawHeatMap (heatPoints) {
+      const maxValue = d3.max(heatPoints, function (d) { return +d.properties.hint })
+      const geoData = []
 
-        this.drawPlaces()
-      }
-
-      const allDimTop = allDim.top(Infinity)
-      const maxValue = d3.max(allDimTop, function (d) { return +d.fields.population })
-
-      // HeatMap
-      var geoData = []
-
-      // a voir si toujours utiles
-      allDimTop.forEach(function (d) {
-        geoData.push([d.fields.geo_point_2d[0], d.fields.geo_point_2d[1], ((d.fields.population) / maxValue)])
+      heatPoints.forEach(function (d) {
+        geoData.push([d.geometry.coordinates[0], d.geometry.coordinates[1], ((d.properties.hint) / maxValue)])
       })
-
-      this.population = geoData
-
-      var heatData = typeof this.heatLayer._heat === 'undefined' ? [] : this.heatLayer._heat._data
-
-      var newGeoData = heatData.filter((el) => {
-        return geoData.indexOf(el) === -1
-      })
-
-      console.log(newGeoData, 'newGeoData')
 
       this.heatLayer = L.heatLayer(geoData, {
         radius: 15,
@@ -112,8 +112,39 @@ export default {
         minOpacity: 0.2,
         gradient: {0.1: '#42d5fc', 0.6: '#0027fd'}
       }).addTo(this.map)
+    },
+    redrawHeatMap (newState) {
+      let transitionPoints = new Promise((resolve, reject) => {
+        d3.select('.leaflet-heatmap-layer')
+          .transition()
+          .duration(700)
+          .style('opacity', '0')
+          .transition()
+          .duration(500)
+          .style('opacity', '1')
 
-      d3.select('.leaflet-heatmap-layer')
+        setTimeout(function () {
+          resolve('la promesse marche')
+        }, 550)
+      })
+
+      transitionPoints.then((val) => {
+        this.map.removeLayer(this.heatLayer)
+
+        this.drawHeatMap(newState)
+      }).catch(() => {
+        console.log('promesse rompue')
+      })
+    },
+    drawMap () {
+      L.tileLayer('https://api.mapbox.com/styles/v1/renanbronchart/cjcjqu77v9elo2soyghb33i8h/tiles/256/{z}/{x}/{y}?access_token={accessToken}', {
+        maxZoom: 30,
+        minZoom: 10,
+        id: 'mapbox.streets',
+        accessToken: 'pk.eyJ1IjoicmVuYW5icm9uY2hhcnQiLCJhIjoiY2o5OW82cG1jMHdxZTMzcXRxbThnczZuMSJ9.zrdXIR4UBPh8195XRQPLtQ'
+      }).addTo(this.map)
+
+      this.drawPlaces()
     },
     drawPlaces () {
       var self = this
@@ -122,7 +153,7 @@ export default {
       var svgPlaces = d3.select(this.map.getPanes().overlayPane).append('svg').style('z-index', '10000')
       var placesGroup = svgPlaces.append('g').attr('class', 'leaflet-zoom-hide')
 
-      var featureStation
+      var featurePlaces
 
       var transform = d3.geoTransform({point: projectPoint})
       var path = d3.geoPath().projection(transform)
@@ -131,20 +162,48 @@ export default {
 
       var radius = d3.scaleLinear()
         .domain([0, d3.max(dataPlaces.features, function (d) { return +d.properties.capacity })])
-        .range([4, 8])
+        .range([4, 6])
 
-      featureStation = placesGroup.selectAll('.places')
+      featurePlaces = placesGroup.selectAll('.place')
         .data(dataPlaces.features)
         .enter().append('path')
-        .attr('class', 'places')
+        .attr('class', 'place')
         .attr('id', function (d) { return d.properties.id })
         .attr('d', path.pointRadius(function (d) {
           return radius(d.properties.capacity)
         }))
         .style('fill', 'black')
         .style('opacity', '1')
-        .on('click', (d) => {
-          this.selectPlaces(d)
+        .on('mouseover', function (d) {
+          const strokeWidth = this.getBoundingClientRect().width / 2
+
+          d3.select(this).style('fill', 'white')
+          d3.select(this).style('stroke', 'black')
+          d3.select(this).style('stroke-width', strokeWidth)
+          d3.select(this).classed('place--hover', true)
+        })
+        .on('mouseout', function (d) {
+          if (!d3.select(this).classed('place--active') || !self.mapState.placeSelected) {
+            d3.select(this).style('fill', 'black')
+            d3.select(this).style('stroke-width', '0')
+            d3.select(this).classed('place--hover', false)
+          }
+        })
+        .on('click', function (d) {
+          const strokeWidth = this.getBoundingClientRect().width / 2
+          self.selectPlaces(d.properties)
+
+          d3.selectAll('.place')
+            .classed('place--active', false)
+            .classed('place--hover', false)
+            .style('fill', 'black')
+            .style('stroke-width', '0')
+
+          d3.select(this)
+            .classed('place--active', true)
+            .style('fill', 'white')
+            .style('stroke', 'black')
+            .style('stroke-width', strokeWidth)
         })
 
       this.map.on('zoom', reset)
@@ -171,9 +230,9 @@ export default {
 
         var newWidth = bottomRight[0] - topLeft[0]
         if (previousWidth !== newWidth) {
-          radius.range([4, 8 * (newWidth / rootWidth)])
+          radius.range([4, 6 * (newWidth / rootWidth)])
         }
-        featureStation.attr('d', path.pointRadius(function (d) {
+        featurePlaces.attr('d', path.pointRadius(function (d) {
           return radius(d.properties.capacity)
         }))
         previousWidth = newWidth
@@ -185,60 +244,107 @@ export default {
         this.stream.point(point.x, point.y)
       }
     }
+  },
+  components: {
+    Button
   }
 }
 </script>
 
-<style lang='scss' scoped>
-  .station {
-    stroke: black;
-  }
+<style lang='scss'>
+  @import '~stylesheets/helpers/_variables.scss';
+  @import '~stylesheets/components/_buttons.scss';
 
-  .line {
-    stroke-width: 5;
-    fill: none;
-    z-index: 1;
-  }
-
-  .box {
-    background: none repeat scroll 0 0 rgba(0, 0, 0, 0.8);
-    border-radius: 6px;
-    box-sizing: border-box;
-    display: none;
-    padding: 10px;
-    display: block;
-    color: white;
-  }
-
-  .box-title {
-    width: 100%;
-    font-weight: bold;
-    font-size: 150%;
-    border-bottom: 1px solid white;
-  }
-
-  .right-box {
-    position: absolute;
-    right: 15px;
-    top: 15px;
-    min-width: 300px;
-  }
-
-
-  #map__heat {
-    width: 100vw;
-    height: calc(100vh - 170px);
+  .map {
     position: relative;
-  }
+    .station {
+      stroke: black;
+    }
 
-  .events {
-    position: absolute;
-    bottom: 0;
-    left: 40px;
-  }
+    .line {
+      stroke-width: 5;
+      fill: none;
+      z-index: 1;
+    }
 
-  .leaflet-tile-pane {
-    z-index: -1;
+    .box {
+      background: none repeat scroll 0 0 rgba(0, 0, 0, 0.8);
+      border-radius: 6px;
+      box-sizing: border-box;
+      display: none;
+      padding: 10px;
+      display: block;
+      color: white;
+    }
+
+    .box-title {
+      width: 100%;
+      font-weight: bold;
+      font-size: 150%;
+      border-bottom: 1px solid white;
+    }
+
+    .right-box {
+      position: absolute;
+      right: 15px;
+      top: 15px;
+      min-width: 300px;
+    }
+
+
+    #map__heat {
+      width: 100vw;
+      height: calc(100vh - 170px);
+      position: relative;
+    }
+
+    .events {
+      position: absolute;
+      bottom: 0;
+      left: 40px;
+    }
+
+    .place--hover {
+      cursor: pointer;
+    }
+
+
+    .map__presetLink {
+      position: absolute;
+      top: 40px;
+      left: 40px;
+      z-index: 200000;
+    }
+
+    /* leaflet overide */
+    /****************************/
+    /****************************/
+    /****************************/
+    .leaflet-tile-pane {
+      z-index: -1;
+    }
+
+    .leaflet-touch .leaflet-control-layers,
+    .leaflet-touch .leaflet-bar {
+      border: 0;
+    }
+
+    .leaflet-control-zoom {
+      a.leaflet-control-zoom-in,
+      a.leaflet-control-zoom-out {
+        @extend .button;
+        @extend .button--round;
+        font-size: 18px;
+        line-height: 40px;
+        margin: 30px 30px 10px 30px;
+      }
+      a.leaflet-control-zoom-out {
+        margin-top: 0;
+      }
+    }
+
+    /****************************/
+    /****************************/
   }
 
 </style>

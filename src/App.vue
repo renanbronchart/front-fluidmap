@@ -6,6 +6,7 @@
     <main>
       <router-view></router-view>
     </main>
+    <Modal></Modal>
   </div>
 </template>
 
@@ -13,15 +14,20 @@
 import 'stylesheets/style.scss'
 import { mapActions } from 'vuex'
 
+import Modal from '@/components/elements/Modal.vue'
+
 export default {
   name: 'app',
-  created () {
+  mounted () {
     this.getPlaces()
   },
   methods: {
     ...mapActions([
       'getPlaces'
     ])
+  },
+  components: {
+    Modal
   }
 }
 </script>
@@ -31,6 +37,7 @@ export default {
 
 body {
   margin: 0;
+  background: $color-whisper;
 }
 
 #app {
@@ -42,6 +49,7 @@ body {
 
 main {
   padding: 80px 0 0 0;
+  min-height: calc(100vh);
 }
 
 header {

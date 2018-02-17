@@ -61,7 +61,7 @@
             :event="event"
             extraClass="event--block"
             @clickEvent="clickEvent(event)"
-            v-for="event in propertiesPlaceSelected.events"
+            v-for="event in getEventsByTimestamps"
           />
         </ul>
       </div>
@@ -70,7 +70,7 @@
 </template>
 
 <script>
-  import { mapState, mapActions } from 'vuex'
+  import { mapState, mapGetters, mapActions } from 'vuex'
 
   import TextInfos from '@/components/molecules/TextInfos.vue'
   import StatsHint from '@/components/elements/stats/StatsHint.vue'
@@ -107,13 +107,31 @@
     computed: {
       ...mapState([
         'map',
+        'planning',
         'places',
         'events'
       ]),
+      ...mapGetters([
+        'getTimestampsMap'
+      ]),
       propertiesPlaceSelected () {
-        return this.places.placeSelected.properties
+        return this.places.placeSelected
+      },
+      getEventsByTimestamps () {
+        const events = [...this.propertiesPlaceSelected.events]
+
+        if (events.length === 0) {
+          return []
+        }
+
+        return events.filter(event => {
+          const eventStart = event.dates[0]
+
+          return eventStart >= this.getTimestampsMap[0] && eventStart <= this.getTimestampsMap[1]
+        })
       },
       getTitleAside () {
+        console.log(this.propertiesPlaceSelected, 'place selected properties')
         const placeName = this.propertiesPlaceSelected.name
 
         return this.map.eventSelected ? this.events.eventSelected.name : placeName
@@ -122,7 +140,7 @@
         if (this.map.eventSelected) {
           return 'Stations à proximité'
         } else {
-          return `${this.propertiesPlaceSelected.events.length} évènements dans cette tranche`
+          return `${this.getEventsByTimestamps.length} évènements dans cette tranche`
         }
       },
       getRoute () {

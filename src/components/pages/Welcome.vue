@@ -1,40 +1,24 @@
 <template>
-  <div class="welcomePage">
-    <Modal open="true" noClose="true">
-      <h1>Bienvenue sur Fluidmap !</h1>
-      <p class="text--xs">Voulez vous que nous vous montrions le chemin ?</p>
-      <div class="modal__button">
-        <Button
-          label="Plus tard"
-          extraClass="button--ghost"
-        />
-        <Button
-          label="Je vous suis"
-          linkName="OnBoard"
-          :linkParams="linkParams"
-          linkTitle="Lien vers le onBoard"
-        />
-      </div>
-    </Modal>
-  </div>
+  <div class="welcomePage"></div>
 </template>
 
 <script>
-  import Modal from '@/components/elements/Modal.vue'
-  import Button from '@/components/molecules/Button.vue'
+  import { mapActions } from 'vuex'
 
   export default {
     data () {
-      return {
-        linkParams: {
-          id: 1
-        }
-      }
+      return {}
     },
-    methods: {},
-    components: {
-      Modal,
-      Button
+    mounted () {
+      this.openModal({
+        component: 'ModalWelcome',
+        noClose: true
+      }, 5000)
+    },
+    methods: {
+      ...mapActions([
+        'openModal'
+      ])
     }
   }
 </script>

@@ -3,7 +3,7 @@
     <Notifications :count='count' v-if="count > 0" extraClass="tooltip__notification"/>
     <p class="tooltip__content text--xs">{{text}}</p>
     <Button
-      extraClass="button--ghost tooltip__button"
+      extraClass="button--ghost button--primary tooltip__button"
       iconName="arrow_forward"
       :label="labelButton"
       v-if="labelButton"

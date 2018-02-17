@@ -1,4 +1,5 @@
-.material-icons {
+.material-icons,
+.icn {
   &.icn__xs {
     font-size: 1rem;
   }
@@ -22,4 +23,127 @@
   &.icn__xxl {
     font-size: 4rem;
   }
+}
+
+
+.icn {
+  line-height: 1;
+  font-size: $font-size-icon;
+  font-family: $font-family-icon;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.icn-badminton {
+  @include icon('\e900');
+}
+
+
+.icn-triathlon {
+  @include icon('\e901');
+}
+
+
+.icn-trampoline {
+  @include icon('\e902');
+}
+
+
+.icn-volleyball {
+  @include icon('\e903');
+}
+
+
+.icn-tirarc {
+  @include icon('\e904');
+}
+
+
+.icn-tir {
+  @include icon('\e905');
+}
+
+
+.icn-tennis {
+  @include icon('\e906');
+}
+
+
+.icn-taekwondo {
+  @include icon('\e907');
+}
+
+
+.icn-equitation {
+  @include icon('\e908');
+}
+
+
+.icn-pentathlon {
+  @include icon('\e909');
+}
+
+
+.icn-lutte {
+  @include icon('\e90a');
+}
+
+
+.icn-judo {
+  @include icon('\e90b');
+}
+
+
+.icn-hockey {
+  @include icon('\e90c');
+}
+
+
+.icn-pinpong {
+  @include icon('\e90d');
+}
+
+
+.icn-handball {
+  @include icon('\e90e');
+}
+
+
+.icn-halterophilie {
+  @include icon('\e90f');
+}
+
+
+.icn-gym {
+  @include icon('\e910');
+}
+
+
+.icn-football {
+  @include icon('\e911');
+}
+
+
+.icn-escrime {
+  @include icon('\e912');
+}
+
+
+.icn-velo {
+  @include icon('\e913');
+}
+
+
+.icn-boxe {
+  @include icon('\e914');
+}
+
+
+.icn-basketball {
+  @include icon('\e915');
+}
+
+
+.icn-athletisme {
+  @include icon('\e916');
 }
