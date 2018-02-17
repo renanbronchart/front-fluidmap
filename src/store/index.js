@@ -4,6 +4,7 @@ import Vuex from 'vuex'
 
 import * as actions from './actions.js'
 
+import sliders from './modules/sliders.js'
 import events from './modules/events.js'
 import places from './modules/places.js'
 import planning from './modules/planning.js'
@@ -21,6 +22,7 @@ Vue.use(Vuex)
 const store = new Vuex.Store({
   actions,
   modules: {
+    sliders,
     planning,
     events,
     places,

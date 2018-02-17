@@ -17,7 +17,7 @@
 <script>
   import { mapGetters, mapActions } from 'vuex'
   // import dates from '../../../static/data/timestamps.js'
-  import sliders from '../../../static/data/slider.js'
+  // import sliders from '../../../static/data/slider.js'
   import _ from 'lodash'
 
   import vueSlider from 'vue-slider-component'
@@ -28,10 +28,11 @@
       return {
         dayValue: '',
         hoursValue: '',
-        sliders
+        sliders: []
       }
     },
     created () {
+      this.sliders = this.getConfigSliders
       this.initSlider()
       this.initDates(this.getAllDays[0], this.getAllSchedules[0])
     },
@@ -39,7 +40,8 @@
       ...mapGetters([
         'getAllTimestamps',
         'getAllDays',
-        'getAllSchedules'
+        'getAllSchedules',
+        'getConfigSliders'
       ])
     },
     methods: {
