@@ -11,15 +11,13 @@
 </template>
 
 <script>
+import HTTP from '@/utils/httpRequest.js'
 import { mapState, mapActions } from 'vuex'
 import Button from '@/components/molecules/Button.vue'
 
 import * as d3 from 'd3'
 import L from 'leaflet'
 import * as leafletHeat from '@/assets/js/leaflet-heat'
-import dc from 'dc'
-import crossfilter from 'crossfilter'
-import * as d3Queue from 'd3-queue'
 
 console.log(leafletHeat, 'leaflet')
 
@@ -63,11 +61,9 @@ export default {
     }
   },
   mounted () {
-    var self = this
-
-    d3Queue.queue()
-      .defer(d3.json, '/static/data/densite.json')
-      .await(makeGraphs)
+    HTTP.get('heat/1722679201').then(({data}) => {
+      this.drawMap(data.features)
+    })
 
     this.map = L.map('map__heat', {
       center: [48.853, 2.333],
@@ -75,50 +71,29 @@ export default {
     })
 
     this.map.zoomControl.setPosition('bottomright')
-
-    function makeGraphs (error, recordsJson) {
-      if (error) {
-        console.log('error')
-      }
-      // Clean data
-      var records = [...recordsJson]
-      // Create a Crossfilter instance
-      var ndx = crossfilter(records)
-
-      // Define Dimensions
-      var allDim = ndx.dimension(function (d) { return d.fields })
-
-      // Draw Map
-      self.drawMap(allDim, true)
-
-      dc.renderAll()
-    }
   },
   methods: {
     ...mapActions([
       'selectPlaces'
     ]),
-    drawMap (allDim, mapConstruct) {
-      if (mapConstruct) {
-        this.mapLayer = L.tileLayer('https://api.mapbox.com/styles/v1/renanbronchart/cjcjqu77v9elo2soyghb33i8h/tiles/256/{z}/{x}/{y}?access_token={accessToken}', {
-          maxZoom: 30,
-          minZoom: 10,
-          id: 'mapbox.streets',
-          accessToken: 'pk.eyJ1IjoicmVuYW5icm9uY2hhcnQiLCJhIjoiY2o5OW82cG1jMHdxZTMzcXRxbThnczZuMSJ9.zrdXIR4UBPh8195XRQPLtQ'
-        }).addTo(this.map)
+    drawMap (heatPoints) {
+      this.mapLayer = L.tileLayer('https://api.mapbox.com/styles/v1/renanbronchart/cjcjqu77v9elo2soyghb33i8h/tiles/256/{z}/{x}/{y}?access_token={accessToken}', {
+        maxZoom: 30,
+        minZoom: 10,
+        id: 'mapbox.streets',
+        accessToken: 'pk.eyJ1IjoicmVuYW5icm9uY2hhcnQiLCJhIjoiY2o5OW82cG1jMHdxZTMzcXRxbThnczZuMSJ9.zrdXIR4UBPh8195XRQPLtQ'
+      }).addTo(this.map)
 
-        this.drawPlaces()
-      }
+      this.drawPlaces()
 
-      const allDimTop = allDim.top(Infinity)
-      const maxValue = d3.max(allDimTop, function (d) { return +d.fields.population })
+      const maxValue = d3.max(heatPoints, function (d) { return +d.properties.hint })
 
       // HeatMap
       var geoData = []
 
-      // a voir si toujours utiles
-      allDimTop.forEach(function (d) {
-        geoData.push([d.fields.geo_point_2d[0], d.fields.geo_point_2d[1], ((d.fields.population) / maxValue)])
+      // a voir si toujours utiles, peut etre mettre en base directement le format
+      heatPoints.forEach(function (d) {
+        geoData.push([d.geometry.coordinates[0], d.geometry.coordinates[1], ((d.properties.hint) / maxValue)])
       })
 
       this.population = geoData
