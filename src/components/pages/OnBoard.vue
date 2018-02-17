@@ -15,7 +15,7 @@
 
 <script>
   import Tooltip from '@/components/elements/Tooltip.vue'
-  import OverlayHole from '@/components/onBoard/overlayHole.vue'
+  import OverlayHole from '@/components/onBoard/OverlayHole.vue'
 
   export default {
     data () {
