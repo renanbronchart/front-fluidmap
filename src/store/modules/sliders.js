@@ -137,18 +137,44 @@ const actions = {
       refSlider,
       data
     })
+  },
+  setValueSlider ({commit}, {refSlider, value}) {
+    commit(types.SET_VALUE_SLIDER, {
+      refSlider,
+      value
+    })
+  },
+  setValueSliders ({commit}, {valueDays, valueHours}) {
+    commit(types.SET_VALUE_SLIDERS, {
+      valueDays,
+      valueHours
+    })
   }
 }
 
 const mutations = {
   [types.SET_NEW_DATA_SLIDER] (state, {refSlider, data}) {
-    const slider = state.config.find(conf => {
-      return conf.ref === refSlider
-    })
-    const indexSlider = state.config.indexOf(slider)
+    const indexSlider = retrieveIndexSlider(state.config, refSlider)
 
     state.config[indexSlider].slider.data = data
+  },
+  [types.SET_VALUE_SLIDER] (state, {refSlider, value}) {
+    const indexSlider = retrieveIndexSlider(state.config, refSlider)
+
+    state.config[indexSlider].slider.value = value
+  },
+  [types.SET_VALUE_SLIDERS] (state, {valueDays, valueHours}) {
+    state.config[0].slider.value = valueDays
+    state.config[1].slider.value = valueHours
   }
+}
+
+const retrieveIndexSlider = function retrieveIndexSlider (configs, ref) {
+  const object = configs.find(conf => {
+    return conf.ref === ref
+  })
+
+  return configs.indexOf(object)
 }
 
 export default {

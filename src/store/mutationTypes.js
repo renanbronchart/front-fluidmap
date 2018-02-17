@@ -35,3 +35,5 @@ export const SET_NEW_HOURS = 'SET_NEW_HOURS'
 
 // sliders
 export const SET_NEW_DATA_SLIDER = 'SET_NEW_DATA_SLIDER'
+export const SET_VALUE_SLIDER = 'SET_VALUE_SLIDER'
+export const SET_VALUE_SLIDERS = 'SET_VALUE_SLIDERS'

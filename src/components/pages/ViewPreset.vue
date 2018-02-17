@@ -172,6 +172,8 @@
 
   import { mapState, mapGetters, mapActions } from 'vuex'
 
+  import mapDate from '@/utils/manipulateDate.js'
+
   export default {
     data () {
       return {
@@ -356,7 +358,8 @@
         'removeCurrentPreset',
         'switchEditionMode',
         'selectPlaces',
-        'selectEvent'
+        'selectEvent',
+        'setValueSliders'
       ]),
       showOrHide (section) {
         const showMoreLabel = this[section]['showMoreLabel']
@@ -381,6 +384,9 @@
         // Faire une action dans le store. elle modifie le state des presets et push sur l'api
       },
       updatePreset () {
+        const valueDays = mapDate.getDateDisplay(this.preset.map.dates[0])
+        const valueHours = mapDate.getSchedulesDisplay(this.preset.map.dates[0])
+
         if (this.getRouteName === 'presetId') {
           this.switchEditionMode(true)
         }
@@ -399,7 +405,11 @@
             this.$router.push({name: 'Home'})
           })
         }
-        // place selected
+
+        this.setValueSliders({
+          valueDays,
+          valueHours
+        })
       }
     },
     components: {
