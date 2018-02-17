@@ -62,7 +62,8 @@
         'getSchedulesValue',
         'getEventSelected',
         'getPlaceSelected',
-        'isPlaceSelected'
+        'isPlaceSelected',
+        'isEventSelected'
       ]),
       getLinkParams () {
         return {id: 0} // regarder les presets de l'utilisateur courant, ou faire une requete de preset.
@@ -86,7 +87,7 @@
       setNormalPreset () {
         const dates = this.planning.map.dates
 
-        if (this.isPlaceSelected) {
+        if (this.isEventSelected) {
           const event = this.getEventSelected
 
           this.setNewEventPreset({

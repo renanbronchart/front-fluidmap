@@ -162,6 +162,8 @@
 </template>
 
 <script>
+  import HTTP from '@/utils/httpRequest.js'
+
   import Button from '@/components/molecules/Button.vue'
   import TextInfos from '@/components/molecules/TextInfos.vue'
   import Card from '@/components/elements/Card.vue'
@@ -310,7 +312,7 @@
         return this.preset.type === 'place'
       },
       isEventPreset () {
-        return this.preset.type === 'place'
+        return this.preset.type === 'event'
       },
       isNewPreset () {
         return this.$route.name === 'newPreset'
@@ -352,7 +354,9 @@
         'saveNewPreset',
         'removeNewPreset',
         'removeCurrentPreset',
-        'switchEditionMode'
+        'switchEditionMode',
+        'selectPlaces',
+        'selectEvent'
       ]),
       showOrHide (section) {
         const showMoreLabel = this[section]['showMoreLabel']
@@ -381,7 +385,21 @@
           this.switchEditionMode(true)
         }
 
-        this.$router.push({name: 'Home'})
+        if (this.isEventPreset) {
+          HTTP.get(`event/${this.preset.eventsId[0]}`).then(({data}) => {
+            this.selectEvent(data)
+
+            this.$router.push({name: 'Home'})
+          })
+        } else {
+          // enlever peut être la requete et rechercher dans nos places du store
+          HTTP.get(`event/place/${this.preset.place_id}`).then(({data}) => {
+            this.selectPlaces(data.features[0].properties)
+
+            this.$router.push({name: 'Home'})
+          })
+        }
+        // place selected
       }
     },
     components: {

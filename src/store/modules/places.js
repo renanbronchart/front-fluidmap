@@ -4,33 +4,23 @@ import HTTP from '@/utils/httpRequest.js'
 const state = {
   places: [],
   placeSelected: {
-    'type': '',
-    'properties': {
-      'id': '',
-      'name': '',
-      'capacity': '',
-      'stationsClosest': [
-        {
-          'id': 0,
-          'name': '',
-          'hint': 0
-        }
-      ],
-      'events': [],
-      'totalHints': [
-        {
-          'timestamp': 0,
-          'hint': 0
-        }
-      ]
-    },
-    'geometry': {
-      'type': 'Point',
-      'coordinates': [
-        48.9292771,
-        2.24777169999993
-      ]
-    }
+    'id': '',
+    'name': '',
+    'capacity': '',
+    'stationsClosest': [
+      {
+        'id': 0,
+        'name': '',
+        'hint': 0
+      }
+    ],
+    'events': [],
+    'totalHints': [
+      {
+        'timestamp': 0,
+        'hint': 0
+      }
+    ]
   }
 }
 
@@ -81,7 +71,7 @@ const findPlaceSelected = function findPlaceSelected (placeId, places) {
     return parseFloat(place.properties.id) === parseFloat(placeId)
   })
 
-  return placeSelected
+  return placeSelected.properties
 }
 
 export default {

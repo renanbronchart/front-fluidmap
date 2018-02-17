@@ -115,7 +115,7 @@
         'getTimestampsMap'
       ]),
       propertiesPlaceSelected () {
-        return this.places.placeSelected.properties
+        return this.places.placeSelected
       },
       getEventsByTimestamps () {
         const events = [...this.propertiesPlaceSelected.events]
@@ -131,6 +131,7 @@
         })
       },
       getTitleAside () {
+        console.log(this.propertiesPlaceSelected, 'place selected properties')
         const placeName = this.propertiesPlaceSelected.name
 
         return this.map.eventSelected ? this.events.eventSelected.name : placeName

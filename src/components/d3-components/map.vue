@@ -188,7 +188,7 @@ export default {
         })
         .on('click', function (d) {
           const strokeWidth = this.getBoundingClientRect().width / 2
-          self.selectPlaces(d)
+          self.selectPlaces(d.properties)
 
           d3.selectAll('.place')
             .classed('place--active', false)

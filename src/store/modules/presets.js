@@ -68,16 +68,28 @@ const actions = {
     })
   },
   setNewPlacePreset ({commit}, {place, dates}) { // en supprimer un des deux, refacto, rendre generique
-    const propertiesPlace = place.properties
+    const propertiesPlace = place
 
     const name = propertiesPlace.name
     const newdates = [...dates]
     const newdatesMap = `${newdates[0]}, ${newdates[0] + 7200}`.split(', ')
     const placeId = propertiesPlace.id
     const extanded = parseFloat(newdates[1]) !== parseFloat(newdatesMap[1])
-    const eventsId = propertiesPlace.events.map(event => {
-      return event.id
-    })
+    let eventsId
+
+    if (propertiesPlace.events.length === 0) {
+      eventsId = []
+    } else {
+      eventsId = propertiesPlace.events
+        .filter(event => {
+          const eventStart = event.dates[0]
+
+          return eventStart >= newdates[0] && eventStart <= newdates[1]
+        })
+        .map(event => {
+          return event.id
+        })
+    }
 
     const newPreset = {
       name,
