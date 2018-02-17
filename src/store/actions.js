@@ -18,3 +18,15 @@ export const selectPreset = ({ commit }, preset) => {
     presetSelected: preset
   })
 }
+
+export const setNewDate = ({commit}, {date, schedules}) => {
+  commit(types.SET_NEW_DATE, {
+    date,
+    schedules
+  })
+
+  commit(types.SET_EXPANDED_DATE, {
+    date,
+    schedules
+  })
+}

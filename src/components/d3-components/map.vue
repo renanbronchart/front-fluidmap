@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import HTTP from '@/utils/httpRequest.js'
+// import HTTP from '@/utils/httpRequest.js'
 import { mapState, mapActions } from 'vuex'
 import Button from '@/components/molecules/Button.vue'
 
@@ -58,12 +58,24 @@ export default {
           .style('stroke-width', '0')
           .classed('place--hover', false)
       }
+    },
+    'mapState.dataHeat' (newState, oldState) {
+      // console.log(this.heatLayer, 'this.heatLayer')
+      // this.heatLayer.redraw()
+      // this.map.removeLayer(layer)
+      this.redrawHeatMap(newState)
     }
   },
   mounted () {
-    HTTP.get('heat/1722679201').then(({data}) => {
-      this.drawMap(data.features)
-    })
+    // HTTP.get('heat/1722679201').then(({data}) => {
+    //   console.log('*********************')
+    //   console.log(this.mapState.dataHeat, 'data heat')
+    //   console.log('*********************')
+    //   this.drawMap(this.mapState.dataHeat)
+    // })
+    // const heats = this.mapState.dataHeat
+    // console.log(heats, 'this.mapState.dataHeatthis.mapState.dataHeatthis.mapState.dataHeatthis.mapState.dataHeatthis.mapState.dataHeat')
+    // this.drawMap(heats)
 
     this.map = L.map('map__heat', {
       center: [48.853, 2.333],
@@ -71,40 +83,25 @@ export default {
     })
 
     this.map.zoomControl.setPosition('bottomright')
+
+    setTimeout(() => {
+      const heatPoints = this.mapState.dataHeat
+
+      this.drawMap()
+      this.drawHeatMap(heatPoints)
+    }, 100)
   },
   methods: {
     ...mapActions([
       'selectPlaces'
     ]),
-    drawMap (heatPoints) {
-      this.mapLayer = L.tileLayer('https://api.mapbox.com/styles/v1/renanbronchart/cjcjqu77v9elo2soyghb33i8h/tiles/256/{z}/{x}/{y}?access_token={accessToken}', {
-        maxZoom: 30,
-        minZoom: 10,
-        id: 'mapbox.streets',
-        accessToken: 'pk.eyJ1IjoicmVuYW5icm9uY2hhcnQiLCJhIjoiY2o5OW82cG1jMHdxZTMzcXRxbThnczZuMSJ9.zrdXIR4UBPh8195XRQPLtQ'
-      }).addTo(this.map)
-
-      this.drawPlaces()
-
+    drawHeatMap (heatPoints) {
       const maxValue = d3.max(heatPoints, function (d) { return +d.properties.hint })
+      const geoData = []
 
-      // HeatMap
-      var geoData = []
-
-      // a voir si toujours utiles, peut etre mettre en base directement le format
       heatPoints.forEach(function (d) {
         geoData.push([d.geometry.coordinates[0], d.geometry.coordinates[1], ((d.properties.hint) / maxValue)])
       })
-
-      this.population = geoData
-
-      var heatData = typeof this.heatLayer._heat === 'undefined' ? [] : this.heatLayer._heat._data
-
-      var newGeoData = heatData.filter((el) => {
-        return geoData.indexOf(el) === -1
-      })
-
-      console.log(newGeoData, 'newGeoData')
 
       this.heatLayer = L.heatLayer(geoData, {
         radius: 15,
@@ -115,8 +112,39 @@ export default {
         minOpacity: 0.2,
         gradient: {0.1: '#42d5fc', 0.6: '#0027fd'}
       }).addTo(this.map)
+    },
+    redrawHeatMap (newState) {
+      let transitionPoints = new Promise((resolve, reject) => {
+        d3.select('.leaflet-heatmap-layer')
+          .transition()
+          .duration(700)
+          .style('opacity', '0')
+          .transition()
+          .duration(500)
+          .style('opacity', '1')
 
-      d3.select('.leaflet-heatmap-layer')
+        setTimeout(function () {
+          resolve('la promesse marche')
+        }, 550)
+      })
+
+      transitionPoints.then((val) => {
+        this.map.removeLayer(this.heatLayer)
+
+        this.drawHeatMap(newState)
+      }).catch(() => {
+        console.log('promesse rompue')
+      })
+    },
+    drawMap () {
+      L.tileLayer('https://api.mapbox.com/styles/v1/renanbronchart/cjcjqu77v9elo2soyghb33i8h/tiles/256/{z}/{x}/{y}?access_token={accessToken}', {
+        maxZoom: 30,
+        minZoom: 10,
+        id: 'mapbox.streets',
+        accessToken: 'pk.eyJ1IjoicmVuYW5icm9uY2hhcnQiLCJhIjoiY2o5OW82cG1jMHdxZTMzcXRxbThnczZuMSJ9.zrdXIR4UBPh8195XRQPLtQ'
+      }).addTo(this.map)
+
+      this.drawPlaces()
     },
     drawPlaces () {
       var self = this

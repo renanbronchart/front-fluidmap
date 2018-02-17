@@ -1,6 +1,9 @@
+import HTTP from '@/utils/httpRequest.js'
 import * as types from '@/store/mutationTypes.js'
+import mapDate from '@/utils/manipulateDate.js'
 
 const state = {
+  dataHeat: [],
   placeSelected: false,
   eventSelected: false
 }
@@ -20,6 +23,14 @@ const actions = {
 }
 
 const mutations = {
+  [types.SET_NEW_DATE] (state, {date, schedules}) {
+    const dates = mapDate.getdates(date, schedules)
+    const timestampStart = parseFloat(dates[0]) + 1
+
+    HTTP.get(`heat/${timestampStart}`).then(({data}) => {
+      state.dataHeat = data.features
+    })
+  },
   [types.SELECT_PLACE] (state, {placeSelected}) {
     state.placeSelected = true
     state.eventSelected = false
