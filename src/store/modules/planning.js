@@ -20,7 +20,8 @@ const state = {
 
 const getters = {
   getDayValue: state => state.map.date,
-  getSchedulesValue: state => state.map.schedules
+  getSchedulesValue: state => state.map.schedules,
+  getTimestampsMap: state => state.map.dates
 }
 
 const actions = {

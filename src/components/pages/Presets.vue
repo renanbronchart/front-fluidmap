@@ -51,7 +51,8 @@
       ...mapActions([
         'getPresets',
         'selectPreset',
-        'deletePreset'
+        'deletePreset',
+        'setCurrentPreset'
       ]),
       update (preset) {
         this.selectPreset(preset)
@@ -61,6 +62,7 @@
         this.deletePreset(preset)
       },
       showPreset (preset) {
+        this.setCurrentPreset(preset)
         this.$router.push({name: 'presetId', params: {id: preset.id}})
       }
     },

@@ -34,10 +34,16 @@ const state = {
 
 const getters = {
   getCurrentPreset: state => state.currentPreset,
-  getNewPreset: state => state.newPreset
+  getNewPreset: state => state.newPreset,
+  isEditionMode: state => state.edition
 }
 
 const actions = {
+  switchEditionMode ({commit}, boolean) {
+    commit(types.SWITCH_EDITION_MODE, {
+      edition: boolean
+    })
+  },
   removeNewPreset ({commit}) {
     commit(types.REMOVE_NEW_PRESET)
   },
@@ -68,7 +74,7 @@ const actions = {
       newPreset
     })
   },
-  setNewPlacePreset ({commit}, {place, dates}) {
+  setNewPlacePreset ({commit}, {place, dates}) { // en supprimer un des deux, refacto, rendre generique
     const propertiesPlace = place.properties
 
     const name = propertiesPlace.name
@@ -96,6 +102,14 @@ const actions = {
       newPreset
     })
   },
+  removeCurrentPreset ({commit}) {
+    commit(types.REMOVE_CURRENT_PRESET)
+  },
+  setCurrentPreset ({commit}, preset) {
+    commit(types.SET_CURRENT_PRESET, {
+      currentPreset: preset
+    })
+  },
   getPresets ({commit}) {
     commit(types.GET_PRESETS, {
       presets: jsonPresets
@@ -109,6 +123,9 @@ const actions = {
 }
 
 const mutations = {
+  [types.SWITCH_EDITION_MODE] (state, {edition}) {
+    state.edition = edition
+  },
   [types.SAVE_NEW_PRESET] (state, {preset}) {
     state.presets.unshift(preset)
   },
@@ -117,6 +134,12 @@ const mutations = {
   },
   [types.SET_NEW_PRESET] (state, {newPreset}) {
     state.newPreset = newPreset
+  },
+  [types.SET_CURRENT_PRESET] (state, {currentPreset}) {
+    state.currentPreset = currentPreset
+  },
+  [types.REMOVE_CURRENT_PRESET] (state) {
+    state.currentPreset = {}
   },
   [types.GET_PRESETS] (state, {presets}) {
     state.presets = presets

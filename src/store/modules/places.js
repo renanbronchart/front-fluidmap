@@ -16,17 +16,7 @@ const state = {
           'hint': 0
         }
       ],
-      'events': [
-        {
-          'id': '',
-          'name': '',
-          'date': '',
-          'hour': '',
-          'place_name': '',
-          'geo_point_2d': [48.754542648932755, 1.834361843330175], // mêmes que celles des places
-          'place_id': 0
-        }
-      ],
+      'events': [],
       'totalHints': [
         {
           'timestamp': 0,

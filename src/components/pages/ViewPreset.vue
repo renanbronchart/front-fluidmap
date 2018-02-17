@@ -168,7 +168,7 @@
   import TableComponent from '@/components/elements/TableComponent.vue'
   import EventInfo from '@/components/elements/events/EventInfo.vue'
 
-  import { mapState, mapGetters } from 'vuex'
+  import { mapState, mapGetters, mapActions } from 'vuex'
 
   export default {
     data () {
@@ -300,8 +300,12 @@
       ]),
       ...mapGetters([
         'getCurrentPreset',
-        'getNewPreset'
+        'getNewPreset',
+        'isEditionMode'
       ]),
+      getRouteName () {
+        return this.$route.name
+      },
       isPlacePreset () {
         return this.preset.type === 'place'
       },
@@ -316,11 +320,12 @@
       }
     },
     mounted () {
-      this.preset = this.$route.name === 'newPreset' ? this.getNewPreset : this.getCurrentPreset
+      this.preset = this.getRouteName === 'newPreset' ? this.getNewPreset : this.getCurrentPreset
 
       if (typeof this.preset.name === 'undefined') {
         this.$router.push({name: 'Home'})
       }
+
       // Si eventsId.length > 1 ,
       // alors requete api de currentPreset.place_id ou chercher par l'id avec tous les places
       // + requete events place_id dans la tranche horaire : `event/place/${currentPreset.place_id}/events?time`
@@ -335,10 +340,19 @@
 
       // après avoir reçu tous les hints, mettre le graph en place
     },
-    destroy () {
+    destroyed () {
+      this.removeNewPreset()
 
+      if (!this.isEditionMode) {
+        this.removeCurrentPreset()
+      }
     },
     methods: {
+      ...mapActions([
+        'removeNewPreset',
+        'removeCurrentPreset',
+        'switchEditionMode'
+      ]),
       showOrHide (section) {
         const showMoreLabel = this[section]['showMoreLabel']
 
@@ -362,10 +376,11 @@
         // Faire une action dans le store. elle modifie le state des presets et push sur l'api
       },
       updatePreset () {
-        alert('updatePreset')
+        if (this.getRouteName === 'presetId') {
+          this.switchEditionMode(true)
+        }
 
-        // Retourner sur la carte, ensuite quand on refait une analyse et qu'on fait la
-        // demande de sauvegarder (si il y a un id) ou de mettre en favori (si il n'y en a pas)
+        this.$router.push({name: 'Home'})
       }
     },
     components: {
