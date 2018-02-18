@@ -1,7 +1,7 @@
 <template>
   <div class="tooltip" :class="extraClass">
-    <Notifications :count='count' v-if="count > 0" extraClass="tooltip__notification"/>
-    <p class="tooltip__content text--xs">{{text}}</p>
+    <Notifications :count='count' v-if="count > 0" extraClass="tooltip__notification text--bold"/>
+    <p class="tooltip__content">{{text}}</p>
     <Button
       extraClass="button--ghost button--primary tooltip__button"
       iconName="arrow_forward"
@@ -50,8 +50,9 @@
   }
 </script>
 
-<style lang="scss" scoped>
+<style lang='scss' scoped>
   @import '~stylesheets/helpers/_variables.scss';
+  @import '~stylesheets/helpers/mixins/style.scss';
 
   .tooltip {
     display: flex;
@@ -64,7 +65,7 @@
 
     &:before {
       content:'';
-      display:block;
+      display: block;
       width: 0;
       height: 0;
       position: absolute;
@@ -106,16 +107,20 @@
       }
     }
 
-    &.tooltip--map {
-      top: 35vh;
-      left: 35%;
-      transform: translateY(-50%);
+    &.tooltip--left {
+      &:before {
+        right: 100%;
+        left: auto;
+        top: 50%;
+        transform: translateY(-50%);
+        border-top: 8px solid transparent;
+        border-bottom: 8px solid transparent;
+        border-left: 8px solid transparent;
+        border-right: 8px solid white;
+      }
     }
 
-    &.tooltip--aside {
-      top: 50%;
-      right: 550px;
-      transform: translateY(-50%);
+    &.tooltip--right {
       &:before {
         left: 100%;
         top: 50%;
@@ -127,9 +132,44 @@
       }
     }
 
+    &.tooltip--map {
+      bottom: 40vh;
+      left: 35%;
+    }
+
+    &.tooltip--aside {
+      top: 50%;
+      right: 550px;
+      transform: translateY(-50%);
+    }
+
     &.tooltip--list {
-      bottom: 480px;
-      left: 150px;
+      bottom: 120px;
+      left: 400px;
+      &:before {
+        right: 100%;
+        left: auto;
+        top: 50%;
+        transform: translateY(-50%);
+        border-top: 8px solid transparent;
+        border-bottom: 8px solid transparent;
+        border-left: 8px solid transparent;
+        border-right: 8px solid white;
+      }
+      @include xlargeHeight {
+        bottom: 480px;
+        left: 150px;
+        &:before {
+          right: auto;
+          left: 8px;
+          top: 100%;
+          transform: translateY(0);
+          border-top: 8px solid $color-caribbean-green;
+          border-bottom: 8px solid transparent;
+          border-right: 8px solid transparent;
+          border-left: 8px solid transparent;
+        }
+      }
     }
   }
 

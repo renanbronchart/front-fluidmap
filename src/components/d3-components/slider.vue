@@ -109,6 +109,7 @@
     align-items: center;
     position: relative;
     background: white;
+    border-top: 1px solid $gray-lighter;
     padding: 0 20px;
   }
 

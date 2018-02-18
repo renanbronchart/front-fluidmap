@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <header>
+    <header class="header">
       <span>Vue.js PWA</span>
     </header>
     <main>
@@ -50,6 +50,10 @@ body {
 main {
   padding: 80px 0 0 0;
   min-height: calc(100vh);
+}
+
+.header {
+  border-bottom: 1px solid $gray-lighter;
 }
 
 header {
