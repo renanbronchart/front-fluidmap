@@ -1,5 +1,6 @@
-.body {
+body {
   @include font-size(0.8rem);
+  font-family: $font-family-base;
 }
 
 h1, h2, h3, h4, h5, h6, p, a {
@@ -79,6 +80,10 @@ span {
   @include font-size(1rem); // 12px
 }
 
+.text--sm {
+  @include font-size(0.88rem); // 12px
+}
+
 .text--xs {
   @include font-size(0.75rem); // 12px
 }
@@ -107,6 +112,10 @@ a, a:visited {
 
 .text--bold {
   font-weight: 700;
+}
+
+.text--normal {
+  font-weight: normal;
 }
 
 .text--center {
