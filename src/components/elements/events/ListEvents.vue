@@ -1,7 +1,7 @@
 <template>
   <div class="panel" :class="onBoardPanel ? 'panel--onboard' : ''">
     <div class="panel__heading" @click.prevent='toggle'>
-      <h5 class="panel__title text--xs">Évenements dans cette période</h5>
+      <p class="panel__title text--xs">Évenements dans cette période</p>
       <i class="material-icons" v-if='!panelOpen'>arrow_drop_down</i>
       <i class="material-icons" v-else>arrow_drop_up</i>
     </div>
@@ -11,7 +11,7 @@
           v-for="event in events.eventsSchedules"
           :event="event"
           @clickEvent="clickEvent(event)"
-          extraClass="event--timeline"/>
+          :extraClass="events.eventsSchedules.length > 1 ? 'event--timeline' : 'event--timeline event--alone'"/>
       </ul>
     </div>
   </div>
@@ -125,7 +125,7 @@
   .event {
     position: relative;
     display: block;
-    &:after {
+/*    &:after {
       content: ' ';
       width: 1px;
       height: 100%;
@@ -134,7 +134,7 @@
       left: 19px;
       background: $color-blue-ribbon;
     }
-
+*/
     &:first-child {
       margin: 25px 0 0 0;
       &:after {
