@@ -1,64 +1,82 @@
 export default [
   {
-    '1': '#ffcd00'
+    count: '1',
+    color: '#ffcd00'
   },
   {
-    '2': '#003ca6'
+    count: '2',
+    color: '#003ca6'
   },
   {
-    '3': '#837902'
+    count: '3',
+    color: '#837902'
   },
   {
-    '3bis': '#6ec4e8'
+    count: '3bis',
+    color: '#6ec4e8'
   },
   {
-    '4': '#be418d'
+    count: '4',
+    color: '#be418d'
   },
   {
-    '5': '#ff7e2e'
+    count: '5',
+    color: '#ff7e2e'
   },
   {
-    '6': '#6eca97'
+    count: '6',
+    color: '#6eca97'
   },
   {
-    '7': '#fa9aba'
+    count: '7',
+    color: '#fa9aba'
   },
   {
-    '7bis': '#6eca97'
+    count: '7bis',
+    color: '#6eca97'
   },
   {
-    '8': '#e19bdf'
+    count: '8',
+    color: '#e19bdf'
   },
   {
-    '9': '#b6bd00'
+    count: '9',
+    color: '#b6bd00'
   },
   {
-    '10': '#c9910d'
+    count: '10',
+    color: '#c9910d'
   },
   {
-    '11': '#704b1c'
+    count: '11',
+    color: '#704b1c'
   },
   {
-    '12': '#007852'
+    count: '12',
+    color: '#007852'
   },
   {
-    '13': '#6ec4e8'
+    count: '13',
+    color: '#6ec4e8'
   },
   {
-    '14': '#62259d'
+    count: '14',
+    color: '#62259d'
   },
   {
-    '15': '#a60f31'
+    count: '15',
+    color: '#a60f31'
   },
   {
-    '16': '#427b7b'
+    count: '16',
+    color: '#427b7b'
   },
   {
-    '17': '#ec7cae'
+    count: '17',
+    color: '#ec7cae'
   },
   {
-    '18': '#95bf32'
+    count: '18',
+    color: '#95bf32'
   }
 ]
-
-
