@@ -1,5 +1,5 @@
 .body {
-  @include font-size(0.9rem);
+  @include font-size(0.8rem);
 }
 
 h1, h2, h3, h4, h5, h6, p, a {
@@ -9,7 +9,8 @@ h1, h2, h3, h4, h5, h6, p, a {
 }
 
 h1, .h1 {
-  @include font-size(2rem);
+  @include font-size(2.25rem); // 36px
+  font-weight: 900;
   // @include medium {
   //   @include font-size(2.3rem);
   // }
@@ -19,7 +20,7 @@ h1, .h1 {
 }
 
 h2, .h2 {
-  @include font-size(1.9rem);
+  @include font-size(2.125rem); // 34px
   // @include medium {
   //   @include font-size(2rem);
   // }
@@ -29,7 +30,7 @@ h2, .h2 {
 }
 
 h3, .h3 {
-  @include font-size(1.35rem);
+  @include font-size(1.5rem); // 24px
   // @include medium {
   //   @include font-size(1.8rem);
   // }
@@ -39,7 +40,7 @@ h3, .h3 {
 }
 
 h4, .h4 {
-  @include font-size(1rem);
+  @include font-size(1.125rem); // 18px
   // @include medium {
   //   @include font-size(1.5rem);
   // }
@@ -49,7 +50,7 @@ h4, .h4 {
 }
 
 h5, .h5 {
-  @include font-size(0.88rem);
+  @include font-size(1rem); // 16px
   // @include medium {
   //   @include font-size(1.4rem);
   // }
@@ -59,7 +60,7 @@ h5, .h5 {
 }
 
 p, .p {
-  @include font-size(0.8rem);
+  @include font-size(0.88rem); // 14px
   font-family: $font-family-base;
   font-weight: normal;
   // @include medium {
@@ -70,8 +71,12 @@ p, .p {
   // }
 }
 
+.text--lg {
+  @include font-size(1rem); // 12px
+}
+
 .text--xs {
-  @include font-size(0.67rem);
+  @include font-size(0.75rem); // 12px
 }
 
 a, a:visited {

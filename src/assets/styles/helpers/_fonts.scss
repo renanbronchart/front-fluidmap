@@ -8,3 +8,45 @@
         url("/static/fonts/Icomoon/icomoon.ttf") format("ttf"),
         url("/static/fonts/Icomoon/icomoon.eot") format("eot");
 }
+
+@font-face {
+  font-family: 'circular';
+  src: url('/static/fonts/Circular/CircularStd-Black.otf') format('otf');
+  font-weight: 900;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'circular';
+  src: url('/static/fonts/Circular/CircularStd-BlackItalic.otf') format('otf');
+  font-weight: 900;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'circular';
+  src: url('/static/fonts/Circular/CircularStd-Bold.otf') format('otf');
+  font-weight: blod;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'circular';
+  src: url('/static/fonts/Circular/CircularStd-BoldItalic.otf') format('otf');
+  font-weight: blod;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'circular';
+  src: url('/static/fonts/Circular/CircularStd-Medium.otf') format('otf');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'circular';
+  src: url('/static/fonts/Circular/CircularStd-MediumItalic.otf') format('otf');
+  font-weight: normal;
+  font-style: italic;
+}

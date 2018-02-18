@@ -1,6 +1,8 @@
 .button {
   display: flex;
   align-items: center;
+  text-align: center;
+  justify-content: center;
   position: relative;
   background-color: $color-mine-shaft;
   border: 1px solid $color-mine-shaft;
@@ -10,6 +12,10 @@
   white-space: nowrap;
   text-transform: uppercase;
   padding: 10px 20px;
+  &.button--fixed {
+    width: 180px;
+    max-width: 180px;
+  }
   &.button--round {
     width: 40px;
     height: 40px;
