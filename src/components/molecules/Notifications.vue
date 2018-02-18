@@ -18,9 +18,11 @@
   @import '~stylesheets/helpers/_variables.scss';
 
   .notification {
-    color: $color-mine-shaft;
     background: linear-gradient(to right, $color-cyan, $color-caribbean-green);
     border-radius: 100%;
     padding: 6px 10px;
+    &.notification__primary {
+      background: linear-gradient(to right, $color-blue, $color-malibu);
+    }
   }
 </style>

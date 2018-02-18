@@ -1,5 +1,5 @@
 <template>
-  <aside class="aside" :class="getClass">
+  <aside class="aside" :class="getClassAside">
     <div class="aside__infos">
       <div class="aside__header">
         <h2 class="h3 aside__title">
@@ -33,7 +33,7 @@
           v-if="map.placeSelected"
         ></div>
         <div class="aside__explanation" v-if="!map.eventSelected">
-          <p>Plusieurs évènements ont lieu à cet endroit et durant cette tranche horaire. Choisissez un évènement à afficher.</p>
+          <p class="text--secondary">Plusieurs évènements ont lieu à cet endroit et durant cette tranche horaire. Choisissez un évènement à afficher.</p>
         </div>
       </div>
     </div>
@@ -51,12 +51,35 @@
         </div>
       </div>
     </div>
-    <ListAside
-      :title="getTitleList"
-    >
-      <ul v-if="map.eventSelected">
-        <li v-for="index in 100">stations</li>
-      </ul>
+    <ListAside>
+      <div slot="header" class="card__header">
+        <p class="text--primary">{{getTitleList}}</p>
+      </div>
+      <div v-if="map.eventSelected">
+        <TableComponent
+          :columns="stationsData.columns"
+          :data="getStationsData"
+          extraClass="m-t-sm p-l-lg p-r-lg table--lastColumnLeft"
+          :rowTodisplay="stationsShow.count"
+        >
+          <div v-for="(data, index) in getStationsData" :slot="`station-${index}`">
+            <p class="text--bold m-b-sm">{{data.name}}</p>
+            <StationIcon
+              :number="line.count"
+              :hexa="line.color"
+              extraClass="m-r-sm"
+              v-for="line in data.lines"
+            />
+          </div>
+
+          <div v-for="(data, index) in getStationsData" :slot="`indice-${index}`">
+            <Notifications
+              extraClass="notification__primary text--white"
+              :count="data.hint"
+            />
+          </div>
+        </TableComponent>
+      </div>
       <div v-else>
         <ul class="aside__list">
           <EventDescription
@@ -77,14 +100,64 @@
   import parameterize from 'parameterize-string'
 
   import arrayImageSport from '@/utils/arrayImageSport.js'
+  import associateStations from '@/utils/associateStations.js'
 
   import TextInfos from '@/components/molecules/TextInfos.vue'
+  import Notifications from '@/components/molecules/Notifications.vue'
+  import StationIcon from '@/components/molecules/StationIcon.vue'
   import StatsHint from '@/components/elements/stats/StatsHint.vue'
   import StatsPeople from '@/components/elements/stats/StatsPeople.vue'
   import ListAside from '@/components/elements/aside/ListAside.vue'
   import EventDescription from '@/components/elements/events/EventDescription.vue'
+  import TableComponent from '@/components/elements/TableComponent.vue'
 
   export default {
+    data () {
+      return {
+        stationsShow: {
+          count: 3,
+          showMoreLabel: true
+        },
+        stationsData: {
+          data: [
+            {
+              name: `Gare de l'Est`,
+              indice: '6'
+            },
+            {
+              name: 'Gare du Nord',
+              indice: '5'
+            },
+            {
+              name: 'PORTE DE VINCENNES',
+              indice: '1'
+            },
+            {
+              name: `Gare de lyon`,
+              indice: '6'
+            },
+            {
+              name: 'Riquet',
+              indice: '5'
+            },
+            {
+              name: 'Bastille',
+              indice: '9'
+            }
+          ],
+          columns: [
+            {
+              field: 'station',
+              label: 'Gare'
+            },
+            {
+              field: 'indice',
+              label: 'Indice'
+            }
+          ]
+        }
+      }
+    },
     methods: {
       ...mapActions([
         'deselectPlace',
@@ -176,7 +249,7 @@
       getRoute () {
         return this.$route.params.id
       },
-      getClass () {
+      getClassAside () {
         let extraClass = ''
 
         if (this.map.placeSelected) {
@@ -186,6 +259,30 @@
         }
 
         return extraClass
+      },
+      getStationsData () {
+        // this.propertiesPlaceSelected.stations à la place
+
+        const newStations = this.stationsData.data.map(station => {
+          let theStation = {...station}
+          let stationParameterize = parameterize(theStation.name)
+
+          let stationWithLines = associateStations.find(station => {
+            return parameterize(station.stationName) === stationParameterize
+          })
+
+          let lines = typeof stationWithLines === 'undefined' ? [] : [...stationWithLines.lines]
+
+          const stationFormate = {
+            name: theStation.name,
+            lines,
+            hint: theStation.indice
+          }
+
+          return stationFormate
+        })
+
+        return newStations
       }
     },
     components: {
@@ -193,7 +290,10 @@
       StatsHint,
       StatsPeople,
       ListAside,
-      EventDescription
+      EventDescription,
+      TableComponent,
+      Notifications,
+      StationIcon
     }
   }
 </script>
@@ -261,6 +361,7 @@
     height: 100px;
     position: relative;
     border-radius: $border-radius-base;
+    overflow: hidden;
     background-size: cover;
     background-alignment: center;
     margin: 15px 0 0 0;

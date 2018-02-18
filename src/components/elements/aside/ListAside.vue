@@ -2,9 +2,11 @@
   <div class="aside__stations" :class="extraClass">
     <div class="aside__container">
       <Card>
-        <div class="card__header" slot="header">
-          <p>{{title}}</p>
-        </div>
+        <slot name="header">
+          <div class="card__header">
+            <p>{{title}}</p>
+          </div>
+        </slot>
         <slot></slot>
       </Card>
     </div>
@@ -22,7 +24,7 @@
   }
 </script>
 
-<style lang="scss">
+<style lang='scss'>
   .aside__stations {
     height: 100%;
     position: relative;

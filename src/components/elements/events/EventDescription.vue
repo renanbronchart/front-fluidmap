@@ -4,9 +4,9 @@
       <Icon :name="getIconEvent" extraClass="icn--xxs event__icon m-r-sm" v-if="!iconHide" />
       <div class="event__content">
         <h5 class="event__name m-b-xs">{{event.name}}</h5>
-        <p class="event__step text--xs">{{event.step}}</p>
-        <p class="event__hour text--xs">{{event.hour}}</p>
-        <p class="event__place text--xs">{{event.place_name}}</p>
+        <p class="event__step text--sm text--secondary m-t-xs">{{event.step_name}}</p>
+        <p class="event__hour text--sm text--secondary m-t-xs">{{getStartEvent}}</p>
+        <p class="event__place text--sm text--secondary m-t-xs">{{event.place_name}}</p>
       </div>
     </a>
   </li>
@@ -14,6 +14,7 @@
 
 <script>
   import parameterize from 'parameterize-string'
+  import manipulateDate from '@/utils/manipulateDate.js'
 
   import arrayIconSport from '@/utils/arrayIconSport.js'
 
@@ -36,6 +37,9 @@
         })
 
         return iconName
+      },
+      getStartEvent () {
+        return `${manipulateDate.getHourDisplay(this.event.dates[0])}H00`
       }
     },
     components: {
