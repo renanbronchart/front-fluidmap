@@ -1,34 +1,36 @@
 <template>
   <aside class="aside" :class="getClass">
     <div class="aside__infos">
-      <div class="aside__title">
-        <h2 class="h3">
+      <div class="aside__header">
+        <h2 class="h3 aside__title">
           <i
-            class="material-icons cursor--pointer title__back"
+            class="material-icons cursor--pointer title__back text--secondary"
             @click.prevent="backView"
             v-if="map.eventSelected">
             arrow_back
           </i>
-          <span class="title__text">{{getTitleAside}}</span>
+          <span class="title__text h3">{{getTitleAside}}</span>
         </h2>
-        <i class="material-icons cursor--pointer" @click.prevent="closeAside">close</i>
+        <i class="material-icons cursor--pointer text--secondary" @click.prevent="closeAside">close</i>
       </div>
       <div class="aside__details">
         <div class="aside__infosEvent">
           <TextInfos
-            content="12 H - 14 H"
+            :content="getPlaceSelected.name"
             iconName="location_on"
-            extraClass="information__primary"
+            extraClass="information__primary m-r-sm"
+            v-if="map.eventSelected"
           />
           <TextInfos
-            content="Lundi - 05.08.2024"
+            :content="getDateSelected"
             iconName="event"
             extraClass="information__primary"
           />
         </div>
         <div
           class="aside__image"
-          :style="{ backgroundImage: 'url(http://placekitten.com/g/900/500)' }"
+          :style="{ backgroundImage: 'url(' + getImageAside + ')' }"
+          v-if="map.placeSelected"
         ></div>
         <div class="aside__explanation" v-if="!map.eventSelected">
           <p>Plusieurs évènements ont lieu à cet endroit et durant cette tranche horaire. Choisissez un évènement à afficher.</p>
@@ -71,6 +73,10 @@
 
 <script>
   import { mapState, mapGetters, mapActions } from 'vuex'
+  import manipulateDate from '@/utils/manipulateDate.js'
+  import parameterize from 'parameterize-string'
+
+  import arrayImageSport from '@/utils/arrayImageSport.js'
 
   import TextInfos from '@/components/molecules/TextInfos.vue'
   import StatsHint from '@/components/elements/stats/StatsHint.vue'
@@ -112,10 +118,28 @@
         'events'
       ]),
       ...mapGetters([
-        'getTimestampsMap'
+        'getTimestampsMap',
+        'getDayValue',
+        'getSchedulesValue',
+        'getPlaceSelected'
       ]),
       propertiesPlaceSelected () {
         return this.places.placeSelected
+      },
+      getImageAside () {
+        if (this.map.eventSelected) {
+          const nameParametrize = parameterize(this.events.eventSelected.name)
+          const sportsName = [...arrayImageSport]
+
+          const sportName = sportsName.find((sport) => {
+            return nameParametrize.indexOf(sport) >= 0
+          })
+
+          return `static/img/events/${sportName}.png`
+        } else {
+          console.log(parameterize(this.propertiesPlaceSelected.name))
+          return `static/img/places/${parameterize(this.propertiesPlaceSelected.name)}.png`
+        }
       },
       getEventsByTimestamps () {
         const events = [...this.propertiesPlaceSelected.events]
@@ -130,11 +154,17 @@
           return eventStart >= this.getTimestampsMap[0] && eventStart <= this.getTimestampsMap[1]
         })
       },
-      getTitleAside () {
-        console.log(this.propertiesPlaceSelected, 'place selected properties')
-        const placeName = this.propertiesPlaceSelected.name
+      getDateSelected () {
+        if (this.map.eventSelected) {
+          const dates = [...this.events.eventSelected.dates]
 
-        return this.map.eventSelected ? this.events.eventSelected.name : placeName
+          return `${manipulateDate.getSchedulesDisplayConcat(dates[0])}`
+        } else {
+          return `${this.getDayValue}, ${this.getSchedulesValue}`
+        }
+      },
+      getTitleAside () {
+        return this.map.eventSelected ? this.events.eventSelected.name : this.propertiesPlaceSelected.name
       },
       getTitleList () {
         if (this.map.eventSelected) {
@@ -168,7 +198,7 @@
   }
 </script>
 
-<style lang="scss" scoped>
+<style lang='scss' scoped>
   @import '~stylesheets/helpers/_variables.scss';
 
   .aside {
@@ -200,7 +230,7 @@
     margin: 20px 0 0 0;
   }
 
-  .aside__title {
+  .aside__header {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -209,6 +239,11 @@
     .title__back {
       margin: 0 20px 0 0;
     }
+  }
+
+  .aside__title {
+    display: flex;
+    align-items: center;
   }
 
   .aside__details {

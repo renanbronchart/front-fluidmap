@@ -17,8 +17,8 @@ $gray-lighter: #e3e3e3; // gray lighter
 ////////////
 // fonts  //
 ////////////
-$font-family-title: 'Oswald', sans-serif;
-$font-family-base: 'Lato', sans-serif;
+$font-family-title: 'circular', sans-serif;
+$font-family-base: 'circular', sans-serif;
 $font-family-icon: 'icomoon';
 
 /////////////////
@@ -33,6 +33,9 @@ $font-size-icon: 20px;
 $screen-sm-min: 850px;
 $screen-md-min: 1024px;
 $screen-lg-min: 1281px;
+$screen-lg-min-height: 700px;
+$screen-md-min-height: 520px;
+$screen-sm-min-height: 400px;
 
 ///////////////////
 //    Images     //
@@ -60,6 +63,7 @@ $z-index-tooltip: 10000;
 $z-index-list-dropdown: 9000;
 $z-index-header: 9000;
 $z-index-aside: 9000;
+$z-index-preset-link: 5000;
 
 ///////////////////
 //  Grid-layout  //

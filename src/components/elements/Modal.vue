@@ -49,9 +49,11 @@
   }
 </script>
 
-<style lang="scss" scoped>
+<style lang='scss' scoped>
   @import '~stylesheets/helpers/_variables.scss';
   @import '~stylesheets/helpers/mixins/_media-queries.scss';
+
+
 
   .modal,
   .modal__background {
@@ -87,8 +89,24 @@
     padding: 50px 60px;
     margin: 50px auto;
 
+    &:after {
+      content: '';
+      width: 100%;
+      height: 3px;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      background: linear-gradient(to left, $color-blue-ribbon, $color-caribbean-green);
+    }
+
     @include medium {
       width: 870px;
+    }
+
+    &.modal__content--xs {
+      @include medium {
+        width: 760px;
+      }
     }
   }
 

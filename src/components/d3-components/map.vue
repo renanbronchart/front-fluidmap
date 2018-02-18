@@ -313,7 +313,7 @@ export default {
       position: absolute;
       top: 40px;
       left: 40px;
-      z-index: 200000;
+      z-index: $z-index-preset-link;
     }
 
     /* leaflet overide */

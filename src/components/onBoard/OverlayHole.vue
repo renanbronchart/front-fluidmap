@@ -60,11 +60,28 @@
 
     &.overlay--map {
       &:after {
-        width: 30vw;
-        height: 30vh;
-        top: 30vh;
-        left: 20%;
+        width: 250px;
+        height: 250px;
+        border-radius: 100%;
+        bottom: 35vh;
+        left: 35%;
+        transform: translate(-50%, 50%);
         box-shadow: 0 0 0 1000em rgba(black, .4);
+        z-index: 9000;
+      }
+
+      &:before {
+        content: ' ';
+        width: 7px;
+        height: 7px;
+        position: fixed;
+        border: 5px solid black;
+        border-radius: 100%;
+        background: white;
+        color: white;
+        bottom: 40vh;
+        left: 35%;
+        transform: translate(7px, 30px);
         z-index: 9000;
       }
     }

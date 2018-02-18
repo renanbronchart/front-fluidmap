@@ -1,30 +1,33 @@
 .material-icons,
 .icn {
-  &.icn__xs {
+  &.icn--xxs {
+    font-size: 0.88rem;
+  }
+
+  &.icn--xs {
     font-size: 1rem;
   }
 
-  &.icn__sm {
+  &.icn--sm {
     font-size: 1.5rem
   }
 
-  &.icn__md {
+  &.icn--md {
     font-size: 2rem;
   }
 
-  &.icn__lg {
+  &.icn--lg {
     font-size: 2.5rem;
   }
 
-  &.icn__xl {
+  &.icn--xl {
     font-size: 3rem;
   }
 
-  &.icn__xxl {
+  &.icn--xxl {
     font-size: 4rem;
   }
 }
-
 
 .icn {
   line-height: 1;
@@ -34,116 +37,116 @@
   vertical-align: middle;
 }
 
-.icn-badminton {
+.icn__badminton {
   @include icon('\e900');
 }
 
 
-.icn-triathlon {
+.icn__triathlon {
   @include icon('\e901');
 }
 
 
-.icn-trampoline {
+.icn__trampoline {
   @include icon('\e902');
 }
 
 
-.icn-volleyball {
+.icn__volleyball {
   @include icon('\e903');
 }
 
 
-.icn-tirarc {
+.icn__tir-a-l-arc {
   @include icon('\e904');
 }
 
 
-.icn-tir {
+.icn__tir {
   @include icon('\e905');
 }
 
 
-.icn-tennis {
+.icn__tennis {
   @include icon('\e906');
 }
 
 
-.icn-taekwondo {
+.icn__taekwondo {
   @include icon('\e907');
 }
 
 
-.icn-equitation {
+.icn__equitation {
   @include icon('\e908');
 }
 
 
-.icn-pentathlon {
+.icn__pentathlon {
   @include icon('\e909');
 }
 
 
-.icn-lutte {
+.icn__lutte {
   @include icon('\e90a');
 }
 
 
-.icn-judo {
+.icn__judo {
   @include icon('\e90b');
 }
 
 
-.icn-hockey {
+.icn__hockey {
   @include icon('\e90c');
 }
 
 
-.icn-pinpong {
+.icn__pinpong {
   @include icon('\e90d');
 }
 
 
-.icn-handball {
+.icn__handball {
   @include icon('\e90e');
 }
 
 
-.icn-halterophilie {
+.icn__halterophilie {
   @include icon('\e90f');
 }
 
 
-.icn-gym {
+.icn__gym {
   @include icon('\e910');
 }
 
 
-.icn-football {
+.icn__football {
   @include icon('\e911');
 }
 
 
-.icn-escrime {
+.icn__escrime {
   @include icon('\e912');
 }
 
 
-.icn-velo {
+.icn__cyclisme {
   @include icon('\e913');
 }
 
 
-.icn-boxe {
+.icn__boxe {
   @include icon('\e914');
 }
 
 
-.icn-basketball {
+.icn__basketball {
   @include icon('\e915');
 }
 
 
-.icn-athletisme {
+.icn__athletisme {
   @include icon('\e916');
 }

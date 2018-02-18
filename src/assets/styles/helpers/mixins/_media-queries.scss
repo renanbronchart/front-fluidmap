@@ -15,3 +15,22 @@
     @content
   }
 }
+
+
+@mixin mediumHeight {
+  @media (min-height: $screen-sm-min-height) {
+    @content
+  }
+}
+
+@mixin largeHeight {
+  @media (min-height: $screen-md-min-height) {
+    @content
+  }
+}
+
+@mixin xlargeHeight {
+  @media (min-height: $screen-lg-min-height) {
+    @content
+  }
+}

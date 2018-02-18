@@ -10,6 +10,13 @@ const getSchedulesDisplay = (timestampStart) => {
   return `${getHourDisplay(timestampStart)}H - ${getNextHourDisplay(timestampStart)}H`
 }
 
+const getSchedulesDisplayConcat = (timestampStart) => {
+  const dateDisplay = moment.unix(timestampStart).locale('fr').format('Do/MM/YYYY')
+  const schedules = `${getHourDisplay(timestampStart)}:${getNextHourDisplay(timestampStart)}`
+
+  return `${dateDisplay} - ${schedules}`
+}
+
 const getdates = (date, schedules) => {
   const dateHash = {
     janvier: '01',
@@ -51,5 +58,6 @@ export default {
   getHourDisplay,
   getNextHourDisplay,
   getSchedulesDisplay,
-  getdates
+  getdates,
+  getSchedulesDisplayConcat
 }
