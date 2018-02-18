@@ -83,11 +83,11 @@ span {
 }
 
 .text--lg {
-  @include font-size(1rem); // 12px
+  @include font-size(1rem); // 16px
 }
 
 .text--sm {
-  @include font-size(0.88rem); // 12px
+  @include font-size(0.88rem); // 14px
 }
 
 .text--xs {

@@ -1,11 +1,11 @@
 <template>
   <div class="sliders">
     <div class="sliders__range" v-for="slider in getConfigSliders">
-      <span>{{slider.label}}</span>
+      <span class="text--secondary">{{slider.label}}</span>
       <div class="slider__content" :class='slider.ref'>
         <vue-slider @callback='onChange(slider.slider.value, slider.ref)' v-bind="slider.slider" v-model="slider.slider.value" :ref="slider.ref">
           <div class="tooltip__custom" slot="tooltip" slot-scope="{value}">
-            <span>{{value}}</span>
+            <span class="text--lg">{{value}}</span>
           </div>
         </vue-slider>
       </div>
@@ -138,10 +138,11 @@
   }
 
   .sliders__range {
+    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 100%;
+    transform: translateY(-10px);
   }
 
   .slider__content {
@@ -162,8 +163,8 @@
     &:after {
       content: '';
       width: 60px;
-      height: 15px;
-      border-radius: 3px;
+      height: 7px;
+      border-radius: $border-radius-xs;
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
