@@ -88,7 +88,7 @@
 
   .table__body {
     .table__cell {
-      padding: 24px 16px 24px 0;
+      padding: 20px 16px 20px 0;
     }
   }
 </style>
