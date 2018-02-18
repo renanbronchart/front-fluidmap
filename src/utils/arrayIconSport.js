@@ -18,7 +18,7 @@ export default [
   'gym',
   'football',
   'escrime',
-  'velo',
+  'cyclisme',
   'boxe',
   'basketball',
   'athletisme'

@@ -31,13 +31,10 @@
         const nameParametrize = parameterize(this.event.name)
         const iconsName = [...arrayIconSport]
 
-        console.log(nameParametrize, 'nameParametrize')
-
         const iconName = iconsName.find((icon) => {
           return nameParametrize.indexOf(icon) >= 0
         })
 
-        console.log(iconName)
         return iconName
       }
     },

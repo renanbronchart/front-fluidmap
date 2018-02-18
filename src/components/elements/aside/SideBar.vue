@@ -29,7 +29,8 @@
         </div>
         <div
           class="aside__image"
-          :style="{ backgroundImage: 'url(http://placekitten.com/g/900/500)' }"
+          :style="{ backgroundImage: 'url(' + getImageAside + ')' }"
+          v-if="map.placeSelected"
         ></div>
         <div class="aside__explanation" v-if="!map.eventSelected">
           <p>Plusieurs évènements ont lieu à cet endroit et durant cette tranche horaire. Choisissez un évènement à afficher.</p>
@@ -73,6 +74,9 @@
 <script>
   import { mapState, mapGetters, mapActions } from 'vuex'
   import manipulateDate from '@/utils/manipulateDate.js'
+  import parameterize from 'parameterize-string'
+
+  import arrayImageSport from '@/utils/arrayImageSport.js'
 
   import TextInfos from '@/components/molecules/TextInfos.vue'
   import StatsHint from '@/components/elements/stats/StatsHint.vue'
@@ -121,6 +125,21 @@
       ]),
       propertiesPlaceSelected () {
         return this.places.placeSelected
+      },
+      getImageAside () {
+        if (this.map.eventSelected) {
+          const nameParametrize = parameterize(this.events.eventSelected.name)
+          const sportsName = [...arrayImageSport]
+
+          const sportName = sportsName.find((sport) => {
+            return nameParametrize.indexOf(sport) >= 0
+          })
+
+          return `static/img/events/${sportName}.png`
+        } else {
+          console.log(parameterize(this.propertiesPlaceSelected.name))
+          return `static/img/places/${parameterize(this.propertiesPlaceSelected.name)}.png`
+        }
       },
       getEventsByTimestamps () {
         const events = [...this.propertiesPlaceSelected.events]
