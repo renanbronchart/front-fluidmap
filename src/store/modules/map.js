@@ -31,18 +31,20 @@ const mutations = {
     const countRequest = 11
     const oldHeat = JSON.parse(localStorage.getItem('fluidmap-dataHeat')) || []
 
-    state.dataHeat = oldHeat
+    if (state.dataHeat.length === 0) {
+      state.dataHeat = oldHeat
+    }
 
     heatRequest()
 
     function heatRequest () {
-      let i = 0
+      let i = 1
       let promises = []
 
       for (i; i <= countRequest; i++) {
         let nextOffset = offsetRequest * i
 
-        promises[i] = HTTP.get(`heat/${timestampStart}?rows=${rowsRequest}&offset=${nextOffset}`)
+        promises[i - 1] = HTTP.get(`heat/${timestampStart}?rows=${rowsRequest}&offset=${nextOffset}`)
       }
 
       Promise.all(promises).then((values) => {

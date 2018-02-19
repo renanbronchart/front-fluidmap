@@ -9,7 +9,6 @@
 </template>
 
 <script>
-// import HTTP from '@/utils/httpRequest.js'
 import { mapState, mapActions } from 'vuex'
 import Button from '@/components/molecules/Button.vue'
 
@@ -72,8 +71,6 @@ export default {
     this.map.zoomControl.setPosition('bottomright')
 
     setTimeout(() => {
-      // const heatPoints = JSON.parse(JSON.stringify(this.mapState.dataHeat))
-
       this.drawMap()
     }, 100)
   },
@@ -82,9 +79,7 @@ export default {
       'selectPlaces'
     ]),
     drawHeatMap (heatPoints) {
-      console.log(heatPoints, 'heatPoints heatPoints heatPoints heatPoints heatPoints')
       const maxValue = d3.max(heatPoints, function (d) { return +d.properties.hint })
-      console.log(maxValue, 'maxValue maxValue maxValue')
       const geoData = []
 
       heatPoints.forEach(function (d) {
@@ -105,16 +100,6 @@ export default {
     },
     redrawHeatMap (newState) {
       let transitionPoints = new Promise((resolve, reject) => {
-        if (d3.select('.leaflet-heatmap-layer').size() > 0) {
-          d3.select('.leaflet-heatmap-layer')
-            .transition()
-            .duration(700)
-            .style('opacity', '0')
-            .transition()
-            .duration(500)
-            .style('opacity', '1')
-        }
-
         d3.select('.leaflet-heatmap-layer')
           .transition()
           .duration(700)
@@ -129,6 +114,10 @@ export default {
       })
 
       transitionPoints.then((val) => {
+        if (this.heatLayer) {
+          this.map.removeLayer(this.heatLayer)
+        }
+
         this.drawHeatMap(newState)
       }).catch(() => {
         console.log('la grosse promesse rompue')
@@ -147,17 +136,12 @@ export default {
     drawPlaces () {
       var self = this
       var dataPlaces = this.places.places
-
       var svgPlaces = d3.select(this.map.getPanes().overlayPane).append('svg').style('z-index', '10000')
       var placesGroup = svgPlaces.append('g').attr('class', 'leaflet-zoom-hide')
-
       var featurePlaces
-
       var transform = d3.geoTransform({point: projectPoint})
       var path = d3.geoPath().projection(transform)
-
       var rootWidth, previousWidth
-
       var radius = d3.scaleLinear()
         .domain([0, d3.max(dataPlaces.features, function (d) { return +d.properties.capacity })])
         .range([4, 6])
