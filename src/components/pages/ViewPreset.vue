@@ -384,8 +384,11 @@
         // Faire une action dans le store. elle modifie le state des presets et push sur l'api
       },
       updatePreset () {
-        const valueDays = mapDate.getDateDisplay(this.preset.map.dates[0])
-        const valueHours = mapDate.getSchedulesDisplay(this.preset.map.dates[0])
+        const timestampStart = this.preset.map.dates[0]
+        const timestapEnd = this.preset.map.dates[1]
+        const valueDays = mapDate.getDateDisplay(timestampStart)
+        const valueHours = mapDate.getSchedulesDisplay(timestampStart)
+        const valueExpandedHours = `${mapDate.getHourDisplay(timestampStart)}H - ${mapDate.getHourDisplay(timestapEnd)}H`
 
         if (this.getRouteName === 'presetId') {
           this.switchEditionMode(true)
@@ -409,6 +412,11 @@
         this.setValueSliders({
           valueDays,
           valueHours
+        })
+
+        this.setExpandedDate({
+          date: valueDays,
+          schedules: valueExpandedHours
         })
       }
     },

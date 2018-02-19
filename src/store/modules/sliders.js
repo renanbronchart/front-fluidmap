@@ -143,12 +143,6 @@ const actions = {
       refSlider,
       value
     })
-  },
-  setValueSliders ({commit}, {valueDays, valueHours}) {
-    commit(types.SET_VALUE_SLIDERS, {
-      valueDays,
-      valueHours
-    })
   }
 }
 

@@ -2,12 +2,12 @@
   <header class="header">
     <div class="header__brand cursor--pointer" @click.prevent="clickBrand">
       <div class="header__brandChild header__containerImage">
-        <img src="http://placekitten.com/g/900/500" alt="logo fluidmap" >
+        <img src="static/img/logo/logo-header.png" alt="logo fluidmap" >
       </div>
       <p class="header__brandChild text--secondary">{{title}}</p>
     </div>
     <div class="header__action">
-      <a href="#" title="connection" @click.prevent="clickAction" class="text--sm text--secondary text--normal">Connection</a>
+      <a href="#" title="connection" @click.prevent="clickAction" class="text--sm text--secondary text--normal">Connexion</a>
     </div>
   </header>
 </template>
@@ -55,6 +55,7 @@
   .header__brandChild {
     padding: 10px 15px;
     & + .header__brandChild {
+      flex-shrink: 0;
       border-left: 1px solid $gray-lighter;
     }
   }
@@ -62,9 +63,12 @@
   .header__containerImage {
     height: 60px;
     max-height: 100%;
+    max-width: 150px;
+    display: flex;
+    align-items: center;
     img {
       max-height:100%;
-      height: 100%;
+      max-width: 100%;
     }
   }
 
