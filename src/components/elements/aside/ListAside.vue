@@ -25,6 +25,9 @@
 </script>
 
 <style lang='scss'>
+  @import '~stylesheets/helpers/_variables.scss';
+  @import '~stylesheets/helpers/mixins/style.scss';
+
   .aside__stations {
     height: 100%;
     position: relative;
@@ -39,6 +42,9 @@
     top: 0;
     left: 0;
     overflow: auto;
-    padding: 0 120px 30px 60px;
+    padding: 0 16px;
+    @include medium {
+      padding: 0 120px 30px 60px;
+    }
   }
 </style>

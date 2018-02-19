@@ -8,7 +8,9 @@
       <RangeSlider
         @clickOpenSlider="toggleActiveMap"
       />
-      <SideBar />
+      <SideBar
+        @openSidebar="removeActiveMap"
+      />
     </div>
     <router-view :key="$route.fullPath"></router-view>
   </div>
