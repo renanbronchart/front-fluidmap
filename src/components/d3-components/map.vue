@@ -82,11 +82,13 @@ export default {
       'selectPlaces'
     ]),
     drawHeatMap (heatPoints) {
+      console.log(heatPoints, 'heatPoints heatPoints heatPoints heatPoints heatPoints')
       const maxValue = d3.max(heatPoints, function (d) { return +d.properties.hint })
+      console.log(maxValue, 'maxValue maxValue maxValue')
       const geoData = []
 
       heatPoints.forEach(function (d) {
-        if (!isNaN(+d.geometry.coordinates[0]) || !isNaN(+d.geometry.coordinates[1])) {
+        if (d.geometry.coordinates !== null && !isNaN(+d.geometry.coordinates[0]) && !isNaN(+d.geometry.coordinates[1])) {
           geoData.push([+d.geometry.coordinates[0], +d.geometry.coordinates[1], ((d.properties.hint) / maxValue)])
         }
       })
@@ -112,6 +114,14 @@ export default {
             .duration(500)
             .style('opacity', '1')
         }
+
+        d3.select('.leaflet-heatmap-layer')
+          .transition()
+          .duration(700)
+          .style('opacity', '0')
+          .transition()
+          .duration(500)
+          .style('opacity', '1')
 
         setTimeout(function () {
           resolve('la promesse marche')
