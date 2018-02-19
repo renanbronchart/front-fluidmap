@@ -2,8 +2,6 @@
   <div id="map__heat">
     <Button
       iconName="layers"
-      linkName="presets"
-      linkTitle="Lien vers les presets"
       extraClass="button--round map__presetLink"
       extraClassIcon="m-n"
     />
@@ -60,23 +58,12 @@ export default {
       }
     },
     'mapState.dataHeat' (newState, oldState) {
-      // console.log(this.heatLayer, 'this.heatLayer')
-      // this.heatLayer.redraw()
-      // this.map.removeLayer(layer)
-      this.redrawHeatMap(newState)
+      if (newState.length > 0) {
+        this.redrawHeatMap(newState)
+      }
     }
   },
   mounted () {
-    // HTTP.get('heat/1722679201').then(({data}) => {
-    //   console.log('*********************')
-    //   console.log(this.mapState.dataHeat, 'data heat')
-    //   console.log('*********************')
-    //   this.drawMap(this.mapState.dataHeat)
-    // })
-    // const heats = this.mapState.dataHeat
-    // console.log(heats, 'this.mapState.dataHeatthis.mapState.dataHeatthis.mapState.dataHeatthis.mapState.dataHeatthis.mapState.dataHeat')
-    // this.drawMap(heats)
-
     this.map = L.map('map__heat', {
       center: [48.853, 2.333],
       zoom: 13
@@ -85,10 +72,9 @@ export default {
     this.map.zoomControl.setPosition('bottomright')
 
     setTimeout(() => {
-      const heatPoints = this.mapState.dataHeat
+      // const heatPoints = JSON.parse(JSON.stringify(this.mapState.dataHeat))
 
       this.drawMap()
-      this.drawHeatMap(heatPoints)
     }, 100)
   },
   methods: {
@@ -100,7 +86,9 @@ export default {
       const geoData = []
 
       heatPoints.forEach(function (d) {
-        geoData.push([d.geometry.coordinates[0], d.geometry.coordinates[1], ((d.properties.hint) / maxValue)])
+        if (!isNaN(+d.geometry.coordinates[0]) || !isNaN(+d.geometry.coordinates[1])) {
+          geoData.push([+d.geometry.coordinates[0], +d.geometry.coordinates[1], ((d.properties.hint) / maxValue)])
+        }
       })
 
       this.heatLayer = L.heatLayer(geoData, {
@@ -115,13 +103,15 @@ export default {
     },
     redrawHeatMap (newState) {
       let transitionPoints = new Promise((resolve, reject) => {
-        d3.select('.leaflet-heatmap-layer')
-          .transition()
-          .duration(700)
-          .style('opacity', '0')
-          .transition()
-          .duration(500)
-          .style('opacity', '1')
+        if (d3.select('.leaflet-heatmap-layer').size() > 0) {
+          d3.select('.leaflet-heatmap-layer')
+            .transition()
+            .duration(700)
+            .style('opacity', '0')
+            .transition()
+            .duration(500)
+            .style('opacity', '1')
+        }
 
         setTimeout(function () {
           resolve('la promesse marche')
@@ -129,11 +119,9 @@ export default {
       })
 
       transitionPoints.then((val) => {
-        this.map.removeLayer(this.heatLayer)
-
         this.drawHeatMap(newState)
       }).catch(() => {
-        console.log('promesse rompue')
+        console.log('la grosse promesse rompue')
       })
     },
     drawMap () {

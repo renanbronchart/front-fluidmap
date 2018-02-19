@@ -19,6 +19,18 @@ export const selectPreset = ({ commit }, preset) => {
   })
 }
 
+export const setValueSliders = ({commit}, {valueDays, valueHours}) => {
+  commit(types.SET_VALUE_SLIDERS, {
+    valueDays,
+    valueHours
+  })
+
+  commit(types.SET_NEW_DATE, {
+    date: valueDays,
+    schedules: valueHours
+  })
+}
+
 export const setNewDate = ({commit}, {date, schedules}) => {
   commit(types.SET_NEW_DATE, {
     date,
