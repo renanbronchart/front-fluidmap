@@ -9,7 +9,6 @@
 </template>
 
 <script>
-// import HTTP from '@/utils/httpRequest.js'
 import { mapState, mapActions } from 'vuex'
 import Button from '@/components/molecules/Button.vue'
 
@@ -72,8 +71,6 @@ export default {
     this.map.zoomControl.setPosition('bottomright')
 
     setTimeout(() => {
-      // const heatPoints = JSON.parse(JSON.stringify(this.mapState.dataHeat))
-
       this.drawMap()
     }, 100)
   },
@@ -86,7 +83,7 @@ export default {
       const geoData = []
 
       heatPoints.forEach(function (d) {
-        if (!isNaN(+d.geometry.coordinates[0]) || !isNaN(+d.geometry.coordinates[1])) {
+        if (d.geometry.coordinates !== null && !isNaN(+d.geometry.coordinates[0]) && !isNaN(+d.geometry.coordinates[1])) {
           geoData.push([+d.geometry.coordinates[0], +d.geometry.coordinates[1], ((d.properties.hint) / maxValue)])
         }
       })
@@ -103,15 +100,13 @@ export default {
     },
     redrawHeatMap (newState) {
       let transitionPoints = new Promise((resolve, reject) => {
-        if (d3.select('.leaflet-heatmap-layer').size() > 0) {
-          d3.select('.leaflet-heatmap-layer')
-            .transition()
-            .duration(700)
-            .style('opacity', '0')
-            .transition()
-            .duration(500)
-            .style('opacity', '1')
-        }
+        d3.select('.leaflet-heatmap-layer')
+          .transition()
+          .duration(700)
+          .style('opacity', '0')
+          .transition()
+          .duration(500)
+          .style('opacity', '1')
 
         setTimeout(function () {
           resolve('la promesse marche')
@@ -119,6 +114,10 @@ export default {
       })
 
       transitionPoints.then((val) => {
+        if (this.heatLayer) {
+          this.map.removeLayer(this.heatLayer)
+        }
+
         this.drawHeatMap(newState)
       }).catch(() => {
         console.log('la grosse promesse rompue')
@@ -137,17 +136,12 @@ export default {
     drawPlaces () {
       var self = this
       var dataPlaces = this.places.places
-
       var svgPlaces = d3.select(this.map.getPanes().overlayPane).append('svg').style('z-index', '10000')
       var placesGroup = svgPlaces.append('g').attr('class', 'leaflet-zoom-hide')
-
       var featurePlaces
-
       var transform = d3.geoTransform({point: projectPoint})
       var path = d3.geoPath().projection(transform)
-
       var rootWidth, previousWidth
-
       var radius = d3.scaleLinear()
         .domain([0, d3.max(dataPlaces.features, function (d) { return +d.properties.capacity })])
         .range([4, 6])
@@ -241,6 +235,7 @@ export default {
 
 <style lang='scss'>
   @import '~stylesheets/helpers/_variables.scss';
+  @import '~stylesheets/helpers/mixins/style.scss';
   @import '~stylesheets/components/_buttons.scss';
 
   .map {
@@ -282,8 +277,9 @@ export default {
 
     #map__heat {
       width: 100vw;
-      height: calc(100vh - 170px);
+      height: calc(100vh - 80px - 90px);
       position: relative;
+      transition: height .3s ease-in-out;
     }
 
     .events {
@@ -302,6 +298,15 @@ export default {
       top: 40px;
       left: 40px;
       z-index: $z-index-preset-link;
+    }
+
+    &.map--active {
+      #map__heat {
+        height: calc(100vh - 80px - 250px);
+        @include medium {
+          height: calc(100vh - 80px - 90px);
+        }
+      }
     }
 
     /* leaflet overide */

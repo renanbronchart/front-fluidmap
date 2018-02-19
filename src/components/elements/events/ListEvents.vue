@@ -52,6 +52,7 @@
       },
       toggle () {
         this.panelOpen = !this.panelOpen
+        this.$emit('openEventsList')
       },
       clickEvent (event) {
         this.selectEvent(event)
@@ -63,13 +64,22 @@
   }
 </script>
 
-<style lang='scss' scoped>
+<style lang='scss'>
   @import '~stylesheets/helpers/_variables.scss';
+
+  .map--active {
+    .panel__body {
+      &.panel__body--active {
+        height: 0;
+        max-height: calc(100vh - 200px);
+      }
+    }
+  }
 
   .panel {
     width: 300px;
     position: absolute;
-    bottom: 90px;
+    bottom: 0;
     left: 40px;
     border-radius: $border-radius-base $border-radius-base 0 0;
     background: white;

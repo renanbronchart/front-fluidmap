@@ -26,10 +26,40 @@ const mutations = {
   [types.SET_NEW_DATE] (state, {date, schedules}) {
     const dates = mapDate.getdates(date, schedules)
     const timestampStart = parseFloat(dates[0]) + 1
+    const rowsRequest = 8000
+    const offsetRequest = 8000
+    const countRequest = 11
+    const oldHeat = JSON.parse(localStorage.getItem('fluidmap-dataHeat')) || []
 
-    HTTP.get(`heat/${timestampStart}`).then(({data}) => {
-      state.dataHeat = data.features
-    })
+    if (state.dataHeat.length === 0) {
+      state.dataHeat = oldHeat
+    }
+
+    heatRequest()
+
+    function heatRequest () {
+      let i = 1
+      let promises = []
+
+      for (i; i <= countRequest; i++) {
+        let nextOffset = offsetRequest * i
+
+        promises[i - 1] = HTTP.get(`heat/${timestampStart}?rows=${rowsRequest}&offset=${nextOffset}`)
+      }
+
+      Promise.all(promises).then((values) => {
+        let newHeat = []
+
+        for (let {data} of values) {
+          let features = data.features || []
+
+          newHeat = [...newHeat, ...features]
+        }
+
+        state.dataHeat = newHeat
+        localStorage.setItem('fluidmap-dataHeat', JSON.stringify(newHeat.slice(0, 10000)))
+      })
+    }
   },
   [types.SELECT_PLACE] (state, {placeSelected}) {
     state.placeSelected = true
