@@ -1,9 +1,13 @@
 <template>
   <div>
-    <div class="map">
+    <div class="map" :class="getExtraClass">
       <MapHome />
-      <ListEvents />
-      <RangeSlider />
+      <ListEvents
+        @openEventsList="removeActiveMap"
+      />
+      <RangeSlider
+        @clickOpenSlider="toggleActiveMap"
+      />
       <SideBar />
     </div>
     <router-view :key="$route.fullPath"></router-view>
@@ -18,7 +22,22 @@
 
   export default {
     data () {
-      return {}
+      return {
+        mapActive: false
+      }
+    },
+    computed: {
+      getExtraClass () {
+        return this.mapActive ? 'map--active' : ''
+      }
+    },
+    methods: {
+      toggleActiveMap () {
+        this.mapActive = !this.mapActive
+      },
+      removeActiveMap () {
+        this.mapActive = false
+      }
     },
     components: {
       MapHome,

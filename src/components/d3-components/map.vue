@@ -241,6 +241,7 @@ export default {
 
 <style lang='scss'>
   @import '~stylesheets/helpers/_variables.scss';
+  @import '~stylesheets/helpers/mixins/style.scss';
   @import '~stylesheets/components/_buttons.scss';
 
   .map {
@@ -282,8 +283,9 @@ export default {
 
     #map__heat {
       width: 100vw;
-      height: calc(100vh - 170px);
+      height: calc(100vh - 80px - 90px);
       position: relative;
+      transition: height .3s ease-in-out;
     }
 
     .events {
@@ -302,6 +304,15 @@ export default {
       top: 40px;
       left: 40px;
       z-index: $z-index-preset-link;
+    }
+
+    &.map--active {
+      #map__heat {
+        height: calc(100vh - 80px - 250px);
+        @include medium {
+          height: calc(100vh - 80px - 90px);
+        }
+      }
     }
 
     /* leaflet overide */
