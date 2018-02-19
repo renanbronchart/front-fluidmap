@@ -3,9 +3,9 @@
     <h3>Voulez-vous élargir votre tranche horaires ?</h3>
     <div class="row">
       <div class="col-xs-12 col-sm-6 col-lg-7 modal__block--left m-t-lg">
-        <div class="p-r-lg">
-          <h4 class="m-b-sm">Oui</h4>
-          <p>Oui, je souhaite élargir la tranche horaire à analyser sur le lieu choisi. Dans ce cas, l’analyse ne se basera plus sur l’épreuve spécifique choisie.</p>
+        <div class="modal__blockContent">
+          <h5 class="m-b-sm">Oui</h5>
+          <p class="text--lg text--secondary">Oui, je souhaite élargir la tranche horaire à analyser sur le lieu choisi. Dans ce cas, l’analyse ne se basera plus sur l’épreuve spécifique choisie.</p>
           <div class="slider--extend">
             <div class="slider__content" :class='slider.ref'>
               <vue-slider @callback='onChange(slider.slider.value)' v-bind="slider.slider" v-model="slider.slider.value" :ref="slider.ref">
@@ -22,10 +22,10 @@
           />
         </div>
       </div>
-      <div class="col-xs-12 col-sm-6 col-lg-5 m-t-lg">
-        <div class="p-l-lg">
-          <h4 class="m-b-sm">Non</h4>
-          <p>Non, merci. Je souhaite accéder à l’analyse de la tranche horaire de 2h que j’ai déjà choisie.</p>
+      <div class="col-xs-12 col-sm-6 col-lg-5 modal__block--right">
+        <div class="modal__blockContent">
+          <h5 class="m-b-sm">Non</h5>
+          <p class="text--lg text--secondary">Non, merci. Je souhaite accéder à l’analyse de la tranche horaire de 2h que j’ai déjà choisie.</p>
           <Button
             label="Accéder à l'analyse"
             extraClass="button--ghost button--primary m-t-xl"
@@ -146,25 +146,46 @@
   }
 </script>
 
-<style lang="scss">
+<style lang='scss'>
   @import '~stylesheets/helpers/_variables.scss';
+  @import '~stylesheets/helpers/mixins/style.scss';
 
   .modal__block--left {
     position: relative;
-    &:after {
-      content: ' ';
-      width: 1px;
-      height: 170px;
-      max-height: 100%;
-      position: absolute;
-      top: 0;
-      right: 0;
-      background: $gray-lighter;
+    @include medium {
+      .modal__blockContent {
+        padding: 0 30px 0 0;
+      }
+      &:after {
+        content: ' ';
+        width: 1px;
+        height: 170px;
+        max-height: 100%;
+        position: absolute;
+        top: 0;
+        right: 0;
+        background: $gray-lighter;
+      }
+    }
+  }
+
+  .modal__block--right {
+    margin: 50px 0 0 0;
+    @include medium {
+      margin: 30px 0 0 0;
+      .modal__blockContent {
+        padding: 0 0 0 30px;
+      }
     }
   }
 
   .slider--extend {
-    margin: 40px 0 60px 0;
+    margin: 40px 0 50px 0;
+    .vue-slider-tooltip-bottom {
+      opacity: 1;
+    }
+
+
     .slider-hour {
       color: white;
       .tooltip__custom {
@@ -200,13 +221,13 @@
         position: absolute;
         &:after {
           content: '';
-          width: 30px;
+          width: 20px;
           height: 15px;
           border-radius: 3px;
           position: absolute;
           top: 50%;
           transform: translateY(-50%);
-          right: -15px;
+          right: -10px;
           left: auto;
         }
         .tooltip__custom {
@@ -215,6 +236,19 @@
           text-align: center;
           white-space: nowrap;
         }
+        & + .vue-slider-dot {
+          &:after {
+            left: -10px;
+            right: auto;
+          }
+        }
+      }
+      @include medium {
+        &:after {
+          width: 30px;
+          right: -15px;
+        }
+
         & + .vue-slider-dot {
           &:after {
             left: -15px;

@@ -1,7 +1,7 @@
 <template>
   <div class="aside__stations" :class="extraClass">
     <div class="aside__container">
-      <Card>
+      <Card extraClass="m-t-md m-b-md">
         <slot name="header">
           <div class="card__header">
             <p>{{title}}</p>

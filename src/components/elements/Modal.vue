@@ -53,15 +53,15 @@
   @import '~stylesheets/helpers/_variables.scss';
   @import '~stylesheets/helpers/mixins/_media-queries.scss';
 
-
-
   .modal,
   .modal__background {
     width: 100vw;
     height: 100vh;
     position: fixed;
     top: 0;
+    bottom: 0;
     left: 0;
+    overflow: auto;
     z-index: 15000;
     &:after {
       content: ' ';
@@ -70,6 +70,7 @@
       position: absolute;
       top: 0;
       left: 0;
+      bottom: 0;
       background: rgba($color-mine-shaft, 0.3);
       z-index: -1;
     }
@@ -86,8 +87,8 @@
     border-radius: $border-radius-base;
     box-shadow: 0 26px 163px 0 rgba(0, 0, 0, 0.11);
     z-index: 20000;
-    padding: 50px 60px;
     margin: 50px auto;
+    padding: 50px 24px;
 
     &:after {
       content: '';
@@ -101,6 +102,7 @@
 
     @include medium {
       width: 870px;
+      padding: 50px 60px;
     }
 
     &.modal__content--xs {
