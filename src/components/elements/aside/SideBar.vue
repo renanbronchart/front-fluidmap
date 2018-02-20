@@ -307,7 +307,7 @@
   .aside {
     width: 524px;
     max-width: 100%;
-    height: calc(100vh - 170px);
+    bottom: 90px;
     display: flex;
     flex-direction: column;
     position: fixed;
