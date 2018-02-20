@@ -6,7 +6,9 @@
           <i class="material-icons">close</i>
         </a>
         <div class="modal__body">
-          <component :is="getComponentModal"></component>
+          <div class="modal__bodyContainer">
+            <component :is="getComponentModal"></component>
+          </div>
         </div>
       </div>
     </div>
@@ -58,6 +60,8 @@
     width: 100vw;
     height: 100vh;
     position: fixed;
+    align-items: center;
+    justify-content: center;
     top: 0;
     bottom: 0;
     left: 0;
@@ -67,7 +71,7 @@
       content: ' ';
       width: 100vw;
       height: 100vh;
-      position: absolute;
+      position: fixed;
       top: 0;
       left: 0;
       bottom: 0;
@@ -76,19 +80,22 @@
     }
   }
 
+  .modal {
+    display: flex;
+  }
+
   .modal__content {
     width: 90%;
-    min-height: 380px;
+    /*min-height: 380px;*/
+    display: block;
     position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: block;
     background: white;
     border-radius: $border-radius-base;
     box-shadow: 0 26px 163px 0 rgba(0, 0, 0, 0.11);
     z-index: 20000;
     margin: 50px auto;
-    padding: 50px 24px;
+    padding: 0;
 
     &:after {
       content: '';
@@ -102,13 +109,26 @@
 
     @include medium {
       width: 870px;
-      padding: 50px 60px;
     }
 
     &.modal__content--xs {
       @include medium {
         width: 760px;
       }
+    }
+  }
+
+  .modal__body {
+    max-width: 100%;
+    max-height: 90vh;
+    overflow: auto;
+    display: flex;
+    padding: 50px 24px;
+    .modal__bodyContainer {
+      margin: auto;
+    }
+    @include medium {
+      padding: 50px 60px;
     }
   }
 
