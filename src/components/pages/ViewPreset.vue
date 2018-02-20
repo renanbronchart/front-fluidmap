@@ -163,6 +163,7 @@
 
 <script>
   import HTTP from '@/utils/httpRequest.js'
+  import exportToPdf from '@/utils/exportPdfCanvas.js'
 
   import Button from '@/components/molecules/Button.vue'
   import TextInfos from '@/components/molecules/TextInfos.vue'
@@ -373,15 +374,14 @@
         this[section]['showMoreLabel'] = !showMoreLabel
       },
       exportPdf () {
-        alert('export to pdf')
+        var src = document.querySelector('.analyse.container')
 
-        // ajouter le plugin qui permet de prendre en pdf les éléments d'une page
+        exportToPdf(src, 2, 80)
       },
       savePreset () {
         this.saveNewPreset(this.preset)
 
-        // l'ajouter en front aux presets.
-        // Faire une action dans le store. elle modifie le state des presets et push sur l'api
+        // ne pas le rajouter si il existe déjà
       },
       updatePreset () {
         const timestampStart = this.preset.map.dates[0]
