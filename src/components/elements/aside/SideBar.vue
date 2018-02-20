@@ -66,7 +66,8 @@
             <p class="text--bold m-b-sm">{{data.name}}</p>
             <StationIcon
               :number="line.count"
-              :hexa="line.color"
+              :hexa="line.background"
+              :fontColor="line.color"
               extraClass="m-r-sm"
               v-for="line in data.lines"
             />

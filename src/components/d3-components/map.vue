@@ -65,7 +65,20 @@ export default {
   mounted () {
     this.map = L.map('map__heat', {
       center: [48.853, 2.333],
-      zoom: 13
+      zoom: 13,
+      zoomAnimation: true,
+      touchZoom: true,
+      tapTolerance: 50,
+      tap: true,
+      inertia: true,
+      inertiaDeceleration: 700,
+      updateWhenIdle: false,
+      draggable: true,
+      dragging: true,
+      scrollWheelZoom: true,
+      doubleClickZoom: true,
+      preferCanvas: true,
+      maxBoundsViscosity: 0.5
     })
 
     this.map.zoomControl.setPosition('bottomright')
@@ -127,6 +140,7 @@ export default {
       L.tileLayer('https://api.mapbox.com/styles/v1/renanbronchart/cjcjqu77v9elo2soyghb33i8h/tiles/256/{z}/{x}/{y}?access_token={accessToken}', {
         maxZoom: 30,
         minZoom: 10,
+        preferCanvas: true,
         id: 'mapbox.streets',
         accessToken: 'pk.eyJ1IjoicmVuYW5icm9uY2hhcnQiLCJhIjoiY2o5OW82cG1jMHdxZTMzcXRxbThnczZuMSJ9.zrdXIR4UBPh8195XRQPLtQ'
       }).addTo(this.map)

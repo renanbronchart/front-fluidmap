@@ -6,14 +6,14 @@
       <Button
         label="Plus tard"
         linkName="Home"
-        extraClass="button--ghost button--primary button--fixed m-r-md"
+        extraClass="button--ghost button--primary button--fixed m-t-md"
         @eventClick="closeModal"
       />
       <Button
         label="Je vous suis"
         linkName="OnBoard"
         :linkParams="linkParams"
-        extraClass="button--primary button--fixed"
+        extraClass="button--primary button--fixed m-t-md"
         linkTitle="Lien vers le onBoard"
         @eventClick="closeModal"
       />
@@ -46,9 +46,22 @@
 </script>
 
 <style lang='scss'>
+  @import '~stylesheets/helpers/_variables.scss';
+  @import '~stylesheets/helpers/mixins/_media-queries.scss';
+
+  .modal .modal__content {
+    /*margin-top: 40%;*/
+  }
+
   .modal__button {
     display: flex;
-    justify-content: center;
-    margin: 80px 0 0 0;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    margin: 32px 0 0 0;
+    @include medium {
+      margin: 60px 0 0 0;
+      flex-direction: row;
+    }
   }
 </style>
