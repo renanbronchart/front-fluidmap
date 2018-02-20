@@ -2,21 +2,21 @@
   <div class="analyse container">
     <div class="analyse__header">
       <div class="analyse__title">
-        <h2>{{getTitlePage}}</h2>
+        <h2 class="m-t-lg">{{getTitlePage}}</h2>
         <div class="analyse__actions">
           <Button
             label="Modifier la tranche horaire"
-            extraClass="button--primary button--ghost button__analyseAction"
+            extraClass="button--primary button--ghost button__analyseAction m-t-lg"
             @eventClick="updatePreset"
           />
           <Button
             label="Ajouter aux favoris"
-            extraClass="button--primary button--ghost button__analyseAction"
+            extraClass="button--primary button--ghost button__analyseAction m-t-lg"
             @eventClick="savePreset"
           />
           <Button
             label="Exporter en PDF"
-            extraClass="button--primary button__analyseAction"
+            extraClass="button--primary button__analyseAction m-t-lg"
             @eventClick="exportPdf"
           />
         </div>
@@ -438,15 +438,20 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    flex-wrap: wrap;
   }
 
   .analyse__actions {
     display: inline-flex;
     align-items: center;
+    flex-wrap: wrap;
   }
 
   .button__analyseAction {
-    margin-left: 20px;
+    margin-right: 20px;
+    &:last-child {
+      margin-right: 0;
+    }
   }
 
   .general__agenda {
