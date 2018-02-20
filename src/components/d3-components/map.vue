@@ -1,10 +1,12 @@
 <template>
-  <div id="map__heat">
-    <Button
-      iconName="layers"
-      extraClass="button--round map__presetLink"
-      extraClassIcon="m-n"
-    />
+  <div class="map__heatContainer">
+    <div id="map__heat">
+      <Button
+        iconName="layers"
+        extraClass="button--round map__presetLink"
+        extraClassIcon="m-n"
+      />
+    </div>
   </div>
 </template>
 
@@ -289,11 +291,16 @@ export default {
     }
 
 
-    #map__heat {
+    .map__heatContainer {
       width: 100vw;
-      height: calc(100vh - 80px - 90px);
-      position: relative;
-      transition: height .3s ease-in-out;
+      position: fixed;
+      top: 80px;
+      bottom: 90px;
+      transition: bottom .3s ease-in-out;
+      #map__heat {
+        height: 100%;
+        position: relative;
+      }
     }
 
     .events {
@@ -315,10 +322,12 @@ export default {
     }
 
     &.map--active {
-      #map__heat {
-        height: calc(100vh - 80px - 250px);
+      .map__heatContainer {
+        position: fixed;
+        top: 80px;
+        bottom: 250px;
         @include medium {
-          height: calc(100vh - 80px - 90px);
+          bottom: 90px;
         }
       }
     }
