@@ -4,11 +4,12 @@ export default [
     'lines': [
       {
         count: '4',
-        color: '#be418d'
+        background: '#be418d'
       },
       {
         count: '5',
-        color: '#ff7e2e'
+        color: 'black',
+        background: '#ff7e2e'
       }
     ]
   },
@@ -17,23 +18,25 @@ export default [
     'lines': [
       {
         count: '3',
-        color: '#837902'
+        background: '#837902'
       },
       {
         count: '9',
-        color: '#b6bd00'
+        color: 'black',
+        background: '#b6bd00'
       },
       {
         count: '12',
-        color: '#007852'
+        background: '#007852'
       },
       {
         count: '13',
-        color: '#6ec4e8'
+        color: 'black',
+        background: '#6ec4e8'
       },
       {
         count: '14',
-        color: '#62259d'
+        background: '#62259d'
       }
     ]
   },
@@ -42,11 +45,12 @@ export default [
     'lines': [
       {
         count: '1',
-        color: '#ffcd00'
+        color: 'black',
+        background: '#ffcd00'
       },
       {
         count: '14',
-        color: '#62259d'
+        background: '#62259d'
       }
     ]
   },
@@ -55,19 +59,21 @@ export default [
     'lines': [
       {
         count: '4',
-        color: '#be418d'
+        background: '#be418d'
       },
       {
         count: '6',
-        color: '#6eca97'
+        color: 'black',
+        background: '#6eca97'
       },
       {
         count: '12',
-        color: '#007852'
+        background: '#007852'
       },
       {
         count: '13',
-        color: '#6ec4e8'
+        color: 'black',
+        background: '#6ec4e8'
       }
     ]
   },
@@ -76,15 +82,17 @@ export default [
     'lines': [
       {
         count: '4',
-        color: '#be418d'
+        background: '#be418d'
       },
       {
         count: '5',
-        color: '#ff7e2e'
+        color: 'black',
+        background: '#ff7e2e'
       },
       {
         count: '7',
-        color: '#fa9aba'
+        color: 'black',
+        background: '#fa9aba'
       }
     ]
   },
@@ -93,23 +101,26 @@ export default [
     'lines': [
       {
         count: '3',
-        color: '#837902'
+        background: '#837902'
       },
       {
         count: '5',
-        color: '#ff7e2e'
+        color: 'black',
+        background: '#ff7e2e'
       },
       {
         count: '8',
-        color: '#e19bdf'
+        color: 'black',
+        background: '#e19bdf'
       },
       {
         count: '9',
-        color: '#b6bd00'
+        color: 'black',
+        background: '#b6bd00'
       },
       {
         count: '11',
-        color: '#704b1c'
+        background: '#704b1c'
       }
     ]
   },
@@ -118,7 +129,7 @@ export default [
     'lines': [
       {
         count: '14',
-        color: '#62259d'
+        background: '#62259d'
       }
     ]
   },
@@ -127,7 +138,7 @@ export default [
     'lines': [
       {
         count: '4',
-        color: '#be418d'
+        background: '#be418d'
       }
     ]
   },
@@ -136,7 +147,8 @@ export default [
     'lines': [
       {
         count: '1',
-        color: '#ffcd00'
+        color: 'black',
+        background: '#ffcd00'
       }
     ]
   },
@@ -145,23 +157,25 @@ export default [
     'lines': [
       {
         count: '1',
-        color: '#ffcd00'
+        color: 'black',
+        background: '#ffcd00'
       },
       {
         count: '4',
-        color: '#be418d'
+        background: '#be418d'
       },
       {
         count: '7',
-        color: '#fa9aba'
+        color: 'black',
+        background: '#fa9aba'
       },
       {
         count: '11',
-        color: '#704b1c'
+        background: '#704b1c'
       },
       {
         count: '14',
-        color: '#62259d'
+        background: '#62259d'
       }
     ]
   },
@@ -170,15 +184,18 @@ export default [
     'lines': [
       {
         count: '1',
-        color: '#ffcd00'
+        color: 'black',
+        background: '#ffcd00'
       },
       {
         count: '5',
-        color: '#ff7e2e'
+        color: 'black',
+        background: '#ff7e2e'
       },
       {
         count: '8',
-        color: '#e19bdf'
+        color: 'black',
+        background: '#e19bdf'
       }
     ]
   },
@@ -187,15 +204,17 @@ export default [
     'lines': [
       {
         count: '3',
-        color: '#837902'
+        background: '#837902'
       },
       {
         count: '7',
-        color: '#fa9aba'
+        color: 'black',
+        background: '#fa9aba'
       },
       {
         count: '8',
-        color: '#e19bdf'
+        color: 'black',
+        background: '#e19bdf'
       }
     ]
   },
@@ -204,11 +223,12 @@ export default [
     'lines': [
       {
         count: '1',
-        color: '#ffcd00'
+        color: 'black',
+        background: '#ffcd00'
       },
       {
         count: '11',
-        color: '#704b1c'
+        background: '#704b1c'
       }
     ]
   },
@@ -217,11 +237,11 @@ export default [
     'lines': [
       {
         count: '2',
-        color: '#003ca6'
+        background: '#003ca6'
       },
       {
         count: '11',
-        color: '#704b1c'
+        background: '#704b1c'
       }
     ]
   },
@@ -230,15 +250,18 @@ export default [
     'lines': [
       {
         count: '5',
-        color: '#ff7e2e'
+        color: 'black',
+        background: '#ff7e2e'
       },
       {
         count: '6',
-        color: '#6eca97'
+        color: 'black',
+        background: '#6eca97'
       },
       {
         count: '7',
-        color: '#fa9aba'
+        color: 'black',
+        background: '#fa9aba'
       }
     ]
   },
@@ -247,7 +270,8 @@ export default [
     'lines': [
       {
         count: '1',
-        color: '#ffcd00'
+        color: 'black',
+        background: '#ffcd00'
       }
     ]
   },
@@ -256,11 +280,13 @@ export default [
     'lines': [
       {
         count: '6',
-        color: '#6eca97'
+        color: 'black',
+        background: '#6eca97'
       },
       {
         count: '8',
-        color: '#e19bdf'
+        color: 'black',
+        background: '#e19bdf'
       }
     ]
   },
@@ -269,15 +295,17 @@ export default [
     'lines': [
       {
         count: '4',
-        color: '#be418d'
+        background: '#be418d'
       },
       {
         count: '8',
-        color: '#e19bdf'
+        color: 'black',
+        background: '#e19bdf'
       },
       {
         count: '9',
-        color: '#b6bd00'
+        color: 'black',
+        background: '#b6bd00'
       }
     ]
   },
@@ -286,19 +314,22 @@ export default [
     'lines': [
       {
         count: '1',
-        color: '#ffcd00'
+        color: 'black',
+        background: '#ffcd00'
       },
       {
         count: '2',
-        color: '#003ca6'
+        background: '#003ca6'
       },
       {
         count: '6',
-        color: '#6eca97'
+        color: 'black',
+        background: '#6eca97'
       },
       {
         count: '9',
-        color: '#b6bd00'
+        color: 'black',
+        background: '#b6bd00'
       }
     ]
   },
@@ -307,11 +338,13 @@ export default [
     'lines': [
       {
         count: '1',
-        color: '#ffcd00'
+        color: 'black',
+        background: '#ffcd00'
       },
       {
         count: '7',
-        color: '#fa9aba'
+        color: 'black',
+        background: '#fa9aba'
       }
     ]
   },
@@ -320,11 +353,12 @@ export default [
     'lines': [
       {
         count: '2',
-        color: '#003ca6'
+        background: '#003ca6'
       },
       {
         count: '13',
-        color: '#6ec4e8'
+        color: 'black',
+        background: '#6ec4e8'
       }
     ]
   },
@@ -333,15 +367,17 @@ export default [
     'lines': [
       {
         count: '1',
-        color: '#ffcd00'
+        color: 'black',
+        background: '#ffcd00'
       },
       {
         count: '2',
-        color: '#003ca6'
+        background: '#003ca6'
       },
       {
         count: '6',
-        color: '#6eca97'
+        color: 'black',
+        background: '#6eca97'
       }
     ]
   },
@@ -350,7 +386,8 @@ export default [
     'lines': [
       {
         count: '1',
-        color: '#ffcd00'
+        color: 'black',
+        background: '#ffcd00'
       }
     ]
   },
@@ -359,11 +396,13 @@ export default [
     'lines': [
       {
         count: '6',
-        color: '#6eca97'
+        color: 'black',
+        background: '#6eca97'
       },
       {
         count: '9',
-        color: '#b6bd00'
+        color: 'black',
+        background: '#b6bd00'
       }
     ]
   },
@@ -372,7 +411,7 @@ export default [
     'lines': [
       {
         count: '4',
-        color: '#be418d'
+        background: '#be418d'
       }
     ]
   },
@@ -381,7 +420,7 @@ export default [
     'lines': [
       {
         count: '4',
-        color: '#be418d'
+        background: '#be418d'
       }
     ]
   },
@@ -390,11 +429,11 @@ export default [
     'lines': [
       {
         count: '2',
-        color: '#003ca6'
+        background: '#003ca6'
       },
       {
         count: '4',
-        color: '#be418d'
+        background: '#be418d'
       }
     ]
   },
@@ -403,11 +442,13 @@ export default [
     'lines': [
       {
         count: '5',
-        color: '#ff7e2e'
+        color: 'black',
+        background: '#ff7e2e'
       },
       {
         count: '10',
-        color: '#c9910d'
+        color: 'black',
+        background: '#c9910d'
       }
     ]
   },
@@ -416,15 +457,18 @@ export default [
     'lines': [
       {
         count: '6',
-        color: '#6eca97'
+        color: 'black',
+        background: '#6eca97'
       },
       {
         count: '8',
-        color: '#e19bdf'
+        color: 'black',
+        background: '#e19bdf'
       },
       {
         count: '10',
-        color: '#c9910d'
+        color: 'black',
+        background: '#c9910d'
       }
     ]
   },
@@ -433,7 +477,8 @@ export default [
     'lines': [
       {
         count: '6',
-        color: '#6eca97'
+        color: 'black',
+        background: '#6eca97'
       }
     ]
   },
@@ -442,11 +487,12 @@ export default [
     'lines': [
       {
         count: '3',
-        color: '#837902'
+        background: '#837902'
       },
       {
         count: '9',
-        color: '#b6bd00'
+        color: 'black',
+        background: '#b6bd00'
       }
     ]
   },
@@ -455,11 +501,13 @@ export default [
     'lines': [
       {
         count: '7',
-        color: '#fa9aba'
+        color: 'black',
+        background: '#fa9aba'
       },
       {
         count: '9',
-        color: '#b6bd00'
+        color: 'black',
+        background: '#b6bd00'
       }
     ]
   },
@@ -468,15 +516,17 @@ export default [
     'lines': [
       {
         count: '2',
-        color: '#003ca6'
+        background: '#003ca6'
       },
       {
         count: '5',
-        color: '#ff7e2e'
+        color: 'black',
+        background: '#ff7e2e'
       },
       {
         count: '7',
-        color: '#fa9aba'
+        color: 'black',
+        background: '#fa9aba'
       }
     ]
   },
@@ -485,15 +535,16 @@ export default [
     'lines': [
       {
         count: '8',
-        color: '#e19bdf'
+        color: 'black',
+        background: '#e19bdf'
       },
       {
         count: '12',
-        color: '#007852'
+        background: '#007852'
       },
       {
         count: '14',
-        color: '#62259d'
+        background: '#62259d'
       }
     ]
   },
@@ -502,11 +553,12 @@ export default [
     'lines': [
       {
         count: '3',
-        color: '#837902'
+        background: '#837902'
       },
       {
         count: '3bis',
-        color: '#6ec4e8'
+        color: 'black',
+        background: '#6ec4e8'
       }
     ]
   },
@@ -515,11 +567,13 @@ export default [
     'lines': [
       {
         count: '8',
-        color: '#e19bdf'
+        color: 'black',
+        background: '#e19bdf'
       },
       {
         count: '13',
-        color: '#6ec4e8'
+        color: 'black',
+        background: '#6ec4e8'
       }
     ]
   },
@@ -528,15 +582,17 @@ export default [
     'lines': [
       {
         count: '1',
-        color: '#ffcd00'
+        color: 'black',
+        background: '#ffcd00'
       },
       {
         count: '8',
-        color: '#e19bdf'
+        color: 'black',
+        background: '#e19bdf'
       },
       {
         count: '12',
-        color: '#007852'
+        background: '#007852'
       }
     ]
   },
@@ -545,7 +601,8 @@ export default [
     'lines': [
       {
         count: '5',
-        color: '#ff7e2e'
+        color: 'black',
+        background: '#ff7e2e'
       }
     ]
   },
@@ -554,11 +611,13 @@ export default [
     'lines': [
       {
         count: '8',
-        color: '#e19bdf'
+        color: 'black',
+        background: '#e19bdf'
       },
       {
         count: '9',
-        color: '#b6bd00'
+        color: 'black',
+        background: '#b6bd00'
       }
     ]
   },
@@ -567,7 +626,8 @@ export default [
     'lines': [
       {
         count: '7',
-        color: '#fa9aba'
+        color: 'black',
+        background: '#fa9aba'
       }
     ]
   },
@@ -576,7 +636,8 @@ export default [
     'lines': [
       {
         count: '13',
-        color: '#6ec4e8'
+        color: 'black',
+        background: '#6ec4e8'
       }
     ]
   },
@@ -585,7 +646,8 @@ export default [
     'lines': [
       {
         count: '7',
-        color: '#fa9aba'
+        color: 'black',
+        background: '#fa9aba'
       }
     ]
   },
@@ -594,7 +656,8 @@ export default [
     'lines': [
       {
         count: '1',
-        color: '#ffcd00'
+        color: 'black',
+        background: '#ffcd00'
       }
     ]
   },
@@ -603,7 +666,7 @@ export default [
     'lines': [
       {
         count: '2',
-        color: '#003ca6'
+        background: '#003ca6'
       }
     ]
   },
@@ -612,7 +675,7 @@ export default [
     'lines': [
       {
         count: '14',
-        color: '#62259d'
+        background: '#62259d'
       }
     ]
   },
@@ -621,7 +684,7 @@ export default [
     'lines': [
       {
         count: '4',
-        color: '#be418d'
+        background: '#be418d'
       }
     ]
   },
@@ -630,7 +693,8 @@ export default [
     'lines': [
       {
         count: '1',
-        color: '#ffcd00'
+        color: 'black',
+        background: '#ffcd00'
       }
     ]
   },
@@ -639,7 +703,7 @@ export default [
     'lines': [
       {
         count: '2',
-        color: '#003ca6'
+        background: '#003ca6'
       }
     ]
   },
@@ -648,11 +712,11 @@ export default [
     'lines': [
       {
         count: '4',
-        color: '#be418d'
+        background: '#be418d'
       },
       {
         count: '12',
-        color: '#007852'
+        background: '#007852'
       }
     ]
   },
@@ -661,7 +725,8 @@ export default [
     'lines': [
       {
         count: '9',
-        color: '#b6bd00'
+        color: 'black',
+        background: '#b6bd00'
       }
     ]
   },
@@ -670,11 +735,11 @@ export default [
     'lines': [
       {
         count: '2',
-        color: '#003ca6'
+        background: '#003ca6'
       },
       {
         count: '3',
-        color: '#837902'
+        background: '#837902'
       }
     ]
   },
@@ -683,7 +748,8 @@ export default [
     'lines': [
       {
         count: '1',
-        color: '#ffcd00'
+        color: 'black',
+        background: '#ffcd00'
       }
     ]
   },
@@ -692,7 +758,8 @@ export default [
     'lines': [
       {
         count: '13',
-        color: '#6ec4e8'
+        color: 'black',
+        background: '#6ec4e8'
       }
     ]
   },
@@ -701,7 +768,7 @@ export default [
     'lines': [
       {
         count: '12',
-        color: '#007852'
+        background: '#007852'
       }
     ]
   },
@@ -710,11 +777,11 @@ export default [
     'lines': [
       {
         count: '2',
-        color: '#003ca6'
+        background: '#003ca6'
       },
       {
         count: '12',
-        color: '#007852'
+        background: '#007852'
       }
     ]
   },
@@ -723,11 +790,12 @@ export default [
     'lines': [
       {
         count: '4',
-        color: '#be418d'
+        background: '#be418d'
       },
       {
         count: '10',
-        color: '#c9910d'
+        color: 'black',
+        background: '#c9910d'
       }
     ]
   },
@@ -736,7 +804,8 @@ export default [
     'lines': [
       {
         count: '9',
-        color: '#b6bd00'
+        color: 'black',
+        background: '#b6bd00'
       }
     ]
   },
@@ -745,11 +814,13 @@ export default [
     'lines': [
       {
         count: '9',
-        color: '#b6bd00'
+        color: 'black',
+        background: '#b6bd00'
       },
       {
         count: '13',
-        color: '#6ec4e8'
+        color: 'black',
+        background: '#6ec4e8'
       }
     ]
   },
@@ -758,7 +829,8 @@ export default [
     'lines': [
       {
         count: '1',
-        color: '#ffcd00'
+        color: 'black',
+        background: '#ffcd00'
       }
     ]
   },
@@ -767,7 +839,8 @@ export default [
     'lines': [
       {
         count: '1',
-        color: '#ffcd00'
+        color: 'black',
+        background: '#ffcd00'
       }
     ]
   },
@@ -776,7 +849,7 @@ export default [
     'lines': [
       {
         count: '14',
-        color: '#62259d'
+        background: '#62259d'
       }
     ]
   },
@@ -785,7 +858,8 @@ export default [
     'lines': [
       {
         count: '7',
-        color: '#fa9aba'
+        color: 'black',
+        background: '#fa9aba'
       }
     ]
   },
@@ -794,7 +868,7 @@ export default [
     'lines': [
       {
         count: '12',
-        color: '#007852'
+        background: '#007852'
       }
     ]
   },
@@ -803,11 +877,13 @@ export default [
     'lines': [
       {
         count: '1',
-        color: '#ffcd00'
+        color: 'black',
+        background: '#ffcd00'
       },
       {
         count: '8',
-        color: '#e19bdf'
+        color: 'black',
+        background: '#e19bdf'
       }
     ]
   },
@@ -816,11 +892,12 @@ export default [
     'lines': [
       {
         count: '10',
-        color: '#c9910d'
+        color: 'black',
+        background: '#c9910d'
       },
       {
         count: '12',
-        color: '#007852'
+        background: '#007852'
       }
     ]
   },
@@ -829,7 +906,8 @@ export default [
     'lines': [
       {
         count: '7',
-        color: '#fa9aba'
+        color: 'black',
+        background: '#fa9aba'
       }
     ]
   },
@@ -838,11 +916,12 @@ export default [
     'lines': [
       {
         count: '6',
-        color: '#6eca97'
+        color: 'black',
+        background: '#6eca97'
       },
       {
         count: '14',
-        color: '#62259d'
+        background: '#62259d'
       }
     ]
   },
@@ -851,7 +930,8 @@ export default [
     'lines': [
       {
         count: '1',
-        color: '#ffcd00'
+        color: 'black',
+        background: '#ffcd00'
       }
     ]
   },
@@ -860,7 +940,8 @@ export default [
     'lines': [
       {
         count: '13',
-        color: '#6ec4e8'
+        color: 'black',
+        background: '#6ec4e8'
       }
     ]
   },
@@ -869,11 +950,13 @@ export default [
     'lines': [
       {
         count: '8',
-        color: '#e19bdf'
+        color: 'black',
+        background: '#e19bdf'
       },
       {
         count: '9',
-        color: '#b6bd00'
+        color: 'black',
+        background: '#b6bd00'
       }
     ]
   },
@@ -882,7 +965,8 @@ export default [
     'lines': [
       {
         count: '13',
-        color: '#6ec4e8'
+        color: 'black',
+        background: '#6ec4e8'
       }
     ]
   },
@@ -891,7 +975,8 @@ export default [
     'lines': [
       {
         count: '9',
-        color: '#b6bd00'
+        color: 'black',
+        background: '#b6bd00'
       }
     ]
   },
@@ -900,7 +985,8 @@ export default [
     'lines': [
       {
         count: '13',
-        color: '#6ec4e8'
+        color: 'black',
+        background: '#6ec4e8'
       }
     ]
   },
@@ -909,7 +995,8 @@ export default [
     'lines': [
       {
         count: '9',
-        color: '#b6bd00'
+        color: 'black',
+        background: '#b6bd00'
       }
     ]
   },
@@ -918,7 +1005,7 @@ export default [
     'lines': [
       {
         count: '4',
-        color: '#be418d'
+        background: '#be418d'
       }
     ]
   },
@@ -928,7 +1015,7 @@ export default [
       'juil',
       {
         count: '14',
-        color: '#62259d'
+        background: '#62259d'
       }
     ]
   },
@@ -937,7 +1024,8 @@ export default [
     'lines': [
       {
         count: '9',
-        color: '#b6bd00'
+        color: 'black',
+        background: '#b6bd00'
       }
     ]
   },
@@ -946,7 +1034,8 @@ export default [
     'lines': [
       {
         count: '13',
-        color: '#6ec4e8'
+        color: 'black',
+        background: '#6ec4e8'
       }
     ]
   },
@@ -955,7 +1044,8 @@ export default [
     'lines': [
       {
         count: '1',
-        color: '#ffcd00'
+        color: 'black',
+        background: '#ffcd00'
       }
     ]
   },
@@ -964,11 +1054,12 @@ export default [
     'lines': [
       {
         count: '6',
-        color: '#6eca97'
+        color: 'black',
+        background: '#6eca97'
       },
       {
         count: '12',
-        color: '#007852'
+        background: '#007852'
       }
     ]
   },
@@ -977,7 +1068,7 @@ export default [
     'lines': [
       {
         count: '3',
-        color: '#837902'
+        background: '#837902'
       }
     ]
   },
@@ -986,7 +1077,8 @@ export default [
     'lines': [
       {
         count: '5',
-        color: '#ff7e2e'
+        color: 'black',
+        background: '#ff7e2e'
       }
     ]
   },
@@ -995,15 +1087,17 @@ export default [
     'lines': [
       {
         count: '2',
-        color: '#003ca6'
+        background: '#003ca6'
       },
       {
         count: '5',
-        color: '#ff7e2e'
+        color: 'black',
+        background: '#ff7e2e'
       },
       {
         count: '7bis',
-        color: '#6eca97'
+        color: 'black',
+        background: '#6eca97'
       }
     ]
   },
@@ -1012,11 +1106,13 @@ export default [
     'lines': [
       {
         count: '8',
-        color: '#e19bdf'
+        color: 'black',
+        background: '#e19bdf'
       },
       {
         count: '9',
-        color: '#b6bd00'
+        color: 'black',
+        background: '#b6bd00'
       }
     ]
   },
@@ -1025,7 +1121,8 @@ export default [
     'lines': [
       {
         count: '6',
-        color: '#6eca97'
+        color: 'black',
+        background: '#6eca97'
       }
     ]
   },
@@ -1034,11 +1131,11 @@ export default [
     'lines': [
       {
         count: '3',
-        color: '#837902'
+        background: '#837902'
       },
       {
         count: '4',
-        color: '#be418d'
+        background: '#be418d'
       }
     ]
   },
@@ -1047,7 +1144,8 @@ export default [
     'lines': [
       {
         count: '9',
-        color: '#b6bd00'
+        color: 'black',
+        background: '#b6bd00'
       }
     ]
   },
@@ -1056,7 +1154,7 @@ export default [
     'lines': [
       {
         count: '2',
-        color: '#003ca6'
+        background: '#003ca6'
       }
     ]
   },
@@ -1065,7 +1163,8 @@ export default [
     'lines': [
       {
         count: '13',
-        color: '#6ec4e8'
+        color: 'black',
+        background: '#6ec4e8'
       }
     ]
   },
@@ -1074,7 +1173,7 @@ export default [
     'lines': [
       {
         count: '3',
-        color: '#837902'
+        background: '#837902'
       }
     ]
   },
@@ -1083,7 +1182,8 @@ export default [
     'lines': [
       {
         count: '5',
-        color: '#ff7e2e'
+        color: 'black',
+        background: '#ff7e2e'
       }
     ]
   },
@@ -1092,11 +1192,11 @@ export default [
     'lines': [
       {
         count: '2',
-        color: '#003ca6'
+        background: '#003ca6'
       },
       {
         count: '3',
-        color: '#837902'
+        background: '#837902'
       }
     ]
   },
@@ -1105,7 +1205,8 @@ export default [
     'lines': [
       {
         count: '5',
-        color: '#ff7e2e'
+        color: 'black',
+        background: '#ff7e2e'
       }
     ]
   },
@@ -1114,7 +1215,7 @@ export default [
     'lines': [
       {
         count: '11',
-        color: '#704b1c'
+        background: '#704b1c'
       }
     ]
   },
@@ -1123,7 +1224,8 @@ export default [
     'lines': [
       {
         count: '13',
-        color: '#6ec4e8'
+        color: 'black',
+        background: '#6ec4e8'
       }
     ]
   },
@@ -1132,11 +1234,13 @@ export default [
     'lines': [
       {
         count: '1',
-        color: '#ffcd00'
+        color: 'black',
+        background: '#ffcd00'
       },
       {
         count: '13',
-        color: '#6ec4e8'
+        color: 'black',
+        background: '#6ec4e8'
       }
     ]
   },
@@ -1145,7 +1249,8 @@ export default [
     'lines': [
       {
         count: '9',
-        color: '#b6bd00'
+        color: 'black',
+        background: '#b6bd00'
       }
     ]
   },
@@ -1154,7 +1259,7 @@ export default [
     'lines': [
       {
         count: '11',
-        color: '#704b1c'
+        background: '#704b1c'
       }
     ]
   },
@@ -1163,7 +1268,7 @@ export default [
     'lines': [
       {
         count: '4',
-        color: '#be418d'
+        background: '#be418d'
       }
     ]
   },
@@ -1172,7 +1277,7 @@ export default [
     'lines': [
       {
         count: '3',
-        color: '#837902'
+        background: '#837902'
       }
     ]
   },
@@ -1181,7 +1286,8 @@ export default [
     'lines': [
       {
         count: '13',
-        color: '#6ec4e8'
+        color: 'black',
+        background: '#6ec4e8'
       }
     ]
   },
@@ -1190,7 +1296,8 @@ export default [
     'lines': [
       {
         count: '9',
-        color: '#b6bd00'
+        color: 'black',
+        background: '#b6bd00'
       }
     ]
   },
@@ -1199,7 +1306,8 @@ export default [
     'lines': [
       {
         count: '8',
-        color: '#e19bdf'
+        color: 'black',
+        background: '#e19bdf'
       }
     ]
   },
@@ -1208,7 +1316,7 @@ export default [
     'lines': [
       {
         count: '12',
-        color: '#007852'
+        background: '#007852'
       }
     ]
   },
@@ -1217,7 +1325,8 @@ export default [
     'lines': [
       {
         count: '7',
-        color: '#fa9aba'
+        color: 'black',
+        background: '#fa9aba'
       }
     ]
   },
@@ -1226,7 +1335,8 @@ export default [
     'lines': [
       {
         count: '8',
-        color: '#e19bdf'
+        color: 'black',
+        background: '#e19bdf'
       }
     ]
   },
@@ -1235,11 +1345,12 @@ export default [
     'lines': [
       {
         count: '4',
-        color: '#be418d'
+        background: '#be418d'
       },
       {
         count: '6',
-        color: '#6eca97'
+        color: 'black',
+        background: '#6eca97'
       }
     ]
   },
@@ -1248,7 +1359,8 @@ export default [
     'lines': [
       {
         count: '10',
-        color: '#c9910d'
+        color: 'black',
+        background: '#c9910d'
       }
     ]
   },
@@ -1257,7 +1369,7 @@ export default [
     'lines': [
       {
         count: '12',
-        color: '#007852'
+        background: '#007852'
       }
     ]
   },
@@ -1266,7 +1378,7 @@ export default [
     'lines': [
       {
         count: '2',
-        color: '#003ca6'
+        background: '#003ca6'
       }
     ]
   },
@@ -1275,7 +1387,7 @@ export default [
     'lines': [
       {
         count: '2',
-        color: '#003ca6'
+        background: '#003ca6'
       }
     ]
   },
@@ -1284,7 +1396,8 @@ export default [
     'lines': [
       {
         count: '9',
-        color: '#b6bd00'
+        color: 'black',
+        background: '#b6bd00'
       }
     ]
   },
@@ -1293,11 +1406,13 @@ export default [
     'lines': [
       {
         count: '7',
-        color: '#fa9aba'
+        color: 'black',
+        background: '#fa9aba'
       },
       {
         count: '10',
-        color: '#c9910d'
+        color: 'black',
+        background: '#c9910d'
       }
     ]
   },
@@ -1306,7 +1421,8 @@ export default [
     'lines': [
       {
         count: '8',
-        color: '#e19bdf'
+        color: 'black',
+        background: '#e19bdf'
       }
     ]
   },
@@ -1315,11 +1431,13 @@ export default [
     'lines': [
       {
         count: '5',
-        color: '#ff7e2e'
+        color: 'black',
+        background: '#ff7e2e'
       },
       {
         count: '9',
-        color: '#b6bd00'
+        color: 'black',
+        background: '#b6bd00'
       }
     ]
   },
@@ -1328,7 +1446,8 @@ export default [
     'lines': [
       {
         count: '9',
-        color: '#b6bd00'
+        color: 'black',
+        background: '#b6bd00'
       }
     ]
   },
@@ -1337,7 +1456,7 @@ export default [
     'lines': [
       {
         count: '4',
-        color: '#be418d'
+        background: '#be418d'
       }
     ]
   },
@@ -1346,7 +1465,8 @@ export default [
     'lines': [
       {
         count: '9',
-        color: '#b6bd00'
+        color: 'black',
+        background: '#b6bd00'
       }
     ]
   },
@@ -1355,11 +1475,11 @@ export default [
     'lines': [
       {
         count: '3',
-        color: '#837902'
+        background: '#837902'
       },
       {
         count: '11',
-        color: '#704b1c'
+        background: '#704b1c'
       }
     ]
   },
@@ -1368,7 +1488,8 @@ export default [
     'lines': [
       {
         count: '13',
-        color: '#6ec4e8'
+        color: 'black',
+        background: '#6ec4e8'
       }
     ]
   },
@@ -1377,7 +1498,8 @@ export default [
     'lines': [
       {
         count: '6',
-        color: '#6eca97'
+        color: 'black',
+        background: '#6eca97'
       }
     ]
   },
@@ -1386,7 +1508,7 @@ export default [
     'lines': [
       {
         count: '2',
-        color: '#003ca6'
+        background: '#003ca6'
       }
     ]
   },
@@ -1395,7 +1517,8 @@ export default [
     'lines': [
       {
         count: '7',
-        color: '#fa9aba'
+        color: 'black',
+        background: '#fa9aba'
       }
     ]
   },
@@ -1404,7 +1527,7 @@ export default [
     'lines': [
       {
         count: '2',
-        color: '#003ca6'
+        background: '#003ca6'
       }
     ]
   },
@@ -1413,7 +1536,8 @@ export default [
     'lines': [
       {
         count: '8',
-        color: '#e19bdf'
+        color: 'black',
+        background: '#e19bdf'
       }
     ]
   },
@@ -1422,7 +1546,7 @@ export default [
     'lines': [
       {
         count: '12',
-        color: '#007852'
+        background: '#007852'
       }
     ]
   },
@@ -1431,7 +1555,8 @@ export default [
     'lines': [
       {
         count: '6',
-        color: '#6eca97'
+        color: 'black',
+        background: '#6eca97'
       }
     ]
   },
@@ -1440,7 +1565,7 @@ export default [
     'lines': [
       {
         count: '2',
-        color: '#003ca6'
+        background: '#003ca6'
       }
     ]
   },
@@ -1449,7 +1574,7 @@ export default [
     'lines': [
       {
         count: '3',
-        color: '#837902'
+        background: '#837902'
       }
     ]
   },
@@ -1458,7 +1583,7 @@ export default [
     'lines': [
       {
         count: '3',
-        color: '#837902'
+        background: '#837902'
       }
     ]
   },
@@ -1467,7 +1592,8 @@ export default [
     'lines': [
       {
         count: '13',
-        color: '#6ec4e8'
+        color: 'black',
+        background: '#6ec4e8'
       }
     ]
   },
@@ -1476,7 +1602,8 @@ export default [
     'lines': [
       {
         count: '10',
-        color: '#c9910d'
+        color: 'black',
+        background: '#c9910d'
       }
     ]
   },
@@ -1485,7 +1612,8 @@ export default [
     'lines': [
       {
         count: '7',
-        color: '#fa9aba'
+        color: 'black',
+        background: '#fa9aba'
       }
     ]
   },
@@ -1494,7 +1622,8 @@ export default [
     'lines': [
       {
         count: '5',
-        color: '#ff7e2e'
+        color: 'black',
+        background: '#ff7e2e'
       }
     ]
   },
@@ -1503,7 +1632,8 @@ export default [
     'lines': [
       {
         count: '7',
-        color: '#fa9aba'
+        color: 'black',
+        background: '#fa9aba'
       }
     ]
   },
@@ -1512,7 +1642,8 @@ export default [
     'lines': [
       {
         count: '13',
-        color: '#6ec4e8'
+        color: 'black',
+        background: '#6ec4e8'
       }
     ]
   },
@@ -1521,7 +1652,7 @@ export default [
     'lines': [
       {
         count: '12',
-        color: '#007852'
+        background: '#007852'
       }
     ]
   },
@@ -1530,7 +1661,7 @@ export default [
     'lines': [
       {
         count: '11',
-        color: '#704b1c'
+        background: '#704b1c'
       }
     ]
   },
@@ -1539,11 +1670,12 @@ export default [
     'lines': [
       {
         count: '3bis',
-        color: '#6ec4e8'
+        color: 'black',
+        background: '#6ec4e8'
       },
       {
         count: '11',
-        color: '#704b1c'
+        background: '#704b1c'
       }
     ]
   },
@@ -1552,7 +1684,8 @@ export default [
     'lines': [
       {
         count: '13',
-        color: '#6ec4e8'
+        color: 'black',
+        background: '#6ec4e8'
       }
     ]
   },
@@ -1561,7 +1694,8 @@ export default [
     'lines': [
       {
         count: '5',
-        color: '#ff7e2e'
+        color: 'black',
+        background: '#ff7e2e'
       }
     ]
   },
@@ -1570,7 +1704,8 @@ export default [
     'lines': [
       {
         count: '7',
-        color: '#fa9aba'
+        color: 'black',
+        background: '#fa9aba'
       }
     ]
   },
@@ -1579,7 +1714,8 @@ export default [
     'lines': [
       {
         count: '7',
-        color: '#fa9aba'
+        color: 'black',
+        background: '#fa9aba'
       }
     ]
   },
@@ -1588,7 +1724,7 @@ export default [
     'lines': [
       {
         count: '3',
-        color: '#837902'
+        background: '#837902'
       }
     ]
   },
@@ -1597,7 +1733,7 @@ export default [
     'lines': [
       {
         count: '3',
-        color: '#837902'
+        background: '#837902'
       }
     ]
   },
@@ -1606,7 +1742,8 @@ export default [
     'lines': [
       {
         count: '7',
-        color: '#fa9aba'
+        color: 'black',
+        background: '#fa9aba'
       }
     ]
   },
@@ -1615,7 +1752,7 @@ export default [
     'lines': [
       {
         count: '3',
-        color: '#837902'
+        background: '#837902'
       }
     ]
   },
@@ -1624,7 +1761,8 @@ export default [
     'lines': [
       {
         count: '13',
-        color: '#6ec4e8'
+        color: 'black',
+        background: '#6ec4e8'
       }
     ]
   },
@@ -1633,7 +1771,7 @@ export default [
     'lines': [
       {
         count: '11',
-        color: '#704b1c'
+        background: '#704b1c'
       }
     ]
   },
@@ -1642,7 +1780,7 @@ export default [
     'lines': [
       {
         count: '11',
-        color: '#704b1c'
+        background: '#704b1c'
       }
     ]
   },
@@ -1651,7 +1789,8 @@ export default [
     'lines': [
       {
         count: '6',
-        color: '#6eca97'
+        color: 'black',
+        background: '#6eca97'
       }
     ]
   },
@@ -1660,7 +1799,8 @@ export default [
     'lines': [
       {
         count: '8',
-        color: '#e19bdf'
+        color: 'black',
+        background: '#e19bdf'
       }
     ]
   },
@@ -1669,7 +1809,8 @@ export default [
     'lines': [
       {
         count: '7',
-        color: '#fa9aba'
+        color: 'black',
+        background: '#fa9aba'
       }
     ]
   },
@@ -1678,7 +1819,7 @@ export default [
     'lines': [
       {
         count: '12',
-        color: '#007852'
+        background: '#007852'
       }
     ]
   },
@@ -1687,7 +1828,8 @@ export default [
     'lines': [
       {
         count: '13',
-        color: '#6ec4e8'
+        color: 'black',
+        background: '#6ec4e8'
       }
     ]
   },
@@ -1697,7 +1839,8 @@ export default [
       'oct',
       {
         count: '13',
-        color: '#6ec4e8'
+        color: 'black',
+        background: '#6ec4e8'
       }
     ]
   },
@@ -1706,11 +1849,12 @@ export default [
     'lines': [
       {
         count: '7bis',
-        color: '#6eca97'
+        color: 'black',
+        background: '#6eca97'
       },
       {
         count: '11',
-        color: '#704b1c'
+        background: '#704b1c'
       }
     ]
   },
@@ -1719,7 +1863,7 @@ export default [
     'lines': [
       {
         count: '3',
-        color: '#837902'
+        background: '#837902'
       }
     ]
   },
@@ -1728,7 +1872,7 @@ export default [
     'lines': [
       {
         count: '3',
-        color: '#837902'
+        background: '#837902'
       }
     ]
   },
@@ -1737,7 +1881,7 @@ export default [
     'lines': [
       {
         count: '4',
-        color: '#be418d'
+        background: '#be418d'
       }
     ]
   },
@@ -1746,7 +1890,8 @@ export default [
     'lines': [
       {
         count: '7',
-        color: '#fa9aba'
+        color: 'black',
+        background: '#fa9aba'
       }
     ]
   },
@@ -1755,7 +1900,8 @@ export default [
     'lines': [
       {
         count: '8',
-        color: '#e19bdf'
+        color: 'black',
+        background: '#e19bdf'
       }
     ]
   },
@@ -1764,7 +1910,8 @@ export default [
     'lines': [
       {
         count: '13',
-        color: '#6ec4e8'
+        color: 'black',
+        background: '#6ec4e8'
       }
     ]
   },
@@ -1773,7 +1920,7 @@ export default [
     'lines': [
       {
         count: '12',
-        color: '#007852'
+        background: '#007852'
       }
     ]
   },
@@ -1782,7 +1929,8 @@ export default [
     'lines': [
       {
         count: '9',
-        color: '#b6bd00'
+        color: 'black',
+        background: '#b6bd00'
       }
     ]
   },
@@ -1791,7 +1939,8 @@ export default [
     'lines': [
       {
         count: '13',
-        color: '#6ec4e8'
+        color: 'black',
+        background: '#6ec4e8'
       }
     ]
   },
@@ -1800,7 +1949,8 @@ export default [
     'lines': [
       {
         count: '6',
-        color: '#6eca97'
+        color: 'black',
+        background: '#6eca97'
       }
     ]
   },
@@ -1809,7 +1959,8 @@ export default [
     'lines': [
       {
         count: '7',
-        color: '#fa9aba'
+        color: 'black',
+        background: '#fa9aba'
       }
     ]
   },
@@ -1818,7 +1969,8 @@ export default [
     'lines': [
       {
         count: '8',
-        color: '#e19bdf'
+        color: 'black',
+        background: '#e19bdf'
       }
     ]
   },
@@ -1827,7 +1979,8 @@ export default [
     'lines': [
       {
         count: '8',
-        color: '#e19bdf'
+        color: 'black',
+        background: '#e19bdf'
       }
     ]
   },
@@ -1836,7 +1989,8 @@ export default [
     'lines': [
       {
         count: '6',
-        color: '#6eca97'
+        color: 'black',
+        background: '#6eca97'
       }
     ]
   },
@@ -1845,7 +1999,8 @@ export default [
     'lines': [
       {
         count: '7',
-        color: '#fa9aba'
+        color: 'black',
+        background: '#fa9aba'
       }
     ]
   },
@@ -1854,7 +2009,7 @@ export default [
     'lines': [
       {
         count: '2',
-        color: '#003ca6'
+        background: '#003ca6'
       }
     ]
   },
@@ -1863,7 +2018,8 @@ export default [
     'lines': [
       {
         count: '10',
-        color: '#c9910d'
+        color: 'black',
+        background: '#c9910d'
       }
     ]
   },
@@ -1872,7 +2028,8 @@ export default [
     'lines': [
       {
         count: '8',
-        color: '#e19bdf'
+        color: 'black',
+        background: '#e19bdf'
       }
     ]
   },
@@ -1881,7 +2038,7 @@ export default [
     'lines': [
       {
         count: '12',
-        color: '#007852'
+        background: '#007852'
       }
     ]
   },
@@ -1890,7 +2047,7 @@ export default [
     'lines': [
       {
         count: '4',
-        color: '#be418d'
+        background: '#be418d'
       }
     ]
   },
@@ -1899,7 +2056,8 @@ export default [
     'lines': [
       {
         count: '9',
-        color: '#b6bd00'
+        color: 'black',
+        background: '#b6bd00'
       }
     ]
   },
@@ -1908,7 +2066,8 @@ export default [
     'lines': [
       {
         count: '13',
-        color: '#6ec4e8'
+        color: 'black',
+        background: '#6ec4e8'
       }
     ]
   },
@@ -1917,7 +2076,7 @@ export default [
     'lines': [
       {
         count: '3',
-        color: '#837902'
+        background: '#837902'
       }
     ]
   },
@@ -1926,7 +2085,8 @@ export default [
     'lines': [
       {
         count: '1',
-        color: '#ffcd00'
+        color: 'black',
+        background: '#ffcd00'
       }
     ]
   },
@@ -1935,7 +2095,8 @@ export default [
     'lines': [
       {
         count: '7',
-        color: '#fa9aba'
+        color: 'black',
+        background: '#fa9aba'
       }
     ]
   },
@@ -1944,7 +2105,7 @@ export default [
     'lines': [
       {
         count: '12',
-        color: '#007852'
+        background: '#007852'
       }
     ]
   },
@@ -1953,7 +2114,8 @@ export default [
     'lines': [
       {
         count: '13',
-        color: '#6ec4e8'
+        color: 'black',
+        background: '#6ec4e8'
       }
     ]
   },
@@ -1962,7 +2124,8 @@ export default [
     'lines': [
       {
         count: '9',
-        color: '#b6bd00'
+        color: 'black',
+        background: '#b6bd00'
       }
     ]
   },
@@ -1971,7 +2134,7 @@ export default [
     'lines': [
       {
         count: '2',
-        color: '#003ca6'
+        background: '#003ca6'
       }
     ]
   },
@@ -1980,7 +2143,8 @@ export default [
     'lines': [
       {
         count: '9',
-        color: '#b6bd00'
+        color: 'black',
+        background: '#b6bd00'
       }
     ]
   },
@@ -1989,7 +2153,8 @@ export default [
     'lines': [
       {
         count: '9',
-        color: '#b6bd00'
+        color: 'black',
+        background: '#b6bd00'
       }
     ]
   },
@@ -1998,7 +2163,8 @@ export default [
     'lines': [
       {
         count: '13',
-        color: '#6ec4e8'
+        color: 'black',
+        background: '#6ec4e8'
       }
     ]
   },
@@ -2007,7 +2173,7 @@ export default [
     'lines': [
       {
         count: '2',
-        color: '#003ca6'
+        background: '#003ca6'
       }
     ]
   },
@@ -2016,7 +2182,8 @@ export default [
     'lines': [
       {
         count: '8',
-        color: '#e19bdf'
+        color: 'black',
+        background: '#e19bdf'
       }
     ]
   },
@@ -2025,7 +2192,7 @@ export default [
     'lines': [
       {
         count: '4',
-        color: '#be418d'
+        background: '#be418d'
       }
     ]
   },
@@ -2034,7 +2201,8 @@ export default [
     'lines': [
       {
         count: '9',
-        color: '#b6bd00'
+        color: 'black',
+        background: '#b6bd00'
       }
     ]
   },
@@ -2043,7 +2211,8 @@ export default [
     'lines': [
       {
         count: '9',
-        color: '#b6bd00'
+        color: 'black',
+        background: '#b6bd00'
       }
     ]
   },
@@ -2052,7 +2221,8 @@ export default [
     'lines': [
       {
         count: '5',
-        color: '#ff7e2e'
+        color: 'black',
+        background: '#ff7e2e'
       }
     ]
   },
@@ -2061,7 +2231,8 @@ export default [
     'lines': [
       {
         count: '1',
-        color: '#ffcd00'
+        color: 'black',
+        background: '#ffcd00'
       }
     ]
   },
@@ -2070,7 +2241,8 @@ export default [
     'lines': [
       {
         count: '6',
-        color: '#6eca97'
+        color: 'black',
+        background: '#6eca97'
       }
     ]
   },
@@ -2079,7 +2251,8 @@ export default [
     'lines': [
       {
         count: '8',
-        color: '#e19bdf'
+        color: 'black',
+        background: '#e19bdf'
       }
     ]
   },
@@ -2088,7 +2261,8 @@ export default [
     'lines': [
       {
         count: '6',
-        color: '#6eca97'
+        color: 'black',
+        background: '#6eca97'
       }
     ]
   },
@@ -2097,7 +2271,8 @@ export default [
     'lines': [
       {
         count: '1',
-        color: '#ffcd00'
+        color: 'black',
+        background: '#ffcd00'
       }
     ]
   },
@@ -2106,7 +2281,7 @@ export default [
     'lines': [
       {
         count: '2',
-        color: '#003ca6'
+        background: '#003ca6'
       }
     ]
   },
@@ -2115,7 +2290,7 @@ export default [
     'lines': [
       {
         count: '12',
-        color: '#007852'
+        background: '#007852'
       }
     ]
   },
@@ -2124,7 +2299,7 @@ export default [
     'lines': [
       {
         count: '12',
-        color: '#007852'
+        background: '#007852'
       }
     ]
   },
@@ -2133,7 +2308,8 @@ export default [
     'lines': [
       {
         count: '10',
-        color: '#c9910d'
+        color: 'black',
+        background: '#c9910d'
       }
     ]
   },
@@ -2142,7 +2318,7 @@ export default [
     'lines': [
       {
         count: '3',
-        color: '#837902'
+        background: '#837902'
       }
     ]
   },
@@ -2151,7 +2327,8 @@ export default [
     'lines': [
       {
         count: '6',
-        color: '#6eca97'
+        color: 'black',
+        background: '#6eca97'
       }
     ]
   },
@@ -2160,7 +2337,7 @@ export default [
     'lines': [
       {
         count: '3',
-        color: '#837902'
+        background: '#837902'
       }
     ]
   },
@@ -2169,7 +2346,8 @@ export default [
     'lines': [
       {
         count: '1',
-        color: '#ffcd00'
+        color: 'black',
+        background: '#ffcd00'
       }
     ]
   },
@@ -2178,7 +2356,7 @@ export default [
     'lines': [
       {
         count: '12',
-        color: '#007852'
+        background: '#007852'
       }
     ]
   },
@@ -2187,7 +2365,8 @@ export default [
     'lines': [
       {
         count: '10',
-        color: '#c9910d'
+        color: 'black',
+        background: '#c9910d'
       }
     ]
   },
@@ -2196,7 +2375,8 @@ export default [
     'lines': [
       {
         count: '7',
-        color: '#fa9aba'
+        color: 'black',
+        background: '#fa9aba'
       }
     ]
   },
@@ -2205,7 +2385,8 @@ export default [
     'lines': [
       {
         count: '8',
-        color: '#e19bdf'
+        color: 'black',
+        background: '#e19bdf'
       }
     ]
   },
@@ -2214,7 +2395,7 @@ export default [
     'lines': [
       {
         count: '4',
-        color: '#be418d'
+        background: '#be418d'
       }
     ]
   },
@@ -2223,7 +2404,8 @@ export default [
     'lines': [
       {
         count: '7',
-        color: '#fa9aba'
+        color: 'black',
+        background: '#fa9aba'
       }
     ]
   },
@@ -2232,7 +2414,7 @@ export default [
     'lines': [
       {
         count: '12',
-        color: '#007852'
+        background: '#007852'
       }
     ]
   },
@@ -2241,7 +2423,8 @@ export default [
     'lines': [
       {
         count: '10',
-        color: '#c9910d'
+        color: 'black',
+        background: '#c9910d'
       }
     ]
   },
@@ -2250,7 +2433,7 @@ export default [
     'lines': [
       {
         count: '11',
-        color: '#704b1c'
+        background: '#704b1c'
       }
     ]
   },
@@ -2259,11 +2442,13 @@ export default [
     'lines': [
       {
         count: '7',
-        color: '#fa9aba'
+        color: 'black',
+        background: '#fa9aba'
       },
       {
         count: '7bis',
-        color: '#6eca97'
+        color: 'black',
+        background: '#6eca97'
       }
     ]
   },
@@ -2272,7 +2457,8 @@ export default [
     'lines': [
       {
         count: '7',
-        color: '#fa9aba'
+        color: 'black',
+        background: '#fa9aba'
       }
     ]
   },
@@ -2281,7 +2467,8 @@ export default [
     'lines': [
       {
         count: '8',
-        color: '#e19bdf'
+        color: 'black',
+        background: '#e19bdf'
       }
     ]
   },
@@ -2290,7 +2477,8 @@ export default [
     'lines': [
       {
         count: '6',
-        color: '#6eca97'
+        color: 'black',
+        background: '#6eca97'
       }
     ]
   },
@@ -2299,7 +2487,8 @@ export default [
     'lines': [
       {
         count: '9',
-        color: '#b6bd00'
+        color: 'black',
+        background: '#b6bd00'
       }
     ]
   },
@@ -2308,7 +2497,8 @@ export default [
     'lines': [
       {
         count: '8',
-        color: '#e19bdf'
+        color: 'black',
+        background: '#e19bdf'
       }
     ]
   },
@@ -2317,7 +2507,8 @@ export default [
     'lines': [
       {
         count: '5',
-        color: '#ff7e2e'
+        color: 'black',
+        background: '#ff7e2e'
       }
     ]
   },
@@ -2326,7 +2517,8 @@ export default [
     'lines': [
       {
         count: '13',
-        color: '#6ec4e8'
+        color: 'black',
+        background: '#6ec4e8'
       }
     ]
   },
@@ -2335,7 +2527,8 @@ export default [
     'lines': [
       {
         count: '8',
-        color: '#e19bdf'
+        color: 'black',
+        background: '#e19bdf'
       }
     ]
   },
@@ -2344,7 +2537,8 @@ export default [
     'lines': [
       {
         count: '6',
-        color: '#6eca97'
+        color: 'black',
+        background: '#6eca97'
       }
     ]
   },
@@ -2353,7 +2547,7 @@ export default [
     'lines': [
       {
         count: '4',
-        color: '#be418d'
+        background: '#be418d'
       }
     ]
   },
@@ -2362,7 +2556,7 @@ export default [
     'lines': [
       {
         count: '12',
-        color: '#007852'
+        background: '#007852'
       }
     ]
   },
@@ -2371,7 +2565,8 @@ export default [
     'lines': [
       {
         count: '9',
-        color: '#b6bd00'
+        color: 'black',
+        background: '#b6bd00'
       }
     ]
   },
@@ -2380,7 +2575,8 @@ export default [
     'lines': [
       {
         count: '7',
-        color: '#fa9aba'
+        color: 'black',
+        background: '#fa9aba'
       }
     ]
   },
@@ -2389,7 +2585,7 @@ export default [
     'lines': [
       {
         count: '4',
-        color: '#be418d'
+        background: '#be418d'
       }
     ]
   },
@@ -2398,7 +2594,8 @@ export default [
     'lines': [
       {
         count: '7',
-        color: '#fa9aba'
+        color: 'black',
+        background: '#fa9aba'
       }
     ]
   },
@@ -2407,7 +2604,8 @@ export default [
     'lines': [
       {
         count: '6',
-        color: '#6eca97'
+        color: 'black',
+        background: '#6eca97'
       }
     ]
   },
@@ -2416,11 +2614,13 @@ export default [
     'lines': [
       {
         count: '9',
-        color: '#b6bd00'
+        color: 'black',
+        background: '#b6bd00'
       },
       {
         count: '10',
-        color: '#c9910d'
+        color: 'black',
+        background: '#c9910d'
       }
     ]
   },
@@ -2429,7 +2629,7 @@ export default [
     'lines': [
       {
         count: '4',
-        color: '#be418d'
+        background: '#be418d'
       }
     ]
   },
@@ -2438,7 +2638,8 @@ export default [
     'lines': [
       {
         count: '8',
-        color: '#e19bdf'
+        color: 'black',
+        background: '#e19bdf'
       }
     ]
   },
@@ -2447,7 +2648,8 @@ export default [
     'lines': [
       {
         count: '6',
-        color: '#6eca97'
+        color: 'black',
+        background: '#6eca97'
       }
     ]
   },
@@ -2456,7 +2658,8 @@ export default [
     'lines': [
       {
         count: '7',
-        color: '#fa9aba'
+        color: 'black',
+        background: '#fa9aba'
       }
     ]
   },
@@ -2465,7 +2668,8 @@ export default [
     'lines': [
       {
         count: '9',
-        color: '#b6bd00'
+        color: 'black',
+        background: '#b6bd00'
       }
     ]
   },
@@ -2474,11 +2678,13 @@ export default [
     'lines': [
       {
         count: '9',
-        color: '#b6bd00'
+        color: 'black',
+        background: '#b6bd00'
       },
       {
         count: '10',
-        color: '#c9910d'
+        color: 'black',
+        background: '#c9910d'
       }
     ]
   },
@@ -2487,7 +2693,8 @@ export default [
     'lines': [
       {
         count: '8',
-        color: '#e19bdf'
+        color: 'black',
+        background: '#e19bdf'
       }
     ]
   },
@@ -2496,7 +2703,7 @@ export default [
     'lines': [
       {
         count: '12',
-        color: '#007852'
+        background: '#007852'
       }
     ]
   },
@@ -2505,7 +2712,8 @@ export default [
     'lines': [
       {
         count: '6',
-        color: '#6eca97'
+        color: 'black',
+        background: '#6eca97'
       }
     ]
   },
@@ -2514,7 +2722,8 @@ export default [
     'lines': [
       {
         count: '9',
-        color: '#b6bd00'
+        color: 'black',
+        background: '#b6bd00'
       }
     ]
   },
@@ -2523,7 +2732,8 @@ export default [
     'lines': [
       {
         count: '5',
-        color: '#ff7e2e'
+        color: 'black',
+        background: '#ff7e2e'
       }
     ]
   },
@@ -2532,7 +2742,8 @@ export default [
     'lines': [
       {
         count: '8',
-        color: '#e19bdf'
+        color: 'black',
+        background: '#e19bdf'
       }
     ]
   },
@@ -2541,7 +2752,8 @@ export default [
     'lines': [
       {
         count: '10',
-        color: '#c9910d'
+        color: 'black',
+        background: '#c9910d'
       }
     ]
   },
@@ -2550,7 +2762,8 @@ export default [
     'lines': [
       {
         count: '9',
-        color: '#b6bd00'
+        color: 'black',
+        background: '#b6bd00'
       }
     ]
   },
@@ -2559,7 +2772,7 @@ export default [
     'lines': [
       {
         count: '2',
-        color: '#003ca6'
+        background: '#003ca6'
       }
     ]
   },
@@ -2568,7 +2781,8 @@ export default [
     'lines': [
       {
         count: '8',
-        color: '#e19bdf'
+        color: 'black',
+        background: '#e19bdf'
       }
     ]
   },
@@ -2577,7 +2791,8 @@ export default [
     'lines': [
       {
         count: '1',
-        color: '#ffcd00'
+        color: 'black',
+        background: '#ffcd00'
       }
     ]
   },
@@ -2586,7 +2801,8 @@ export default [
     'lines': [
       {
         count: '13',
-        color: '#6ec4e8'
+        color: 'black',
+        background: '#6ec4e8'
       }
     ]
   },
@@ -2595,7 +2811,7 @@ export default [
     'lines': [
       {
         count: '2',
-        color: '#003ca6'
+        background: '#003ca6'
       }
     ]
   },
@@ -2604,7 +2820,8 @@ export default [
     'lines': [
       {
         count: '7',
-        color: '#fa9aba'
+        color: 'black',
+        background: '#fa9aba'
       }
     ]
   },
@@ -2613,7 +2830,8 @@ export default [
     'lines': [
       {
         count: '8',
-        color: '#e19bdf'
+        color: 'black',
+        background: '#e19bdf'
       }
     ]
   },
@@ -2622,7 +2840,8 @@ export default [
     'lines': [
       {
         count: '5',
-        color: '#ff7e2e'
+        color: 'black',
+        background: '#ff7e2e'
       }
     ]
   },
@@ -2631,7 +2850,8 @@ export default [
     'lines': [
       {
         count: '13',
-        color: '#6ec4e8'
+        color: 'black',
+        background: '#6ec4e8'
       }
     ]
   },
@@ -2640,11 +2860,12 @@ export default [
     'lines': [
       {
         count: '4',
-        color: '#be418d'
+        background: '#be418d'
       },
       {
         count: '6',
-        color: '#6eca97'
+        color: 'black',
+        background: '#6eca97'
       }
     ]
   },
@@ -2653,7 +2874,8 @@ export default [
     'lines': [
       {
         count: '8',
-        color: '#e19bdf'
+        color: 'black',
+        background: '#e19bdf'
       }
     ]
   },
@@ -2662,7 +2884,8 @@ export default [
     'lines': [
       {
         count: '8',
-        color: '#e19bdf'
+        color: 'black',
+        background: '#e19bdf'
       }
     ]
   },
@@ -2671,7 +2894,8 @@ export default [
     'lines': [
       {
         count: '5',
-        color: '#ff7e2e'
+        color: 'black',
+        background: '#ff7e2e'
       }
     ]
   },
@@ -2680,7 +2904,7 @@ export default [
     'lines': [
       {
         count: '3',
-        color: '#837902'
+        background: '#837902'
       }
     ]
   },
@@ -2689,7 +2913,8 @@ export default [
     'lines': [
       {
         count: '10',
-        color: '#c9910d'
+        color: 'black',
+        background: '#c9910d'
       }
     ]
   },
@@ -2698,7 +2923,8 @@ export default [
     'lines': [
       {
         count: '13',
-        color: '#6ec4e8'
+        color: 'black',
+        background: '#6ec4e8'
       }
     ]
   },
@@ -2707,7 +2933,8 @@ export default [
     'lines': [
       {
         count: '8',
-        color: '#e19bdf'
+        color: 'black',
+        background: '#e19bdf'
       }
     ]
   },
@@ -2716,7 +2943,7 @@ export default [
     'lines': [
       {
         count: '4',
-        color: '#be418d'
+        background: '#be418d'
       }
     ]
   },
@@ -2725,7 +2952,7 @@ export default [
     'lines': [
       {
         count: '2',
-        color: '#003ca6'
+        background: '#003ca6'
       }
     ]
   },
@@ -2734,7 +2961,8 @@ export default [
     'lines': [
       {
         count: '7',
-        color: '#fa9aba'
+        color: 'black',
+        background: '#fa9aba'
       }
     ]
   },
@@ -2743,7 +2971,8 @@ export default [
     'lines': [
       {
         count: '8',
-        color: '#e19bdf'
+        color: 'black',
+        background: '#e19bdf'
       }
     ]
   },
@@ -2752,7 +2981,8 @@ export default [
     'lines': [
       {
         count: '7',
-        color: '#fa9aba'
+        color: 'black',
+        background: '#fa9aba'
       }
     ]
   },
@@ -2761,7 +2991,7 @@ export default [
     'lines': [
       {
         count: '3',
-        color: '#837902'
+        background: '#837902'
       }
     ]
   },
@@ -2770,7 +3000,8 @@ export default [
     'lines': [
       {
         count: '7',
-        color: '#fa9aba'
+        color: 'black',
+        background: '#fa9aba'
       }
     ]
   },
@@ -2779,7 +3010,8 @@ export default [
     'lines': [
       {
         count: '10',
-        color: '#c9910d'
+        color: 'black',
+        background: '#c9910d'
       }
     ]
   },
@@ -2788,7 +3020,8 @@ export default [
     'lines': [
       {
         count: '7',
-        color: '#fa9aba'
+        color: 'black',
+        background: '#fa9aba'
       }
     ]
   },
@@ -2797,7 +3030,8 @@ export default [
     'lines': [
       {
         count: '13',
-        color: '#6ec4e8'
+        color: 'black',
+        background: '#6ec4e8'
       }
     ]
   },
@@ -2806,7 +3040,7 @@ export default [
     'lines': [
       {
         count: '12',
-        color: '#007852'
+        background: '#007852'
       }
     ]
   },
@@ -2815,7 +3049,8 @@ export default [
     'lines': [
       {
         count: '8',
-        color: '#e19bdf'
+        color: 'black',
+        background: '#e19bdf'
       }
     ]
   },
@@ -2824,7 +3059,8 @@ export default [
     'lines': [
       {
         count: '10',
-        color: '#c9910d'
+        color: 'black',
+        background: '#c9910d'
       }
     ]
   },
@@ -2833,7 +3069,8 @@ export default [
     'lines': [
       {
         count: '10',
-        color: '#c9910d'
+        color: 'black',
+        background: '#c9910d'
       }
     ]
   },
@@ -2842,7 +3079,8 @@ export default [
     'lines': [
       {
         count: '6',
-        color: '#6eca97'
+        color: 'black',
+        background: '#6eca97'
       }
     ]
   },
@@ -2851,7 +3089,8 @@ export default [
     'lines': [
       {
         count: '7',
-        color: '#fa9aba'
+        color: 'black',
+        background: '#fa9aba'
       }
     ]
   },
@@ -2860,7 +3099,7 @@ export default [
     'lines': [
       {
         count: '12',
-        color: '#007852'
+        background: '#007852'
       }
     ]
   },
@@ -2869,7 +3108,7 @@ export default [
     'lines': [
       {
         count: '12',
-        color: '#007852'
+        background: '#007852'
       }
     ]
   },
@@ -2878,7 +3117,8 @@ export default [
     'lines': [
       {
         count: '6',
-        color: '#6eca97'
+        color: 'black',
+        background: '#6eca97'
       }
     ]
   },
@@ -2887,7 +3127,7 @@ export default [
     'lines': [
       {
         count: '3',
-        color: '#837902'
+        background: '#837902'
       }
     ]
   },
@@ -2896,7 +3136,7 @@ export default [
     'lines': [
       {
         count: '12',
-        color: '#007852'
+        background: '#007852'
       }
     ]
   },
@@ -2905,7 +3145,8 @@ export default [
     'lines': [
       {
         count: '5',
-        color: '#ff7e2e'
+        color: 'black',
+        background: '#ff7e2e'
       }
     ]
   },
@@ -2914,7 +3155,8 @@ export default [
     'lines': [
       {
         count: '5',
-        color: '#ff7e2e'
+        color: 'black',
+        background: '#ff7e2e'
       }
     ]
   },
@@ -2923,7 +3165,8 @@ export default [
     'lines': [
       {
         count: '10',
-        color: '#c9910d'
+        color: 'black',
+        background: '#c9910d'
       }
     ]
   },
@@ -2932,7 +3175,8 @@ export default [
     'lines': [
       {
         count: '7bis',
-        color: '#6eca97'
+        color: 'black',
+        background: '#6eca97'
       }
     ]
   },
@@ -2941,7 +3185,7 @@ export default [
     'lines': [
       {
         count: '12',
-        color: '#007852'
+        background: '#007852'
       }
     ]
   },
@@ -2950,7 +3194,8 @@ export default [
     'lines': [
       {
         count: '3bis',
-        color: '#6ec4e8'
+        color: 'black',
+        background: '#6ec4e8'
       }
     ]
   },
@@ -2959,7 +3204,8 @@ export default [
     'lines': [
       {
         count: '10',
-        color: '#c9910d'
+        color: 'black',
+        background: '#c9910d'
       }
     ]
   },
@@ -2968,7 +3214,8 @@ export default [
     'lines': [
       {
         count: '10',
-        color: '#c9910d'
+        color: 'black',
+        background: '#c9910d'
       }
     ]
   },
@@ -2977,7 +3224,8 @@ export default [
     'lines': [
       {
         count: '7bis',
-        color: '#6eca97'
+        color: 'black',
+        background: '#6eca97'
       }
     ]
   },
@@ -2986,7 +3234,8 @@ export default [
     'lines': [
       {
         count: '7bis',
-        color: '#6eca97'
+        color: 'black',
+        background: '#6eca97'
       }
     ]
   },
@@ -2995,7 +3244,8 @@ export default [
     'lines': [
       {
         count: '7bis',
-        color: '#6eca97'
+        color: 'black',
+        background: '#6eca97'
       }
     ]
   },
@@ -3004,7 +3254,8 @@ export default [
     'lines': [
       {
         count: '3bis',
-        color: '#6ec4e8'
+        color: 'black',
+        background: '#6ec4e8'
       }
     ]
   },
@@ -3013,7 +3264,8 @@ export default [
     'lines': [
       {
         count: '7bis',
-        color: '#6eca97'
+        color: 'black',
+        background: '#6eca97'
       }
     ]
   },
@@ -3022,7 +3274,8 @@ export default [
     'lines': [
       {
         count: '10',
-        color: '#c9910d'
+        color: 'black',
+        background: '#c9910d'
       }
     ]
   }

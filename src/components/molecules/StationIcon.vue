@@ -1,10 +1,18 @@
 <template>
-  <span class="icon__station" :style="{backgroundColor: hexa}" :class="extraClass">{{number}}</span>
+  <span class="icon__station" :style="styleObject" :class="extraClass">{{number}}</span>
 </template>
 
 <script>
   export default {
-    props: ['number', 'hexa', 'extraClass']
+    props: ['number', 'hexa', 'fontColor', 'extraClass'],
+    computed: {
+      styleObject () {
+        return {
+          color: this.fontColor,
+          backgroundColor: this.hexa
+        }
+      }
+    }
   }
 </script>
 
