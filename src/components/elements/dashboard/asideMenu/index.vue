@@ -20,14 +20,31 @@
   }
 </script>
 
-<style lang="scss" scoped>
+<style lang='scss' scoped>
   @import '~stylesheets/helpers/_variables.scss';
+  @import '~stylesheets/helpers/mixins/style.scss';
 
   .navAside {
-    width: $width-aside-dashboard;
+    width: 100%;
     position: fixed;
-    top: $height-header-nav;
     bottom: 0;
     background: white;
+    z-index: $z-index-nav-dashboard;
+    @include medium {
+      width: $width-aside-dashboard;
+      position: fixed;
+      top: $height-header-nav;
+      bottom: 0;
+      background: white;
+    }
+  }
+
+  .navAside__list {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    @include medium {
+      display: inline-block;
+    }
   }
 </style>

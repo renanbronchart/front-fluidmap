@@ -13,26 +13,40 @@
   }
 </script>
 
-<style lang="scss" scoped>
+<style lang='scss' scoped>
   @import '~stylesheets/helpers/_variables.scss';
+  @import '~stylesheets/helpers/mixins/style.scss';
 
   .navAside__link {
     position: relative;
     display: block;
     text-align: center;
-    padding: 30px 0;
+    padding: 16px 32px;
+    @include medium {
+      padding: 30px;
+    }
   }
 
   .router-link-active {
     &:after {
       content: ' ';
-      width: 2px;
-      height: 40px;
+      height: 2px;
+      width: 40px;
       position: absolute;
-      top: 50%;
-      right: 0;
-      transform: translateY(-50%);
+      top: 0;
+      right: 50%;
+      transform: translate(50%, 0);
       background: $color-blue-ribbon;
+    }
+    @include medium {
+      &:after {
+        width: 2px;
+        height: 40px;
+        position: absolute;
+        top: 50%;
+        right: 0;
+        transform: translate(0, -50%);
+      }
     }
 
     .link__content {
