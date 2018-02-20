@@ -51,9 +51,13 @@
 </script>
 
 <style lang='scss'>
+  @import '~stylesheets/helpers/mixins/style.scss';
   @import '~stylesheets/helpers/_variables.scss';
 
   .dashboard {
-    padding: 40px 0 40px $width-aside-dashboard;
+    padding: 10px 0 102px 0;
+    @include medium {
+      padding: 10px 0 40px $width-aside-dashboard;
+    }
   }
 </style>
