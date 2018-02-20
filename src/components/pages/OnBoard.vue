@@ -8,18 +8,40 @@
       :linkParams="getLinkParams"
       :linkTitle="getLinkTitle"
       :extraClass="getTooltipInfos.extraClass"
+      v-if="screenSm"
     />
+    <Modal
+      modalStaticOpen="true"
+      noClose="true"
+      extraClass="modal--light"
+      v-else
+    >
+      <ModalOnBoard
+        :text='getTooltipInfos.text'
+        :count='getStepId'
+        :labelButton='getLabelButton'
+        :linkName="getLinkName"
+        :linkParams="getLinkParams"
+        :linkTitle="getLinkTitle"
+        :extraClass="getTooltipInfos.extraClass"
+      />
+    </Modal>
     <OverlayHole />
   </div>
 </template>
 
 <script>
+  import { mapActions } from 'vuex'
+
   import Tooltip from '@/components/elements/Tooltip.vue'
   import OverlayHole from '@/components/onBoard/OverlayHole.vue'
+  import Modal from '@/components/elements/Modal.vue'
+  import ModalOnBoard from '@/components/modals/ModalOnBoard.vue'
 
   export default {
     data () {
       return {
+        windowWidth: 0,
         step: [
           {
             text: 'Grâce à ces deux frises, vous pouvez sélectionner un jour et une tranche horaire, et ainsi influencer l’affichage de la carte de chaleur.',
@@ -64,6 +86,18 @@
       },
       getLinkTitle () {
         return `Lien vers l'étape ${this.getStepId} du on board`
+      },
+      screenSm () {
+        return this.windowWidth > 768
+      }
+    },
+    methods: {
+      ...mapActions([
+        'openModal',
+        'closeModal'
+      ]),
+      handleResize () {
+        this.windowWidth = window.innerWidth
       }
     },
     created () {
@@ -72,10 +106,20 @@
       if (stepId <= 0 || stepId > 5) {
         this.$router.push({name: 'Home'})
       }
+
+      this.handleResize()
+    },
+    mounted () {
+      window.addEventListener('resize', this.handleResize)
+    },
+    beforeDestroy () {
+      window.removeEventListener('resize', this.handleResize)
     },
     components: {
       Tooltip,
-      OverlayHole
+      OverlayHole,
+      Modal,
+      ModalOnBoard
     }
   }
 </script>

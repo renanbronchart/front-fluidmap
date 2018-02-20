@@ -1,13 +1,15 @@
 <template>
   <transition name="fade">
-    <div class="modal" v-if="modal.open">
+    <div class="modal" v-if="modal.open || modalStaticOpen" :class="extraClass">
       <div class="modal__content">
-        <a href="#" @click.prevent="closeModal" v-if="!modal.noClose" class="modal__close">
+        <a href="#" @click.prevent="closeModal" v-if="!modal.noClose && !noClose" class="modal__close">
           <i class="material-icons">close</i>
         </a>
         <div class="modal__body">
           <div class="modal__bodyContainer">
-            <component :is="getComponentModal"></component>
+            <slot>
+              <component :is="getComponentModal"></component>
+            </slot>
           </div>
         </div>
       </div>
@@ -20,6 +22,17 @@
   import { mapState, mapActions } from 'vuex'
 
   export default {
+    props: {
+      modalStaticOpen: {
+        default: false
+      },
+      noClose: {
+        default: false
+      },
+      extraClass: {
+        default: ''
+      }
+    },
     data () {
       return {
         component: null
@@ -77,6 +90,12 @@
       bottom: 0;
       background: rgba($color-mine-shaft, 0.3);
       z-index: -1;
+    }
+
+    &.modal--light {
+      &:after {
+        background: rgba($color-mine-shaft, 0.1);
+      }
     }
   }
 
