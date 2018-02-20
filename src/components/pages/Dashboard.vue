@@ -50,10 +50,10 @@
   }
 </script>
 
-<style lang="scss">
+<style lang='scss'>
   @import '~stylesheets/helpers/_variables.scss';
 
   .dashboard {
-    padding-left: $width-aside-dashboard;
+    padding: 40px 0 40px $width-aside-dashboard;
   }
 </style>

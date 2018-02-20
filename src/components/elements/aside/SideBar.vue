@@ -254,6 +254,7 @@
 
         if (this.map.placeSelected) {
           extraClass += ' aside--active'
+          this.$emit('openSidebar')
         } else if (parseFloat(this.$route.params.id) === 3) {
           extraClass += ' aside--onboard'
         }
@@ -300,9 +301,11 @@
 
 <style lang='scss' scoped>
   @import '~stylesheets/helpers/_variables.scss';
+  @import '~stylesheets/helpers/mixins/style.scss';
 
   .aside {
     width: 524px;
+    max-width: 100%;
     height: calc(100vh - 170px);
     display: flex;
     flex-direction: column;
@@ -334,10 +337,13 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 40px 0 60px;
+    padding: 0 16px;
     .title__text,
     .title__back {
       margin: 0 20px 0 0;
+    }
+    @include medium {
+      padding: 0 40px 0 60px;
     }
   }
 
@@ -347,7 +353,10 @@
   }
 
   .aside__details {
-    padding: 20px 120px 0 60px;
+    padding: 20px 16px 0 16px;
+    @include medium {
+      padding: 20px 120px 0 60px;
+    }
   }
 
   .aside__infosEvent {

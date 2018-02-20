@@ -1,7 +1,7 @@
 <template>
   <div class="aside__stations" :class="extraClass">
     <div class="aside__container">
-      <Card>
+      <Card extraClass="m-t-md m-b-md">
         <slot name="header">
           <div class="card__header">
             <p>{{title}}</p>
@@ -25,6 +25,9 @@
 </script>
 
 <style lang='scss'>
+  @import '~stylesheets/helpers/_variables.scss';
+  @import '~stylesheets/helpers/mixins/style.scss';
+
   .aside__stations {
     height: 100%;
     position: relative;
@@ -39,6 +42,9 @@
     top: 0;
     left: 0;
     overflow: auto;
-    padding: 0 120px 30px 60px;
+    padding: 0 16px;
+    @include medium {
+      padding: 0 120px 30px 60px;
+    }
   }
 </style>
