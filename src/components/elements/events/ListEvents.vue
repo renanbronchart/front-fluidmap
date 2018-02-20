@@ -68,6 +68,9 @@
   @import '~stylesheets/helpers/_variables.scss';
 
   .map--active {
+    .panel {
+      bottom: 250px;
+    }
     .panel__body {
       &.panel__body--active {
         height: 0;
@@ -78,12 +81,13 @@
 
   .panel {
     width: 300px;
-    position: absolute;
-    bottom: 0;
+    position: fixed;
+    bottom: 90px;
     left: 40px;
     border-radius: $border-radius-base $border-radius-base 0 0;
     background: white;
     z-index: $z-index-list-dropdown;
+    transition: bottom .3s ease-in-out;
 
     &:before {
       content: ' ';
