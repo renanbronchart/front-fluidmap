@@ -23,7 +23,8 @@ const state = {
 const getters = {
   getCurrentPreset: state => state.currentPreset,
   getNewPreset: state => state.newPreset,
-  isEditionMode: state => state.edition
+  isEditionMode: state => state.edition,
+  getLengthPreset: state => state.presets.length
 }
 
 const actions = {
@@ -38,6 +39,7 @@ const actions = {
   saveNewPreset ({commit}, preset) {
     const presets = JSON.parse(localStorage.getItem('fluidmap-presets')) || []
 
+    preset.id = parseFloat(presets.length) + 1
     presets.unshift(preset)
     localStorage.setItem('fluidmap-presets', JSON.stringify(presets))
 

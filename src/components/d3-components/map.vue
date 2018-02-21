@@ -74,7 +74,7 @@ export default {
       tapTolerance: 50,
       tap: true,
       inertia: true,
-      inertiaDeceleration: 700,
+      inertiaDeceleration: 400,
       updateWhenIdle: false,
       draggable: true,
       dragging: true,
@@ -95,23 +95,24 @@ export default {
       'selectPlaces'
     ]),
     drawHeatMap (heatPoints) {
-      const maxValue = d3.max(heatPoints, function (d) { return +d.properties.hint })
+      // const maxValue = d3.max(heatPoints, function (d) { return +d.properties.hint })
+      // const maxValue = 10
       const geoData = []
 
       heatPoints.forEach(function (d) {
         if (d.geometry.coordinates !== null && !isNaN(+d.geometry.coordinates[0]) && !isNaN(+d.geometry.coordinates[1])) {
-          geoData.push([+d.geometry.coordinates[0], +d.geometry.coordinates[1], ((d.properties.hint) / maxValue)])
+          geoData.push([+d.geometry.coordinates[0], +d.geometry.coordinates[1], d.properties.hint])
         }
       })
 
       this.heatLayer = L.heatLayer(geoData, {
-        radius: 15,
-        blur: 20,
+        radius: 20,
+        blur: 100,
         maxZoom: 8,
         minZoom: 25,
         id: 'heatmap.population',
         minOpacity: 0.2,
-        gradient: {0.1: '#42d5fc', 0.6: '#0027fd'}
+        gradient: {0.1: '#42d5fc', 0.6: '#0027fd'} // mettre plus foncé aux deux couleurs, la deuxieme doit etre la premiere , et la deuxime beaucoup plus foncé.
       }).addTo(this.map)
     },
     redrawHeatMap (newState) {

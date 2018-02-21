@@ -26,24 +26,34 @@
         <h3 class="analyse__eventTitle m-t-xl" v-if="isEventPreset">{{preset.name}}</h3>
         <div class="general__agenda m-t-md">
           <TextInfos
-            content="Lundi ..."
+            :content="displayDatePreset"
             iconName="today"
             extraClass="information__primary"
+            v-if="preset.eventsId"
           />
           <TextInfos
-            content="12 H - 14 H"
+            :content="displaySchedulesPreset"
             iconName="access_time"
             extraClass="information__primary m-l-lg"
+            v-if="preset.eventsId"
           />
           <TextInfos
-            content="12 H - 14 H"
+            :content="displayLocationPreset"
             iconName="location_on"
             extraClass="information__primary m-l-lg"
+            v-if="preset.eventsId"
           />
         </div>
         <div class="general__viewPlace row m-t-md">
           <div class="col-xs-12 col-sm-6 col-md-8 m-b-md">
             <Card :style="{backgroundImage: 'url(' + getMapSrc + ')'}" extraClass="general__map">
+              <Button
+                iconName="zoom_out_map"
+                extraClass="button--round general__mapButton"
+                extraClassIcon="m-n"
+                @eventClick="updatePreset"
+                data-html2canvas-ignore
+              />
             </Card>
           </div>
           <div class="col-xs-12 col-sm-6 col-md-4 m-b-md">
@@ -310,7 +320,8 @@
       ...mapGetters([
         'getCurrentPreset',
         'getNewPreset',
-        'isEditionMode'
+        'isEditionMode',
+        'getLengthPreset'
       ]),
       getRouteName () {
         return this.$route.name
@@ -330,6 +341,22 @@
       getMapSrc () {
         if (this.isNewPreset) {
           return this.map.instantImage
+        }
+      },
+      displayDatePreset () {
+        const dates = this.preset.dates
+        const date = mapDate.getDateWithDay(dates[0]) || ''
+
+        return date
+      },
+      displaySchedulesPreset () {
+        const dates = this.preset.dates
+
+        return mapDate.extandedSchedules(dates[0], dates[1]) || ''
+      },
+      displayLocationPreset () {
+        if (typeof this.preset.eventsId !== 'undefined') {
+          return this.isPlacePreset ? (this.preset.place_id || '') : (this.preset.eventsId[0] || '')
         }
       }
     },
@@ -369,7 +396,8 @@
         'switchEditionMode',
         'selectPlaces',
         'selectEvent',
-        'setValueSliders'
+        'setValueSliders',
+        'setExpandedDate'
       ]),
       showOrHide (section) {
         const showMoreLabel = this[section]['showMoreLabel']
@@ -388,23 +416,26 @@
         exportToPdf(src, 2, 80)
       },
       savePreset () {
-        this.saveNewPreset(this.preset)
-
-        // ne pas le rajouter si il existe déjà
+        this.sendCanvasToS3(this.map.instantImage)
       },
       sendCanvasToS3 (canvas) {
         // eslint-disable-next-line
         const buf = new Buffer(canvas.replace(/^data:image\/\w+;base64,/, ''), 'base64')
-        const photoKey = `preset_img/image.png`
+        const photoKey = `preset_img/${parseFloat(this.getLengthPreset) + 1}.png`
 
         s3.upload({
           Key: photoKey,
           ContentType: 'image/png',
           Body: buf,
           ACL: 'public-read'
-        }, (err, data) => {
+        }, (err, {Location}) => {
           if (err) {
             return console.log('There was an error uploading your photo: ', err.message)
+          } else {
+            this.preset.mapImage = Location
+            this.saveNewPreset(this.preset)
+
+            this.$router.push({name: 'presets'})
           }
         })
       },
@@ -482,11 +513,17 @@
   .general__map {
     width: 100%;
     height: 162px;
+    position: relative;
     background-size: cover;
     background-position: center;
     background-origin: center;
     @include medium {
       height: 380px;
+    }
+    .general__mapButton {
+      position: absolute;
+      bottom: 24px;
+      right: 24px;
     }
   }
 
