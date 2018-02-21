@@ -96,6 +96,7 @@
         }).then(canvas => {
           // canvas.toDataURL('image/png') // récupérer ça pour mettre dans vuex et afficher ensuite dans le preset
 
+          // eslint-disable-next-line
           const buf = new Buffer(canvas.toDataURL('image/png').replace(/^data:image\/\w+;base64,/, ''), 'base64')
           const photoKey = `preset_img/${fileName}.png`
 
@@ -156,10 +157,8 @@
 
           this.$router.push({name: 'newPreset'})
         } else {
-
           this.$router.push({name: 'Home'})
         }
-
 
         this.closeModal()
       },
