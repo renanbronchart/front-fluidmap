@@ -5,6 +5,7 @@
         iconName="layers"
         extraClass="button--round map__presetLink"
         extraClassIcon="m-n"
+        data-html2canvas-ignore
       />
     </div>
   </div>
