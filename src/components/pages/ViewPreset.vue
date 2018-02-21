@@ -42,10 +42,11 @@
           />
         </div>
         <div class="general__viewPlace row m-t-md">
-          <div class="col-xs-12 col-sm-6 col-md-8">
-            <div class="general__map"></div>
+          <div class="col-xs-12 col-sm-6 col-md-8 m-b-md">
+            <Card :style="{backgroundImage: 'url(' + getMapSrc + ')'}" extraClass="general__map">
+            </Card>
           </div>
-          <div class="col-xs-12 col-sm-6 col-md-4">
+          <div class="col-xs-12 col-sm-6 col-md-4 m-b-md">
             <div class="general__statistics"></div>
           </div>
         </div>
@@ -164,6 +165,8 @@
 <script>
   import HTTP from '@/utils/httpRequest.js'
   import exportToPdf from '@/utils/exportPdfCanvas.js'
+
+  import s3 from '@/utils/amazonBucket.js'
 
   import Button from '@/components/molecules/Button.vue'
   import TextInfos from '@/components/molecules/TextInfos.vue'
@@ -301,7 +304,8 @@
     },
     computed: {
       ...mapState([
-        'events'
+        'events',
+        'map'
       ]),
       ...mapGetters([
         'getCurrentPreset',
@@ -322,6 +326,11 @@
       },
       getTitlePage () {
         return this.isNewPreset ? 'Analyse' : this.preset.name
+      },
+      getMapSrc () {
+        if (this.isNewPreset) {
+          return this.map.instantImage
+        }
       }
     },
     mounted () {
@@ -382,6 +391,22 @@
         this.saveNewPreset(this.preset)
 
         // ne pas le rajouter si il existe déjà
+      },
+      sendCanvasToS3 (canvas) {
+        // eslint-disable-next-line
+        const buf = new Buffer(canvas.replace(/^data:image\/\w+;base64,/, ''), 'base64')
+        const photoKey = `preset_img/image.png`
+
+        s3.upload({
+          Key: photoKey,
+          ContentType: 'image/png',
+          Body: buf,
+          ACL: 'public-read'
+        }, (err, data) => {
+          if (err) {
+            return console.log('There was an error uploading your photo: ', err.message)
+          }
+        })
       },
       updatePreset () {
         const timestampStart = this.preset.map.dates[0]
@@ -451,6 +476,17 @@
     margin-right: 20px;
     &:last-child {
       margin-right: 0;
+    }
+  }
+
+  .general__map {
+    width: 100%;
+    height: 162px;
+    background-size: cover;
+    background-position: center;
+    background-origin: center;
+    @include medium {
+      height: 380px;
     }
   }
 
