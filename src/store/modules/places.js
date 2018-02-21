@@ -52,8 +52,6 @@ const mutations = {
   [types.SELECT_EVENT] (state, {eventSelected}) {
     const placeId = eventSelected.place_id
 
-    console.log(placeId, 'place_id')
-
     state.placeSelected = findPlaceSelected(placeId, state.places.features)
   },
   [types.SELECT_PRESET] (state, {presetSelected}) {

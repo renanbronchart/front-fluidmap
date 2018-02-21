@@ -44,6 +44,10 @@
 
   import Button from '@/components/molecules/Button.vue'
 
+  import html2canvas from 'html2canvas'
+
+  import s3 from '@/utils/amazonBucket.js'
+
   export default {
     data () {
       return {
@@ -84,6 +88,30 @@
         'setNewEventPreset',
         'setNewPlacePreset'
       ]),
+      getCanvasPreset (fileName) {
+        document.querySelector('.leaflet-control-container').style.opacity = 0
+
+        html2canvas(document.querySelector('#map__heat'), {
+          useCORS: true
+        }).then(canvas => {
+          // canvas.toDataURL('image/png') // récupérer ça pour mettre dans vuex et afficher ensuite dans le preset
+
+          // eslint-disable-next-line
+          const buf = new Buffer(canvas.toDataURL('image/png').replace(/^data:image\/\w+;base64,/, ''), 'base64')
+          const photoKey = `preset_img/${fileName}.png`
+
+          s3.upload({
+            Key: photoKey,
+            ContentType: 'image/png',
+            Body: buf,
+            ACL: 'public-read'
+          }, (err, data) => {
+            if (err) {
+              return console.log('There was an error uploading your photo: ', err.message)
+            }
+          })
+        })
+      },
       setNormalPreset () {
         const dates = this.planning.map.dates
 
@@ -95,6 +123,8 @@
             dates
           })
 
+          this.getCanvasPreset(event.name) // vérifier le nombre de presets et rajouter au name length + 1
+
           this.$router.push({name: 'newPreset'})
         } else if (this.map.placeSelected) {
           const place = this.getPlaceSelected
@@ -103,6 +133,8 @@
             place,
             dates
           })
+
+          this.getCanvasPreset(place.name)
 
           this.$router.push({name: 'newPreset'})
         } else {
@@ -120,6 +152,8 @@
             place,
             dates
           })
+
+          this.getCanvasPreset(place.name)
 
           this.$router.push({name: 'newPreset'})
         } else {

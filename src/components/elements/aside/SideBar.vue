@@ -209,10 +209,9 @@
             return nameParametrize.indexOf(sport) >= 0
           })
 
-          return `static/img/events/${sportName}.png`
+          return `${process.env.AMAZON_STATIC_URL}events/${sportName}.png`
         } else {
-          console.log(parameterize(this.propertiesPlaceSelected.name))
-          return `static/img/places/${parameterize(this.propertiesPlaceSelected.name)}.png`
+          return `${process.env.AMAZON_STATIC_URL}places/${parameterize(this.propertiesPlaceSelected.name)}.png`
         }
       },
       getEventsByTimestamps () {
