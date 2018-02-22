@@ -1,4 +1,4 @@
-# datavis24
+# fluidmap
 
 > A Vue.js project
 

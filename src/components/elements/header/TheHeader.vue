@@ -2,7 +2,7 @@
   <header class="header">
     <div class="header__brand cursor--pointer" @click.prevent="clickBrand">
       <div class="header__brandChild header__containerImage">
-        <img src="static/img/logo/logo-header.png" alt="logo fluidmap" >
+        <img :src="getUrlLogo" alt="logo fluidmap" >
       </div>
       <p class="header__brandChild text--secondary">{{title}}</p>
     </div>
@@ -15,6 +15,11 @@
 <script>
   export default {
     props: ['title'],
+    computed: {
+      getUrlLogo () {
+        return `${process.env.AMAZON_STATIC_URL}logo/logo-header.png`
+      }
+    },
     methods: {
       clickAction () {
         this.$emit('clickAction')
