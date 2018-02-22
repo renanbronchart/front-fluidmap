@@ -38,11 +38,6 @@ const mutations = {
     const rowsRequest = 8000
     const offsetRequest = 8000
     const countRequest = 11
-    const oldHeat = JSON.parse(localStorage.getItem('fluidmap-dataHeat')) || []
-
-    if (state.dataHeat.length === 0) {
-      state.dataHeat = oldHeat
-    }
 
     heatRequest()
 
@@ -66,7 +61,6 @@ const mutations = {
         }
 
         state.dataHeat = newHeat
-        localStorage.setItem('fluidmap-dataHeat', JSON.stringify(newHeat.slice(0, 10000)))
       })
     }
   },

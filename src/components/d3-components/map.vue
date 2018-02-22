@@ -66,6 +66,11 @@ export default {
     }
   },
   mounted () {
+    this.openAlert({
+      content: 'Votre contenu est en train de charger',
+      autoclose: false
+    })
+
     this.map = L.map('map__heat', {
       center: [48.853, 2.333],
       zoom: 13,
@@ -92,7 +97,9 @@ export default {
   },
   methods: {
     ...mapActions([
-      'selectPlaces'
+      'selectPlaces',
+      'openAlert',
+      'closeAlert'
     ]),
     drawHeatMap (heatPoints) {
       // const maxValue = d3.max(heatPoints, function (d) { return +d.properties.hint })
@@ -110,9 +117,10 @@ export default {
         blur: 100,
         maxZoom: 8,
         minZoom: 25,
+        max: 10,
         id: 'heatmap.population',
         minOpacity: 0.2,
-        gradient: {0.1: '#42d5fc', 0.6: '#0027fd'} // mettre plus foncé aux deux couleurs, la deuxieme doit etre la premiere , et la deuxime beaucoup plus foncé.
+        gradient: {0.01: '#42d5fc', 0.8: '#0027fd'} // mettre plus foncé aux deux couleurs, la deuxieme doit etre la premiere , et la deuxime beaucoup plus foncé.
       }).addTo(this.map)
     },
     redrawHeatMap (newState) {
@@ -136,6 +144,8 @@ export default {
         }
 
         this.drawHeatMap(newState)
+
+        this.closeAlert()
       }).catch(() => {
         console.log('la grosse promesse rompue')
       })

@@ -14,7 +14,7 @@
   }
 </script>
 
-<style lang="scss" scoped>
+<style lang='scss' scoped>
   @import '~stylesheets/helpers/_variables.scss';
 
   .card {

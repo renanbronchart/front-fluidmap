@@ -9,6 +9,7 @@
       <router-view></router-view>
     </main>
     <Modal></Modal>
+    <Alert></Alert>
   </div>
 </template>
 
@@ -17,6 +18,7 @@ import 'stylesheets/style.scss'
 import { mapActions } from 'vuex'
 
 import Modal from '@/components/elements/Modal.vue'
+import Alert from '@/components/elements/Alert.vue'
 import TheHeader from '@/components/elements/header/TheHeader.vue'
 
 export default {
@@ -41,7 +43,8 @@ export default {
   },
   components: {
     Modal,
-    TheHeader
+    TheHeader,
+    Alert
   }
 }
 </script>
