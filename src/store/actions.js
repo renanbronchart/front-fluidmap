@@ -41,4 +41,9 @@ export const setNewDate = ({commit}, {date, schedules}) => {
     date,
     schedules
   })
+
+  commit(types.OPEN_ALERT, {
+    content: 'Votre contenu est en train de charger',
+    autoclose: false
+  })
 }

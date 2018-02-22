@@ -66,6 +66,11 @@ export default {
     }
   },
   mounted () {
+    this.openAlert({
+      content: 'Votre contenu est en train de charger',
+      autoclose: false
+    })
+
     this.map = L.map('map__heat', {
       center: [48.853, 2.333],
       zoom: 13,
@@ -74,7 +79,7 @@ export default {
       tapTolerance: 50,
       tap: true,
       inertia: true,
-      inertiaDeceleration: 700,
+      inertiaDeceleration: 400,
       updateWhenIdle: false,
       draggable: true,
       dragging: true,
@@ -92,26 +97,30 @@ export default {
   },
   methods: {
     ...mapActions([
-      'selectPlaces'
+      'selectPlaces',
+      'openAlert',
+      'closeAlert'
     ]),
     drawHeatMap (heatPoints) {
-      const maxValue = d3.max(heatPoints, function (d) { return +d.properties.hint })
+      // const maxValue = d3.max(heatPoints, function (d) { return +d.properties.hint })
+      // const maxValue = 10
       const geoData = []
 
       heatPoints.forEach(function (d) {
         if (d.geometry.coordinates !== null && !isNaN(+d.geometry.coordinates[0]) && !isNaN(+d.geometry.coordinates[1])) {
-          geoData.push([+d.geometry.coordinates[0], +d.geometry.coordinates[1], ((d.properties.hint) / maxValue)])
+          geoData.push([+d.geometry.coordinates[0], +d.geometry.coordinates[1], d.properties.hint])
         }
       })
 
       this.heatLayer = L.heatLayer(geoData, {
-        radius: 15,
-        blur: 20,
+        radius: 20,
+        blur: 100,
         maxZoom: 8,
         minZoom: 25,
+        max: 10,
         id: 'heatmap.population',
         minOpacity: 0.2,
-        gradient: {0.1: '#42d5fc', 0.6: '#0027fd'}
+        gradient: {0.01: '#42d5fc', 0.8: '#0027fd'} // mettre plus foncé aux deux couleurs, la deuxieme doit etre la premiere , et la deuxime beaucoup plus foncé.
       }).addTo(this.map)
     },
     redrawHeatMap (newState) {
@@ -135,6 +144,8 @@ export default {
         }
 
         this.drawHeatMap(newState)
+
+        this.closeAlert()
       }).catch(() => {
         console.log('la grosse promesse rompue')
       })

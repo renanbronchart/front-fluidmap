@@ -24,7 +24,7 @@
         <p class="text--primary text--lg">{{getDayValue}}</p>
         <p class="text--info text--lg">{{getSchedulesValue}}</p>
       </div>
-      <Button label="Accèder à l'analyse" @eventClick="showModal" extraClass="button--primary"/>
+      <Button label="Accèder à l'analyse" @eventClick="showModalAnalyse" extraClass="button--primary"/>
     </div>
   </div>
 </template>
@@ -32,6 +32,7 @@
 <script>
   import { mapGetters, mapActions } from 'vuex'
   import _ from 'lodash'
+  import html2canvas from 'html2canvas'
 
   import vueSlider from 'vue-slider-component'
   import Button from '@/components/molecules/Button.vue'
@@ -63,12 +64,22 @@
         'openModal',
         'deselectPlace',
         'deselectEvent',
-        'setNewDataSlider'
+        'setNewDataSlider',
+        'addImageMap'
       ]),
-      showModal () {
+      showModalAnalyse () {
         this.openModal({
           component: 'ModalBeforeAnalyse'
         }, 5000)
+
+        document.querySelector('.leaflet-control-container').style.opacity = 0
+
+        html2canvas(document.querySelector('#map__heat'), {
+          useCORS: true
+        }).then(canvas => {
+          this.addImageMap(canvas.toDataURL('image/png'))
+          document.querySelector('.leaflet-control-container').style.opacity = 1
+        })
       },
       initSlider () {
         const allDataDays = [...this.getAllDays]

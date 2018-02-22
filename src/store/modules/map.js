@@ -5,7 +5,8 @@ import mapDate from '@/utils/manipulateDate.js'
 const state = {
   dataHeat: [],
   placeSelected: false,
-  eventSelected: false
+  eventSelected: false,
+  instantImage: ''
 }
 
 const getters = {
@@ -19,21 +20,24 @@ const actions = {
   },
   deselectEvent ({commit}) {
     commit(types.DESELECT_EVENT)
+  },
+  addImageMap ({commit}, imageData) {
+    commit(types.ADD_IMAGE_MAP, {
+      imageData
+    })
   }
 }
 
 const mutations = {
+  [types.ADD_IMAGE_MAP] (state, {imageData}) {
+    state.instantImage = imageData
+  },
   [types.SET_NEW_DATE] (state, {date, schedules}) {
     const dates = mapDate.getdates(date, schedules)
     const timestampStart = parseFloat(dates[0]) + 1
     const rowsRequest = 8000
     const offsetRequest = 8000
     const countRequest = 11
-    const oldHeat = JSON.parse(localStorage.getItem('fluidmap-dataHeat')) || []
-
-    if (state.dataHeat.length === 0) {
-      state.dataHeat = oldHeat
-    }
 
     heatRequest()
 
@@ -57,7 +61,6 @@ const mutations = {
         }
 
         state.dataHeat = newHeat
-        localStorage.setItem('fluidmap-dataHeat', JSON.stringify(newHeat.slice(0, 10000)))
       })
     }
   },

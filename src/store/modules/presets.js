@@ -23,7 +23,8 @@ const state = {
 const getters = {
   getCurrentPreset: state => state.currentPreset,
   getNewPreset: state => state.newPreset,
-  isEditionMode: state => state.edition
+  isEditionMode: state => state.edition,
+  getLengthPreset: state => state.presets.length
 }
 
 const actions = {
@@ -38,6 +39,7 @@ const actions = {
   saveNewPreset ({commit}, preset) {
     const presets = JSON.parse(localStorage.getItem('fluidmap-presets')) || []
 
+    preset.id = parseFloat(presets.length) + 1
     presets.unshift(preset)
     localStorage.setItem('fluidmap-presets', JSON.stringify(presets))
 
@@ -50,6 +52,9 @@ const actions = {
     const newdates = [...dates]
     const placeId = event.place_id
     const eventsId = [event.id]
+    const mapImage = event.mapImage
+
+    console.log(mapImage, 'mapImage')
 
     const newPreset = {
       name,
@@ -58,6 +63,7 @@ const actions = {
       dates: newdates,
       place_id: placeId,
       eventsId,
+      mapImage,
       map: {
         dates: newdates
       }
@@ -75,7 +81,10 @@ const actions = {
     const newdatesMap = `${newdates[0]}, ${newdates[0] + 7200}`.split(', ')
     const placeId = propertiesPlace.id
     const extanded = parseFloat(newdates[1]) !== parseFloat(newdatesMap[1])
+    const mapImage = place.mapImage
     let eventsId
+
+    console.log(mapImage, 'mapImage')
 
     if (propertiesPlace.events.length === 0) {
       eventsId = []
@@ -98,6 +107,7 @@ const actions = {
       dates: newdates,
       place_id: placeId,
       eventsId,
+      mapImage,
       map: {
         dates: newdatesMap
       }

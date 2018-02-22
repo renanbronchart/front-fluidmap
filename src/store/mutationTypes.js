@@ -37,3 +37,10 @@ export const SET_NEW_HOURS = 'SET_NEW_HOURS'
 export const SET_NEW_DATA_SLIDER = 'SET_NEW_DATA_SLIDER'
 export const SET_VALUE_SLIDER = 'SET_VALUE_SLIDER'
 export const SET_VALUE_SLIDERS = 'SET_VALUE_SLIDERS'
+
+// map
+export const ADD_IMAGE_MAP = 'ADD_IMAGE_MAP'
+
+// alerts
+export const OPEN_ALERT = 'OPEN_ALERT'
+export const CLOSE_ALERT = 'CLOSE_ALERT'

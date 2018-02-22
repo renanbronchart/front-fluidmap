@@ -825,7 +825,7 @@ export default [
     ]
   },
   {
-    'stationName': 'FRANKLIN D. ROOSEVELT',
+    'stationName': 'FRANKLIN D.ROOSEVELT',
     'lines': [
       {
         count: '1',

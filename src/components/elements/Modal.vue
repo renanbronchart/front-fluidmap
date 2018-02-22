@@ -56,10 +56,6 @@
       ...mapActions([
         'closeModal'
       ])
-    },
-    mounted () {
-      console.log('mounted modal.vue')
-      console.log(this.modal, 'modal')
     }
   }
 </script>

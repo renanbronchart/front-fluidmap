@@ -13,6 +13,7 @@
             label="Ajouter aux favoris"
             extraClass="button--primary button--ghost button__analyseAction m-t-lg"
             @eventClick="savePreset"
+            v-if="isNewPreset"
           />
           <Button
             label="Exporter en PDF"
@@ -26,27 +27,45 @@
         <h3 class="analyse__eventTitle m-t-xl" v-if="isEventPreset">{{preset.name}}</h3>
         <div class="general__agenda m-t-md">
           <TextInfos
-            content="Lundi ..."
+            :content="displayDatePreset"
             iconName="today"
             extraClass="information__primary"
+            v-if="preset.eventsId"
           />
           <TextInfos
-            content="12 H - 14 H"
+            :content="displaySchedulesPreset"
             iconName="access_time"
             extraClass="information__primary m-l-lg"
+            v-if="preset.eventsId"
           />
           <TextInfos
-            content="12 H - 14 H"
+            :content="displayLocationPreset"
             iconName="location_on"
             extraClass="information__primary m-l-lg"
+            v-if="preset.eventsId"
           />
         </div>
         <div class="general__viewPlace row m-t-md">
-          <div class="col-xs-12 col-sm-6 col-md-8">
-            <div class="general__map"></div>
+          <div class="col-xs-12 col-sm-6 col-md-8 m-b-md">
+            <Card :style="{backgroundImage: 'url(' + getMapSrc + ')'}" extraClass="general__map">
+              <Button
+                iconName="zoom_out_map"
+                extraClass="button--round general__mapButton"
+                extraClassIcon="m-n"
+                @eventClick="updatePreset"
+                data-html2canvas-ignore
+              />
+            </Card>
           </div>
-          <div class="col-xs-12 col-sm-6 col-md-4">
-            <div class="general__statistics"></div>
+          <div class="col-xs-12 col-sm-6 col-md-4 m-b-md">
+            <div class="general__statistics">
+              <Card>
+                <p>Indice de fréquentation</p>
+              </Card>
+              <Card>
+                <p>Capacité d’accueil</p>
+              </Card>
+            </div>
           </div>
         </div>
       </div>
@@ -82,10 +101,10 @@
         <div class="col-xs-12 col-md-6">
           <Card extraClass="p-lg">
             <div class="analyse__eventsSchedules">
-              <h4>Autres évènements dans cette tranche horiare 12H-14H</h4>
+              <h4>Autres évènements dans cette tranche horaire {{getSchedulesPreset}}</h4>
               <ul>
                 <EventInfo
-                  v-for="(event, index) in events.events"
+                  v-for="(event, index) in eventsShowFiltered"
                   :event="event"
                   v-if="index <= eventsShow.count"
                   extraClass="event--dashboard p-t-md p-b-md"/>
@@ -122,20 +141,29 @@
         <div class="col-xs-12 col-md-6">
           <Card extraClass="p-lg">
             <div class="analyse__eventsStations">
-              <h4>Stations à proximiter du lieu</h4> // à récupérer sur la place
+              <h4>Stations à proximiter du lieu</h4>
               <TableComponent
                 :columns="stationsData.columns"
-                :data="stationsData.data"
-                extraClass="m-t-lg table--lastColumnLeft"
+                :data="getStationsData"
+                extraClass="m-t-sm table--lastColumnLeft"
                 :rowTodisplay="stationsShow.count"
               >
-                <div v-for="(data, index) in stationsData.data" :slot="`station-${index}`">
-                  <p>{{data.station.name}}</p>
-                  <span v-for="line in data.station.lines" class="m-r-sm">{{line}}</span>
+                <div v-for="(data, index) in getStationsData" :slot="`station-${index}`">
+                  <p class="text--bold m-b-sm">{{data.name}}</p>
+                  <StationIcon
+                    :number="line.count"
+                    :hexa="line.background"
+                    :fontColor="line.color"
+                    extraClass="m-r-sm"
+                    v-for="line in data.lines"
+                  />
                 </div>
 
-                <div v-for="(data, index) in stationsData.data" :slot="`indice-${index}`">
-                  <p class="text--primary">{{data.indice}}</p>
+                <div v-for="(data, index) in getStationsData" :slot="`indice-${index}`">
+                  <Notifications
+                    extraClass="notification__primary text--white"
+                    :count="data.hint"
+                  />
                 </div>
               </TableComponent>
               <TextInfos
@@ -162,14 +190,21 @@
 </template>
 
 <script>
+  import parameterize from 'parameterize-string'
+  import * as d3 from 'd3'
+
   import HTTP from '@/utils/httpRequest.js'
+  import associateStations from '@/utils/associateStations.js'
   import exportToPdf from '@/utils/exportPdfCanvas.js'
+  import s3 from '@/utils/amazonBucket.js'
 
   import Button from '@/components/molecules/Button.vue'
   import TextInfos from '@/components/molecules/TextInfos.vue'
+  import Notifications from '@/components/molecules/Notifications.vue'
   import Card from '@/components/elements/Card.vue'
   import TableComponent from '@/components/elements/TableComponent.vue'
   import EventInfo from '@/components/elements/events/EventInfo.vue'
+  import StationIcon from '@/components/molecules/StationIcon.vue'
 
   import { mapState, mapGetters, mapActions } from 'vuex'
 
@@ -179,15 +214,19 @@
     data () {
       return {
         preset: {},
+        placePreset: {},
         eventsShow: {
+          data: [],
           count: 3,
           showMoreLabel: true
         },
         eventSchedulesShow: {
+          data: [],
           count: 3,
           showMoreLabel: true
         },
         stationsShow: {
+          data: [],
           count: 3,
           showMoreLabel: true
         },
@@ -232,64 +271,10 @@
           ]
         },
         stationsData: {
-          data: [
-            {
-              station: {
-                name: `Gare de l'Est`,
-                lines: ['RER A', 'M14', 'M3']
-              },
-              people: '7900',
-              indice: '6'
-            },
-            {
-              station: {
-                name: 'Gare du Nord',
-                lines: ['RER A', 'M14', 'M3']
-              },
-              people: '8600',
-              indice: '5'
-            },
-            {
-              station: {
-                name: 'Vincennes',
-                lines: ['RER A', 'M14', 'M3']
-              },
-              people: '4899',
-              indice: '9'
-            },
-            {
-              station: {
-                name: `Gare de l'Est`,
-                lines: ['RER A', 'M14', 'M3']
-              },
-              people: '7900',
-              indice: '6'
-            },
-            {
-              station: {
-                name: 'Gare du Nord',
-                lines: ['RER A', 'M14', 'M3']
-              },
-              people: '8600',
-              indice: '5'
-            },
-            {
-              station: {
-                name: 'Vincennes',
-                lines: ['RER A', 'M14', 'M3']
-              },
-              people: '4899',
-              indice: '9'
-            }
-          ],
           columns: [
             {
               field: 'station',
               label: 'Gare'
-            },
-            {
-              field: 'people',
-              label: 'Fréquentation'
             },
             {
               field: 'indice',
@@ -301,12 +286,14 @@
     },
     computed: {
       ...mapState([
-        'events'
+        'events',
+        'map'
       ]),
       ...mapGetters([
         'getCurrentPreset',
         'getNewPreset',
-        'isEditionMode'
+        'isEditionMode',
+        'getLengthPreset'
       ]),
       getRouteName () {
         return this.$route.name
@@ -322,6 +309,76 @@
       },
       getTitlePage () {
         return this.isNewPreset ? 'Analyse' : this.preset.name
+      },
+      getSchedulesPreset () {
+        const dates = this.preset.dates
+
+        return typeof dates === 'undefined' ? '' : mapDate.extandedSchedules(dates[0], dates[1])
+      },
+      eventsShowFiltered () {
+        const names = []
+
+        return this.eventsShow.data.filter((elem, pos, arr) => {
+          if (names.indexOf(elem.name) < 0) {
+            names.push(elem.name)
+            return true
+          }
+        })
+      },
+      getMapSrc () {
+        if (this.isNewPreset) {
+          return this.map.instantImage
+        } else {
+          return this.preset.mapImage
+        }
+      },
+      displayDatePreset () {
+        const dates = this.preset.dates
+        const date = mapDate.getDateWithDay(dates[0]) || ''
+
+        return date
+      },
+      displaySchedulesPreset () {
+        const dates = this.preset.dates
+
+        return mapDate.extandedSchedules(dates[0], dates[1]) || ''
+      },
+      displayLocationPreset () {
+        if (typeof this.preset.eventsId !== 'undefined') {
+          return this.isPlacePreset ? (this.preset.place_id || '') : (this.preset.eventsId[0] || '')
+        }
+      },
+      getStationsData () {
+        const names = []
+
+        const stationsShowFiltered = this.stationsShow.data.filter((elem) => {
+          if (names.indexOf(elem.name) < 0) {
+            names.push(elem.name)
+            return true
+          }
+        })
+
+        const newStations = stationsShowFiltered.map(station => {
+          let theStation = {...station}
+          let stationParameterize = parameterize(theStation.name)
+
+          let stationWithLines = associateStations.find(station => {
+            return parameterize(station.stationName) === stationParameterize
+          })
+
+          let lines = typeof stationWithLines === 'undefined' ? [] : [...stationWithLines.lines]
+          const meanValue = d3.mean(theStation.hints, function (d) { return +d }) || 1
+
+          const stationFormate = {
+            name: theStation.name,
+            lines,
+            hint: Math.round(meanValue)
+          }
+
+          return stationFormate
+        })
+
+        return newStations
       }
     },
     mounted () {
@@ -331,6 +388,18 @@
         this.$router.push({name: 'Home'})
       }
 
+      if (this.isPlacePreset) {
+        HTTP.get(`event/place/${this.preset.place_id}?timestampStart=${this.preset.dates[0]}&timestampStart=${this.preset.dates[1]}`).then(({data}) => {
+          const placePreset = data.features
+          this.placePreset = placePreset
+
+          this.eventsShow.data = placePreset.properties.events
+          this.stationsShow.data = placePreset.properties.stations_closest
+          // this.stationsShow.data =
+        }).catch(error => {
+          console.log('error view preset', error)
+        })
+      }
       // Si eventsId.length > 1 ,
       // alors requete api de currentPreset.place_id ou chercher par l'id avec tous les places
       // + requete events place_id dans la tranche horaire : `event/place/${currentPreset.place_id}/events?time`
@@ -360,7 +429,8 @@
         'switchEditionMode',
         'selectPlaces',
         'selectEvent',
-        'setValueSliders'
+        'setValueSliders',
+        'setExpandedDate'
       ]),
       showOrHide (section) {
         const showMoreLabel = this[section]['showMoreLabel']
@@ -379,9 +449,28 @@
         exportToPdf(src, 2, 80)
       },
       savePreset () {
-        this.saveNewPreset(this.preset)
+        this.sendCanvasToS3(this.map.instantImage)
+      },
+      sendCanvasToS3 (canvas) {
+        // eslint-disable-next-line
+        const buf = new Buffer(canvas.replace(/^data:image\/\w+;base64,/, ''), 'base64')
+        const photoKey = `preset_img/${parseFloat(this.getLengthPreset) + 1}.png`
 
-        // ne pas le rajouter si il existe déjà
+        s3.upload({
+          Key: photoKey,
+          ContentType: 'image/png',
+          Body: buf,
+          ACL: 'public-read'
+        }, (err, {Location}) => {
+          if (err) {
+            return console.log('There was an error uploading your photo: ', err.message)
+          } else {
+            this.preset.mapImage = Location
+            this.saveNewPreset(this.preset)
+
+            this.$router.push({name: 'presets'})
+          }
+        })
       },
       updatePreset () {
         const timestampStart = this.preset.map.dates[0]
@@ -403,7 +492,7 @@
         } else {
           // enlever peut être la requete et rechercher dans nos places du store
           HTTP.get(`event/place/${this.preset.place_id}`).then(({data}) => {
-            this.selectPlaces(data.features[0].properties)
+            this.selectPlaces(data.features.properties)
 
             this.$router.push({name: 'Home'})
           })
@@ -425,7 +514,9 @@
       Button,
       TextInfos,
       TableComponent,
-      EventInfo
+      EventInfo,
+      Notifications,
+      StationIcon
     }
   }
 </script>
@@ -451,6 +542,23 @@
     margin-right: 20px;
     &:last-child {
       margin-right: 0;
+    }
+  }
+
+  .general__map {
+    width: 100%;
+    height: 162px;
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    background-origin: center;
+    @include medium {
+      height: 380px;
+    }
+    .general__mapButton {
+      position: absolute;
+      bottom: 24px;
+      right: 24px;
     }
   }
 

@@ -1,11 +1,12 @@
 body {
+  color: $color-mine-shaft;
+
   @include font-size(0.8rem);
   font-family: $font-family-base;
   font-weight: 400;
 }
 
 h1, h2, h3, h4, h5, h6, p, a {
-  color: $color-mine-shaft;
   text-overflow: ellipsis;
 }
 

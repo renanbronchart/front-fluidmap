@@ -8,6 +8,7 @@
 
       <ListCardsPreview
         :previews="presetsFormating"
+        extraClassCard="m-t-lg"
         @update="update"
         @remove="remove"
         @clickOnInformations="showPreset"
@@ -22,6 +23,8 @@
   import Title from '@/components/elements/dashboard/global/Title.vue'
   import ListCardsPreview from '@/components/elements/ListCardsPreview.vue'
 
+  import mapDate from '@/utils/manipulateDate.js'
+
   export default {
     computed: {
       ...mapState([
@@ -35,8 +38,10 @@
 
         const presetsFomat = presets.map((preset) => {
           preset.title = preset.name
-          preset.infos = preset.dates[0]
-          preset.details = preset.dates[1]
+          preset.infos = mapDate.getDate(preset.dates[0])
+          preset.details = mapDate.extandedSchedules(preset.dates[0], preset.dates[1])
+          preset.id = preset.id
+          preset.imageSrc = preset.mapImage
 
           return preset
         })

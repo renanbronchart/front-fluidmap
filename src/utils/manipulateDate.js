@@ -1,5 +1,9 @@
 import moment from 'moment'
 
+const getDate = (timestampStart) => {
+  return moment.unix(timestampStart).locale('fr').format('L')
+}
+
 const getDateDisplay = (timestamp) => moment.unix(timestamp).locale('fr').format('dddd Do MMMM')
 
 const getHourDisplay = (timestamp) => moment.unix(timestamp).locale('fr').format('HH')
@@ -15,6 +19,17 @@ const getSchedulesDisplayConcat = (timestampStart) => {
   const schedules = `${getHourDisplay(timestampStart)}:${getNextHourDisplay(timestampStart)}`
 
   return `${dateDisplay} - ${schedules}`
+}
+
+const getDateWithDay = (timestampStart) => {
+  return moment.unix(timestampStart).locale('fr').format('dddd - Do.MM.YYYY')
+}
+
+const extandedSchedules = (timestampStart, timestampEnd) => {
+  const start = moment.unix(timestampStart).locale('fr').format('HH')
+  const end = moment.unix(timestampEnd).locale('fr').format('HH')
+
+  return `${start}h - ${end}h`
 }
 
 const getdates = (date, schedules) => {
@@ -54,10 +69,13 @@ const getdates = (date, schedules) => {
 }
 
 export default {
+  getDate,
   getDateDisplay,
   getHourDisplay,
   getNextHourDisplay,
   getSchedulesDisplay,
   getdates,
-  getSchedulesDisplayConcat
+  getSchedulesDisplayConcat,
+  getDateWithDay,
+  extandedSchedules
 }
