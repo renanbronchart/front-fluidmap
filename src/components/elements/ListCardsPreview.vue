@@ -18,7 +18,7 @@
               @eventClick="remove(preview)"/>
           </div>
         </div>
-        <div class="card__informations" @click="clickOnInformations(preview)">
+        <div class="card__informations cursor--pointer" @click="clickOnInformations(preview)">
           <h4 class="m-b-xs">{{preview.title}}</h4>
           <p class="text--secondary">{{preview.infos}}</p>
           <p class="text--secondary">{{preview.details}}</p>

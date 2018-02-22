@@ -99,6 +99,7 @@
   import { mapState, mapGetters, mapActions } from 'vuex'
   import manipulateDate from '@/utils/manipulateDate.js'
   import parameterize from 'parameterize-string'
+  import * as d3 from 'd3'
 
   import arrayImageSport from '@/utils/arrayImageSport.js'
   import associateStations from '@/utils/associateStations.js'
@@ -262,9 +263,16 @@
         return extraClass
       },
       getStationsData () {
-        // this.propertiesPlaceSelected.stations à la place
+        const names = []
 
-        const newStations = this.stationsData.data.map(station => {
+        const stationsShowFiltered = this.propertiesPlaceSelected.stations_closest.filter((elem) => {
+          if (names.indexOf(elem.name) < 0) {
+            names.push(elem.name)
+            return true
+          }
+        })
+
+        const newStations = stationsShowFiltered.map(station => {
           let theStation = {...station}
           let stationParameterize = parameterize(theStation.name)
 
@@ -273,11 +281,12 @@
           })
 
           let lines = typeof stationWithLines === 'undefined' ? [] : [...stationWithLines.lines]
+          const meanValue = typeof theStation.hints === 'undefined' ? 1 : d3.mean(theStation.hints, function (d) { return +d })
 
           const stationFormate = {
             name: theStation.name,
             lines,
-            hint: theStation.indice
+            hint: Math.round(meanValue)
           }
 
           return stationFormate
