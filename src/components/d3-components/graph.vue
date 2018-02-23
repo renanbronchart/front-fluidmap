@@ -38,7 +38,8 @@
         preset: {},
         timestampsAll: [],
         dataGraph: [],
-        theTimestampStart: ''
+        theTimestampStart: '',
+        theNewDataGraph: []
       }
     },
     mounted () {
@@ -96,7 +97,7 @@
           d[1] = +d[1]
         })
 
-        console.log(newDataGraph, 'newDataGraph newDataGraph')
+        this.theNewDataGraph = JSON.parse(JSON.stringify(newDataGraph))
 
         // Scale the range of the data again
         echelleX.domain(d3.extent(newDataGraph, function (d) { return d[0] }))
@@ -104,27 +105,65 @@
         echelleY.domain([0, d3.max(newDataGraph, function (d) { return +d[1] })])
 
         // Select the section we want to apply our changes to
-        var svg = d3.select('svg').transition()
+        var svg = d3.select('svg')
 
         // Make the changes
         svg.selectAll('.line')
+          .transition()
           .duration(750)
           .attr('d', line(newDataGraph))
           .style('stroke', 'url(#mainGradientLine)')
           .duration(750)
 
         svg.selectAll('.area')
+          .transition()
           .duration(750)
           .attr('d', area(newDataGraph))
           .duration(750)
         svg.selectAll('.x.axis')
+          .transition()
           .duration(750)
           .call(xAxe)
           .duration(750)
         svg.selectAll('.y.axis')
+          .transition()
           .duration(750)
           .call(yAxe)
           .duration(750)
+
+        d3.select(window).on('resize', null)
+
+        var resize = function resize () {
+          var width = parseInt(d3.select('#chart').style('width')) - margin.left - margin.right
+          var height = parseInt(d3.select('#chart').style('height')) - margin.top - margin.bottom
+
+          echelleX.range([0, width])
+          echelleY.range([height, 0])
+
+          // Update the axis and text with the new scale
+          svg.select('.x.axis')
+            .attr('transform', 'translate(' + margin.left + ',' + height + ')')
+            .call(xAxe)
+
+          svg.select('.y.axis')
+            .attr('transform', 'translate(' + margin.left + ',0)')
+            .call(yAxe)
+
+          // Force D3 to recalculate and update the line
+          svg.selectAll('.line')
+            .attr('d', line(newDataGraph))
+
+          console.log(height, 'line')
+          // Force D3 to recalculate and update the line
+          svg.selectAll('.area')
+            .attr('d', area(newDataGraph))
+
+          // Update the tick marks
+          xAxe.ticks(Math.max(width / 75, 2))
+          yAxe.ticks(Math.max(height / 50, 2))
+        }
+
+        d3.select(window).on('resize', resize)
       },
       drawGraph () {
         var newDataGraph
@@ -133,9 +172,6 @@
         height = parseInt(d3.select('#chart').style('height')) - margin.top - margin.bottom
         beginIndexTimestamp = this.timestampsAll.indexOf(this.theTimestampStart) - 5
         beginIndexTimestamp = beginIndexTimestamp < 0 ? 0 : beginIndexTimestamp
-        console.log(beginIndexTimestamp, 'beginIndexTimestamp')
-        // const timestampsPerDay = JSON.parse(JSON.stringify(this.dataGraphGraph.slice(0, 12)))
-        // const timestampPerWeek = JSON.parse(JSON.stringify(this.dataGraphGraph.slice(0, 84)))
 
         svg = d3.select('svg')
 
@@ -166,17 +202,22 @@
           d[1] = +d[1]
         })
 
+        this.theNewDataGraph = JSON.parse(JSON.stringify(newDataGraph))
+
         echelleX.domain(d3.extent(newDataGraph, function (d) { return d[0] }))
 
         echelleY.domain([0, d3.max(newDataGraph, function (d) { return +d[1] })])
 
         // area.y0(echelleY(0))
 
-        function resize () {
+        var resize = function resize () {
           var width = parseInt(d3.select('#chart').style('width')) - margin.left - margin.right
           var height = parseInt(d3.select('#chart').style('height')) - margin.top - margin.bottom
 
           // Update the range of the scale with new width/height
+          console.log(width, 'width')
+          console.log(height, 'height')
+
           echelleX.range([0, width])
           echelleY.range([height, 0])
 
