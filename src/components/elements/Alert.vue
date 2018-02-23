@@ -40,7 +40,7 @@
     justify-content: center;
     overflow: hidden;
     position: fixed;
-    bottom: calc(100% - 80px);
+    bottom: calc(100% - 70px);
     left: 50%;
     transition: transform .3s ease-in-out;
     border-radius: $border-radius-base;
@@ -61,7 +61,7 @@
       background: linear-gradient(to left, $color-blue-ribbon, $color-caribbean-green);
     }
     &.alert--active {
-      transform: translate(-50%, 120%);
+      transform: translate(-50%, 130%);
     }
   }
 

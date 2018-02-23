@@ -23,19 +23,15 @@ import TheHeader from '@/components/elements/header/TheHeader.vue'
 
 export default {
   name: 'app',
-  created () {
-    this.getPlaces()
-  },
   mounted () {
     this.getPresets()
   },
   methods: {
     ...mapActions([
-      'getPlaces',
       'getPresets'
     ]),
     clickAction () {
-      this.$router.push({name: 'Home'})
+      this.$router.push({name: 'presets'})
     },
     clickBrand () {
       this.$router.push({name: 'Home'})

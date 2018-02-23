@@ -2,8 +2,9 @@
   <div class="map__heatContainer">
     <div id="map__heat">
       <Button
-        iconName="layers"
-        extraClass="button--round map__presetLink"
+        label="?"
+        linkName="Welcome"
+        extraClass="button--round map__presetLink text--white text--sm"
         extraClassIcon="m-n"
         data-html2canvas-ignore
       />
@@ -74,6 +75,8 @@ export default {
     this.map = L.map('map__heat', {
       center: [48.853, 2.333],
       zoom: 13,
+      maxZoom: 15,
+      minZoom: 13,
       zoomAnimation: true,
       touchZoom: true,
       tapTolerance: 50,
@@ -115,8 +118,8 @@ export default {
       this.heatLayer = L.heatLayer(geoData, {
         radius: 20,
         blur: 100,
-        maxZoom: 8,
-        minZoom: 25,
+        maxZoom: 6,
+        minZoom: 12,
         max: 10,
         id: 'heatmap.population',
         minOpacity: 0.2,
@@ -163,7 +166,7 @@ export default {
     },
     drawPlaces () {
       var self = this
-      var dataPlaces = this.places.places
+      var dataPlaces = this.places.places || []
       var svgPlaces = d3.select(this.map.getPanes().overlayPane).append('svg').style('z-index', '10000')
       var placesGroup = svgPlaces.append('g').attr('class', 'leaflet-zoom-hide')
       var featurePlaces

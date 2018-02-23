@@ -4,9 +4,9 @@ import HTTP from '@/utils/httpRequest.js'
 const state = {
   places: [],
   placeSelected: {
-    'id': '',
-    'name': '',
-    'capacity': '',
+    'id': '1',
+    'name': 'Champ de Mars',
+    'capacity': '8000',
     'stationsClosest': [
       {
         'id': 0,
@@ -31,8 +31,6 @@ const getters = {
 const actions = {
   getPlaces ({commit}) {
     HTTP.get('event/places').then(({data}) => {
-      console.log(data, 'data')
-
       commit(types.GET_PLACES, {
         places: data
       })

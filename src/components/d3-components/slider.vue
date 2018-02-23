@@ -55,7 +55,8 @@
         'getAllSchedules',
         'getConfigSliders',
         'getDayValue',
-        'getSchedulesValue'
+        'getSchedulesValue',
+        'isPlaceSelected'
       ])
     },
     methods: {
@@ -65,21 +66,30 @@
         'deselectPlace',
         'deselectEvent',
         'setNewDataSlider',
-        'addImageMap'
+        'addImageMap',
+        'openAlert'
       ]),
       showModalAnalyse () {
-        this.openModal({
-          component: 'ModalBeforeAnalyse'
-        }, 5000)
+        if (this.isPlaceSelected) {
+          this.openModal({
+            component: 'ModalBeforeAnalyse'
+          }, 5000)
 
-        document.querySelector('.leaflet-control-container').style.opacity = 0
+          document.querySelector('.leaflet-control-container').style.opacity = 0
 
-        html2canvas(document.querySelector('#map__heat'), {
-          useCORS: true
-        }).then(canvas => {
-          this.addImageMap(canvas.toDataURL('image/png'))
-          document.querySelector('.leaflet-control-container').style.opacity = 1
-        })
+          html2canvas(document.querySelector('#map__heat'), {
+            useCORS: true
+          }).then(canvas => {
+            this.addImageMap(canvas.toDataURL('image/png'))
+            document.querySelector('.leaflet-control-container').style.opacity = 1
+          })
+        } else {
+          this.openAlert({
+            content: 'Vous devez d\'abord séléctionner un lieu sur la carte',
+            autoclose: true,
+            iconName: 'close'
+          })
+        }
       },
       initSlider () {
         const allDataDays = [...this.getAllDays]

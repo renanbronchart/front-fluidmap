@@ -32,7 +32,7 @@ const mutations = {
     if (autoclose) {
       setTimeout(function () {
         state.active = false
-      }, 4500)
+      }, 3500)
     }
   },
   [types.CLOSE_ALERT] (state) {

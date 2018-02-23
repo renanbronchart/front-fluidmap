@@ -6,13 +6,17 @@
       <i class="material-icons" v-else>arrow_drop_up</i>
     </div>
     <div class="panel__body" :class="panelOpen ? 'panel__body--active' : ''">
-      <ul class="panel__container">
+      <ul class="panel__container" v-if="events.eventsSchedules.length > 0">
         <EventDescription
           v-for="event in events.eventsSchedules"
           :event="event"
           @clickEvent="clickEvent(event)"
-          :extraClass="events.eventsSchedules.length > 1 ? 'event--timeline' : 'event--timeline event--alone'"/>
+          :extraClass="events.eventsSchedules.length > 1 ? 'event--timeline' : 'event--timeline event--alone'"
+        />
       </ul>
+      <div class="panel__empty p-sm text--center m-t-xxl" v-else>
+        <h5 class="text--secondary">Il n'y a pas d'évènement à cette date là</h5>
+      </div>
     </div>
   </div>
 </template>

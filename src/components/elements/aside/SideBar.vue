@@ -30,7 +30,6 @@
         <div
           class="aside__image"
           :style="{ backgroundImage: 'url(' + getImageAside + ')' }"
-          v-if="map.placeSelected"
         ></div>
         <div class="aside__explanation" v-if="!map.eventSelected">
           <p class="text--secondary">Plusieurs évènements ont lieu à cet endroit et durant cette tranche horaire. Choisissez un évènement à afficher.</p>
