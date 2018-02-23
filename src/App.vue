@@ -31,7 +31,7 @@ export default {
       'getPresets'
     ]),
     clickAction () {
-      this.$router.push({name: 'Home'})
+      this.$router.push({name: 'presets'})
     },
     clickBrand () {
       this.$router.push({name: 'Home'})

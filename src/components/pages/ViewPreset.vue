@@ -39,10 +39,10 @@
             v-if="preset.eventsId"
           />
           <TextInfos
-            :content="displayLocationPreset"
+            :content="this.placePreset.properties.name"
             iconName="location_on"
             extraClass="information__primary m-l-lg"
-            v-if="preset.eventsId"
+            v-if="this.placePreset.properties"
           />
         </div>
         <div class="general__viewPlace row m-t-md">
@@ -60,7 +60,7 @@
           <div class="col-xs-12 col-sm-6 col-md-4 m-b-md">
             <div class="general__statistics">
               <Card>
-                <p>Indice de fréquentation</p>
+                <Bubbles :indice="4"></Bubbles>
               </Card>
               <Card>
                 <p>Capacité d’accueil</p>
@@ -202,6 +202,7 @@
   import TableComponent from '@/components/elements/TableComponent.vue'
   import EventInfo from '@/components/elements/events/EventInfo.vue'
   import StationIcon from '@/components/molecules/StationIcon.vue'
+  import Bubbles from '@/components/molecules/Bubbles.vue'
   import Graph from '@/components/d3-components/graph'
 
   import { mapState, mapGetters, mapActions } from 'vuex'
@@ -291,7 +292,8 @@
         'getCurrentPreset',
         'getNewPreset',
         'isEditionMode',
-        'getLengthPreset'
+        'getLengthPreset',
+        'getAllPresets'
       ]),
       getRouteName () {
         return this.$route.name
@@ -341,11 +343,6 @@
 
         return mapDate.extandedSchedules(dates[0], dates[1]) || ''
       },
-      displayLocationPreset () {
-        if (typeof this.preset.eventsId !== 'undefined') {
-          return this.isPlacePreset ? (this.preset.place_id || '') : (this.preset.eventsId[0] || '')
-        }
-      },
       getStationsData () {
         const names = []
 
@@ -380,11 +377,27 @@
       }
     },
     mounted () {
-      this.preset = this.getRouteName === 'newPreset' ? this.getNewPreset : this.getCurrentPreset
+      if (this.getRouteName === 'presetId') {
+        if (this.getAllPresets[this.$route.params.id]) {
+          this.preset = this.getAllPresets[this.$route.params.id]
+          this.setCurrentPreset(this.preset)
+        } else {
+          this.$router.push({name: 'Home'})
+        }
+      } else {
+        this.preset = this.getNewPreset
 
-      if (typeof this.preset.name === 'undefined') {
-        this.$router.push({name: 'Home'})
+        if (typeof this.preset.name === 'undefined') {
+          this.$router.push({name: 'Home'})
+        }
       }
+
+      // this.preset = this.getRouteName === 'newPreset' ? this.getNewPreset : this.getCurrentPreset
+
+      // if (typeof this.preset.name === 'undefined') {
+      //   alert('plop')
+      //   this.$router.push({name: 'Home'})
+      // }
 
       if (this.isPlacePreset) {
         HTTP.get(`event/place/${this.preset.place_id}?timestampStart=${this.preset.dates[0]}&timestampEnd=${this.preset.dates[1]}`).then(({data}) => {
@@ -430,7 +443,9 @@
         'selectPlaces',
         'selectEvent',
         'setValueSliders',
-        'setExpandedDate'
+        'setExpandedDate',
+        'openAlert',
+        'setCurrentPreset'
       ]),
       showOrHide (section) {
         const showMoreLabel = this[section]['showMoreLabel']
@@ -445,6 +460,12 @@
       },
       exportPdf () {
         var src = document.querySelector('.analyse.container')
+
+        this.openAlert({
+          content: 'Cette opération s\'effectuera dans moins d\'une minute',
+          autoclose: true,
+          iconName: 'info'
+        })
 
         exportToPdf(src, 2, 80)
       },
@@ -517,7 +538,8 @@
       EventInfo,
       Notifications,
       StationIcon,
-      Graph
+      Graph,
+      Bubbles
     }
   }
 </script>

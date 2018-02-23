@@ -24,7 +24,8 @@ const getters = {
   getCurrentPreset: state => state.currentPreset,
   getNewPreset: state => state.newPreset,
   isEditionMode: state => state.edition,
-  getLengthPreset: state => state.presets.length
+  getLengthPreset: state => state.presets.length,
+  getAllPresets: state => state.presets
 }
 
 const actions = {

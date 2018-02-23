@@ -18,7 +18,7 @@
   import HTTP from '@/utils/httpRequest.js'
   import ran from '@/utils/mathRan.js'
 
-  import { mapGetters } from 'vuex'
+  import { mapGetters, mapActions } from 'vuex'
 
   var margin
   var width
@@ -43,7 +43,21 @@
       }
     },
     mounted () {
-      this.preset = this.$route.name === 'newPreset' ? this.getNewPreset : this.getCurrentPreset
+      if (this.$route.name === 'presetId') {
+        if (this.getAllPresets[this.$route.params.id]) {
+          this.preset = this.getAllPresets[this.$route.params.id]
+          this.setCurrentPreset(this.preset)
+        } else {
+          this.$router.push({name: 'Home'})
+        }
+      } else {
+        this.preset = this.getNewPreset
+
+        if (typeof this.preset.name === 'undefined') {
+          this.$router.push({name: 'Home'})
+        }
+      }
+
       this.theTimestampStart = this.preset.dates[0]
       this.timestampsAll = [...this.getAllTimestamps]
 
@@ -62,10 +76,14 @@
       ...mapGetters([
         'getAllTimestamps',
         'getCurrentPreset',
-        'getNewPreset'
+        'getNewPreset',
+        'getAllPresets'
       ])
     },
     methods: {
+      ...mapActions([
+        'setCurrentPreset'
+      ]),
       calculMedian (myArray) {
         // Calcul de la médiane.
         const mediane = d3.median(myArray, function (d) { return +d[1] })
