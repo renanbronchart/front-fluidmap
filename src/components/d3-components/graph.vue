@@ -84,6 +84,23 @@
       ...mapActions([
         'setCurrentPreset'
       ]),
+      hightHintsFiltered () {
+        let nombres = [...this.hightHints.data]
+        let newNombres = this.calculMedian(nombres)
+
+        newNombres.sort(function (a, b) {
+          return a - b
+        })
+
+        console.log(newNombres, 'newNombres')
+
+        // {
+        //   date: 'date0',
+        //   timestampStart: 'timestampStart0',
+        //   timestampEnd: 'timestampEnd0',
+        //   hint: 'hint0'
+        // },
+      },
       calculMedian (myArray) {
         // Calcul de la médiane.
         const mediane = d3.median(myArray, function (d) { return +d[1] })
@@ -305,15 +322,15 @@
 
         mainGradientLine.append('stop')
           .attr('class', 'stop-10')
-          .attr('offset', '.01')
+          .attr('offset', '.3')
 
         mainGradientLine.append('stop')
           .attr('class', 'stop-40')
-          .attr('offset', '.05')
+          .attr('offset', '5')
 
         mainGradientLine.append('stop')
           .attr('class', 'stop-right')
-          .attr('offset', '0.1')
+          .attr('offset', '10')
 
         var mainGradientArea = svgDefs.append('linearGradient')
           .attr('id', 'mainGradientArea')
@@ -327,15 +344,15 @@
 
         mainGradientArea.append('stop')
           .attr('class', 'stop-30')
-          .attr('offset', '.30')
+          .attr('offset', '0.1')
 
         mainGradientArea.append('stop')
           .attr('class', 'stop-60')
-          .attr('offset', '.6')
+          .attr('offset', '5')
 
         mainGradientArea.append('stop')
           .attr('class', 'stop-right')
-          .attr('offset', '1')
+          .attr('offset', '10')
       }
     }
   }

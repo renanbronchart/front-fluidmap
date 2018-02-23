@@ -117,13 +117,13 @@ export default {
 
       this.heatLayer = L.heatLayer(geoData, {
         radius: 20,
-        blur: 100,
+        blur: 70,
         maxZoom: 6,
         minZoom: 12,
         max: 10,
         id: 'heatmap.population',
         minOpacity: 0.2,
-        gradient: {0.01: '#42d5fc', 0.8: '#0027fd'} // mettre plus foncé aux deux couleurs, la deuxieme doit etre la premiere , et la deuxime beaucoup plus foncé.
+        gradient: {0.01: '#42d5fc', 1: '#103dd8'} // mettre plus foncé aux deux couleurs, la deuxieme doit etre la premiere , et la deuxime beaucoup plus foncé.
       }).addTo(this.map)
     },
     redrawHeatMap (newState) {

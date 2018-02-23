@@ -1,6 +1,7 @@
 <template>
   <li class="navAsideElement">
-    <router-link :to="{ name: url.name, params: url.objectParams}" class="navAside__link" exact-active-class>
+    <a :href="url.url" v-if="url.url" class="navAside__link" target="_blank">{{url.label}}</a>
+    <router-link :to="{ name: url.name, params: url.objectParams}" class="navAside__link" exact-active-class v-else>
       <i class="material-icons link__content" v-if="url.iconName">{{url.iconName}}</i>
       <span v-if="url.label" class="link__content">{{url.label}}</span>
     </router-link>

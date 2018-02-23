@@ -59,11 +59,22 @@
           </div>
           <div class="col-xs-12 col-sm-6 col-md-4 m-b-md">
             <div class="general__statistics">
-              <Card>
-                <Bubbles :indice="4"></Bubbles>
+              <Card class="card__pres p-md">
+                <p class="text--secondary p-sm">Indice de fréquentation</p>
+                <div class="bubble_block">
+                  <Bubbles :indice="getIndiceMean"></Bubbles>
+                  <h4 class="h1 text--primary m-l-sm">{{Math.round(getIndiceMean * 100) / 100}}</h4>
+                </div>
               </Card>
-              <Card>
-                <p>Capacité d’accueil</p>
+              <Card class="card__pres p-md m-t-md">
+                <p class="text--secondary p-sm">Capacité d’accueil</p>
+                <div class="capacity_block">
+                  <i class="material-icons text--danger icn--md m-t-sm">person</i>
+                  <h4 class="h1 text--danger m-l-sm">
+                    {{ this.placePreset.properties.capacity }}<br>
+                    <p class="text--secondary">personnes</p>
+                  </h4>
+                </div>
               </Card>
             </div>
           </div>
@@ -99,6 +110,7 @@
           <Card extraClass="p-lg">
             <div class="analyse__eventsSchedules">
               <h4>Autres évènements dans cette tranche horaire {{getSchedulesPreset}}</h4>
+              <p class="text--secondary text--center m-t-xxl m-b-xxl" v-if="eventsShowFiltered.length === 0">Il n'y a pas d'évènement dans cette période</p>
               <ul>
                 <EventInfo
                   v-for="(event, index) in eventsShowFiltered"
@@ -116,7 +128,8 @@
 
             </div>
             <div class="analyse__eventsNext m-t-lg" v-if="isEventPreset">
-              <h4>Évènements suivants entre </h4>
+              <h4>Évènements suivants entre {{getSchedulesPresetNext}}</h4>
+              <p class="text--secondary text--center m-t-xxl m-b-xxl" v-if="events.eventsSchedules.length === 0">Il n'y a pas d'évènement dans la période suivante période</p>
               <ul>
                 <EventInfo
                   v-for="(event, index) in events.eventsSchedules"
@@ -139,11 +152,13 @@
           <Card extraClass="p-lg">
             <div class="analyse__eventsStations">
               <h4>Stations à proximiter du lieu</h4>
+              <p class="text--secondary text--center m-t-xxl m-b-xxl" v-if="getStationsData.length === 0">Il n'y a pas de stations très proche de ce lieu</p>
               <TableComponent
                 :columns="stationsData.columns"
                 :data="getStationsData"
                 extraClass="m-t-sm table--lastColumnLeft"
                 :rowTodisplay="stationsShow.count"
+                v-else
               >
                 <div v-for="(data, index) in getStationsData" :slot="`station-${index}`">
                   <p class="text--bold m-b-sm">{{data.name}}</p>
@@ -189,6 +204,7 @@
 <script>
   import parameterize from 'parameterize-string'
   import * as d3 from 'd3'
+  import ran from '@/utils/mathRan.js'
 
   import HTTP from '@/utils/httpRequest.js'
   import associateStations from '@/utils/associateStations.js'
@@ -232,22 +248,22 @@
         hightHints: {
           data: [
             {
-              date: 'date0',
-              timestampStart: 'timestampStart0',
-              timestampEnd: 'timestampEnd0',
-              hint: 'hint0'
+              date: '08.08.2024',
+              timestampStart: '12h00',
+              timestampEnd: '14h00',
+              hint: '1'
             },
             {
-              date: 'date1',
-              timestampStart: 'timestampStart1',
-              timestampEnd: 'timestampEnd1',
-              hint: 'hint1'
+              date: '08.08.2024',
+              timestampStart: '18h00',
+              timestampEnd: '20h00',
+              hint: '0.2'
             },
             {
-              date: 'date2',
-              timestampStart: 'timestampStart2',
-              timestampEnd: 'timestampEnd2',
-              hint: 'hint2'
+              date: '08.08.2024',
+              timestampStart: '20h00',
+              timestampEnd: '23h00',
+              hint: '3'
             }
           ],
           columns: [
@@ -315,6 +331,14 @@
 
         return typeof dates === 'undefined' ? '' : mapDate.extandedSchedules(dates[0], dates[1])
       },
+      getSchedulesPresetNext () {
+        const dates = this.preset.dates
+
+        return typeof dates === 'undefined' ? '' : mapDate.getSchedulesDisplay(dates[1])
+      },
+      getIndiceMean () {
+        return d3.mean(this.placePreset.properties.hints, function (d) { return +d })
+      },
       eventsShowFiltered () {
         const names = []
 
@@ -324,6 +348,27 @@
             return true
           }
         })
+      },
+      hightHintsFiltered () {
+        // const hints = []
+        let nombres = [...this.hightHints.data]
+        let newNombres = this.calculMedian(nombres)
+
+        newNombres.sort(function (a, b) {
+          return a - b
+        })
+
+        console.log(newNombres, 'newNombres')
+
+        // {
+        //   date: 'date0',
+        //   timestampStart: 'timestampStart0',
+        //   timestampEnd: 'timestampEnd0',
+        //   hint: 'hint0'
+        // },
+      },
+      lowHintsFiltered () {
+        // const hints = []
       },
       getMapSrc () {
         if (this.isNewPreset) {
@@ -405,13 +450,23 @@
           this.placePreset = placePreset
 
           this.eventsShow.data = placePreset.properties.events
+          // this.hints.data = placePreset.properties.hints
           this.stationsShow.data = placePreset.properties.stations_closest
           // this.stationsShow.data =
         }).catch(error => {
           console.log('error view preset', error)
         })
       } else {
+        HTTP.get(`event/place/${this.preset.place_id}?timestampStart=${this.preset.dates[0]}&timestampEnd=${this.preset.dates[1]}`).then(({data}) => {
+          const placePreset = data.features
+          this.placePreset = placePreset
 
+          this.eventsShow.data = placePreset.properties.events
+          // this.hightHints.data = placePreset.properties.hints
+          this.stationsShow.data = placePreset.properties.stations_closest
+        }).catch(error => {
+          console.log('error view preset', error)
+        })
       }
       // Si eventsId.length > 1 ,
       // alors requete api de currentPreset.place_id ou chercher par l'id avec tous les places
@@ -447,6 +502,28 @@
         'openAlert',
         'setCurrentPreset'
       ]),
+      calculMedian (myArray) {
+        // Calcul de la médiane.
+        const mediane = d3.median(myArray, function (d) { return +d[1] })
+
+        const array2 = myArray.map((value, index) => {
+          let coef = ran[index]
+
+          let newArray = [...value]
+          let indice = parseFloat(newArray[1])
+          let finalIndice
+
+          if (indice > mediane) {
+            finalIndice = (indice - mediane) * coef
+          } else {
+            finalIndice = (indice + mediane) * coef
+          }
+
+          return [newArray[0], finalIndice]
+        })
+
+        return array2
+      },
       showOrHide (section) {
         const showMoreLabel = this[section]['showMoreLabel']
 
@@ -547,6 +624,47 @@
 <style lang='scss'>
   @import '~stylesheets/helpers/_variables.scss';
   @import '~stylesheets/helpers/mixins/_media-queries.scss';
+
+  .card__pres {
+    height: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .bubble_block {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    &:after {
+      content: ' ';
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 100%;
+      width: 2px;
+      background: linear-gradient(to bottom, $color-blue, $color-malibu);
+    }
+  }
+
+  .capacity_block {
+    position: relative;
+    display: flex;
+    align-items: top;
+    justify-content: center;
+    padding: 20px;
+    &:after {
+      content: ' ';
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 100%;
+      width: 2px;
+      background: linear-gradient(to bottom, #fe012c, #fe029b);
+    }
+  }
 
   .analyse__title {
     display: flex;
