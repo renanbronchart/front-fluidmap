@@ -1,11 +1,11 @@
 <template>
   <div class="graph">
     <div class="graph__header">
-      <div class="graph__title">Graphique - Indice de fréquentation</div>
+      <h5 class="graph__title m-b-md">Graphique - Indice de fréquentation</h5>
       <div class="graph__actions">
-        <button @click.prevent="updateData(84)">Semaine</button>
-        <button @click.prevent="updateData(192)">Jo entier</button>
-        <button @click.prevent="updateData(12)">Jour</button>
+        <button @click.prevent="updateData(84)" class="graph__action text--info m-l-md p-sm">Semaine</button>
+        <button @click.prevent="updateData(192)" class="graph__action text--info m-l-md p-sm">Jo entier</button>
+        <button @click.prevent="updateData(12)" class="graph__action text--info m-l-md p-sm">Jour</button>
       </div>
     </div>
 
@@ -167,7 +167,7 @@
       },
       drawGraph () {
         var newDataGraph
-        margin = {top: 20, right: 80, bottom: 30, left: 60}
+        margin = {top: 20, right: 0, bottom: 30, left: 60}
         width = parseInt(d3.select('#chart').style('width')) - margin.left - margin.right
         height = parseInt(d3.select('#chart').style('height')) - margin.top - margin.bottom
         beginIndexTimestamp = this.timestampsAll.indexOf(this.theTimestampStart) - 5
@@ -213,10 +213,6 @@
         var resize = function resize () {
           var width = parseInt(d3.select('#chart').style('width')) - margin.left - margin.right
           var height = parseInt(d3.select('#chart').style('height')) - margin.top - margin.bottom
-
-          // Update the range of the scale with new width/height
-          console.log(width, 'width')
-          console.log(height, 'height')
 
           echelleX.range([0, width])
           echelleY.range([height, 0])
@@ -330,6 +326,16 @@
 <style lang='scss'>
   @import '~stylesheets/helpers/_variables.scss';
   @import '~stylesheets/helpers/mixins/style.scss';
+
+  .graph__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .graph__action {
+    border-bottom: 2px solid $color-caribbean-green;
+  }
 
   #chart {
     width: 100%;
