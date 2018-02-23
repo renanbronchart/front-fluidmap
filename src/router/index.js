@@ -96,7 +96,7 @@ router.beforeEach((to, from, next) => {
 
     setTimeout(() => {
       next()
-    }, 300)
+    }, 200)
   }
 
   getTimestamps()

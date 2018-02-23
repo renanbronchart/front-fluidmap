@@ -2,8 +2,9 @@
   <div class="map__heatContainer">
     <div id="map__heat">
       <Button
-        iconName="layers"
-        extraClass="button--round map__presetLink"
+        label="?"
+        linkName="Welcome"
+        extraClass="button--round map__presetLink text--white text--sm"
         extraClassIcon="m-n"
         data-html2canvas-ignore
       />
