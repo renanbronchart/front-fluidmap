@@ -71,11 +71,8 @@
       </div>
       <Card extraClass="p-lg">
         <div class="analyse__graph">
-          <div class="graph__header">
-            <h4 class="graph__title">Graphique - Indice de fréquentation</h4>
-            <div class="graph__actions"></div>
-          </div>
           <div class="graph__view">
+            <Graph></Graph>
           </div>
         </div>
         <div class="graph__tables row m-t-xl">
@@ -205,6 +202,7 @@
   import TableComponent from '@/components/elements/TableComponent.vue'
   import EventInfo from '@/components/elements/events/EventInfo.vue'
   import StationIcon from '@/components/molecules/StationIcon.vue'
+  import Graph from '@/components/d3-components/graph'
 
   import { mapState, mapGetters, mapActions } from 'vuex'
 
@@ -389,7 +387,7 @@
       }
 
       if (this.isPlacePreset) {
-        HTTP.get(`event/place/${this.preset.place_id}?timestampStart=${this.preset.dates[0]}&timestampStart=${this.preset.dates[1]}`).then(({data}) => {
+        HTTP.get(`event/place/${this.preset.place_id}?timestampStart=${this.preset.dates[0]}&timestampEnd=${this.preset.dates[1]}`).then(({data}) => {
           const placePreset = data.features
           this.placePreset = placePreset
 
@@ -399,6 +397,8 @@
         }).catch(error => {
           console.log('error view preset', error)
         })
+      } else {
+
       }
       // Si eventsId.length > 1 ,
       // alors requete api de currentPreset.place_id ou chercher par l'id avec tous les places
@@ -516,7 +516,8 @@
       TableComponent,
       EventInfo,
       Notifications,
-      StationIcon
+      StationIcon,
+      Graph
     }
   }
 </script>
