@@ -38,11 +38,11 @@ const actions = {
     commit(types.REMOVE_NEW_PRESET)
   },
   saveNewPreset ({commit}, preset) {
-    const presets = JSON.parse(localStorage.getItem('fluidmap-presets')) || []
+    const presets = JSON.parse(localStorage.getItem('fluidmap-all-presets')) || []
 
-    preset.id = parseFloat(presets.length) + 1
-    presets.unshift(preset)
-    localStorage.setItem('fluidmap-presets', JSON.stringify(presets))
+    preset.id = parseFloat(presets.length)
+    presets.push(preset)
+    localStorage.setItem('fluidmap-all-presets', JSON.stringify(presets))
 
     commit(types.SAVE_NEW_PRESET, {
       preset: preset
@@ -127,7 +127,7 @@ const actions = {
     })
   },
   getPresets ({commit}) {
-    const presets = JSON.parse(localStorage.getItem('fluidmap-presets')) || []
+    const presets = JSON.parse(localStorage.getItem('fluidmap-all-presets')) || []
 
     commit(types.GET_PRESETS, {
       presets: presets
