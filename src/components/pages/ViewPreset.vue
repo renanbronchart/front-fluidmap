@@ -59,11 +59,22 @@
           </div>
           <div class="col-xs-12 col-sm-6 col-md-4 m-b-md">
             <div class="general__statistics">
-              <Card>
-                <Bubbles :indice="4"></Bubbles>
+              <Card class="card__pres p-md">
+                <p class="text--secondary p-sm">Indice de fréquentation</p>
+                <div class="bubble_block">
+                  <Bubbles :indice="4"></Bubbles>
+                  <h4 class="h1 text--primary m-l-sm">4</h4>
+                </div>
               </Card>
-              <Card>
-                <p>Capacité d’accueil</p>
+              <Card class="card__pres p-md m-t-md">
+                <p class="text--secondary p-sm">Capacité d’accueil</p>
+                <div class="capacity_block">
+                  <i class="material-icons text--danger icn--md m-t-sm">person</i>
+                  <h4 class="h1 text--danger m-l-sm">
+                    {{ this.placePreset.properties.capacity }}<br>
+                    <p class="text--secondary">personnes</p>
+                  </h4>
+                </div>
               </Card>
             </div>
           </div>
@@ -189,6 +200,7 @@
 <script>
   import parameterize from 'parameterize-string'
   import * as d3 from 'd3'
+  import ran from '@/utils/mathRan.js'
 
   import HTTP from '@/utils/httpRequest.js'
   import associateStations from '@/utils/associateStations.js'
@@ -325,6 +337,27 @@
           }
         })
       },
+      hightHintsFiltered () {
+        // const hints = []
+        let nombres = [...this.hightHints.data]
+        let newNombres = this.calculMedian(nombres)
+
+        newNombres.sort(function (a, b) {
+          return a - b
+        })
+
+        console.log(newNombres, 'newNombres')
+
+        // {
+        //   date: 'date0',
+        //   timestampStart: 'timestampStart0',
+        //   timestampEnd: 'timestampEnd0',
+        //   hint: 'hint0'
+        // },
+      },
+      lowHintsFiltered () {
+        // const hints = []
+      },
       getMapSrc () {
         if (this.isNewPreset) {
           return this.map.instantImage
@@ -405,13 +438,23 @@
           this.placePreset = placePreset
 
           this.eventsShow.data = placePreset.properties.events
+          this.hints.data = placePreset.properties.hints
           this.stationsShow.data = placePreset.properties.stations_closest
           // this.stationsShow.data =
         }).catch(error => {
           console.log('error view preset', error)
         })
       } else {
+        HTTP.get(`event/place/${this.preset.place_id}?timestampStart=${this.preset.dates[0]}&timestampEnd=${this.preset.dates[1]}`).then(({data}) => {
+          const placePreset = data.features
+          this.placePreset = placePreset
 
+          this.eventsShow.data = placePreset.properties.events
+          this.hightHints.data = placePreset.properties.hints
+          this.stationsShow.data = placePreset.properties.stations_closest
+        }).catch(error => {
+          console.log('error view preset', error)
+        })
       }
       // Si eventsId.length > 1 ,
       // alors requete api de currentPreset.place_id ou chercher par l'id avec tous les places
@@ -447,6 +490,28 @@
         'openAlert',
         'setCurrentPreset'
       ]),
+      calculMedian (myArray) {
+        // Calcul de la médiane.
+        const mediane = d3.median(myArray, function (d) { return +d[1] })
+
+        const array2 = myArray.map((value, index) => {
+          let coef = ran[index]
+
+          let newArray = [...value]
+          let indice = parseFloat(newArray[1])
+          let finalIndice
+
+          if (indice > mediane) {
+            finalIndice = (indice - mediane) * coef
+          } else {
+            finalIndice = (indice + mediane) * coef
+          }
+
+          return [newArray[0], finalIndice]
+        })
+
+        return array2
+      },
       showOrHide (section) {
         const showMoreLabel = this[section]['showMoreLabel']
 
@@ -547,6 +612,47 @@
 <style lang='scss'>
   @import '~stylesheets/helpers/_variables.scss';
   @import '~stylesheets/helpers/mixins/_media-queries.scss';
+
+  .card__pres {
+    height: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .bubble_block {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    &:after {
+      content: ' ';
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 100%;
+      width: 2px;
+      background: linear-gradient(to bottom, $color-blue, $color-malibu);
+    }
+  }
+
+  .capacity_block {
+    position: relative;
+    display: flex;
+    align-items: top;
+    justify-content: center;
+    padding: 20px;
+    &:after {
+      content: ' ';
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 100%;
+      width: 2px;
+      background: linear-gradient(to bottom, #fe012c, #fe029b);
+    }
+  }
 
   .analyse__title {
     display: flex;
