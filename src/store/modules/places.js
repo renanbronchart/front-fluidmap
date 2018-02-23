@@ -31,8 +31,6 @@ const getters = {
 const actions = {
   getPlaces ({commit}) {
     HTTP.get('event/places').then(({data}) => {
-      console.log(data, 'data')
-
       commit(types.GET_PLACES, {
         places: data
       })

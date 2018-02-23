@@ -92,8 +92,11 @@ const router = new Router({
 router.beforeEach((to, from, next) => {
   async function getTimestamps () {
     await store.dispatch('getTimestampsApi')
+    await store.dispatch('getPlaces')
 
-    next()
+    setTimeout(() => {
+      next()
+    }, 300)
   }
 
   getTimestamps()

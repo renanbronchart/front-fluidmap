@@ -23,15 +23,11 @@ import TheHeader from '@/components/elements/header/TheHeader.vue'
 
 export default {
   name: 'app',
-  created () {
-    this.getPlaces()
-  },
   mounted () {
     this.getPresets()
   },
   methods: {
     ...mapActions([
-      'getPlaces',
       'getPresets'
     ]),
     clickAction () {
