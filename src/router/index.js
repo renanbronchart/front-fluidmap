@@ -10,6 +10,8 @@ import Preset from '@/components/pages/Preset'
 import ViewPreset from '@/components/pages/ViewPreset'
 import Api from '@/components/pages/Api'
 
+import cookieUtils from '@/utils/getCookie.js'
+
 import store from '@/store'
 
 Vue.use(Router)
@@ -22,6 +24,17 @@ const router = new Router({
       path: '/',
       name: 'Home',
       component: Home,
+      beforeEnter: (to, from, next) => {
+        var cookieOnBoard = cookieUtils.getCookie('fluidmap-onboard')
+
+        if (!cookieOnBoard) {
+          cookieUtils.setCookie('fluidmap-onboard', true, 7)
+
+          router.push({name: 'Welcome'})
+        } else {
+          next()
+        }
+      },
       children: [
         {
           path: 'onboard/step/:id',
