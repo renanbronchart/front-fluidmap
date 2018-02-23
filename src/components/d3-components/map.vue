@@ -75,6 +75,8 @@ export default {
     this.map = L.map('map__heat', {
       center: [48.853, 2.333],
       zoom: 13,
+      maxZoom: 15,
+      minZoom: 13,
       zoomAnimation: true,
       touchZoom: true,
       tapTolerance: 50,
@@ -116,8 +118,8 @@ export default {
       this.heatLayer = L.heatLayer(geoData, {
         radius: 20,
         blur: 100,
-        maxZoom: 8,
-        minZoom: 25,
+        maxZoom: 6,
+        minZoom: 12,
         max: 10,
         id: 'heatmap.population',
         minOpacity: 0.2,
