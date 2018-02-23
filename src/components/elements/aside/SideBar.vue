@@ -38,15 +38,26 @@
     </div>
     <div class="aside__stats" v-if="map.eventSelected">
       <div class="stats__hint">
-        <StatsHint
-          hintMark="4"
-        />
+        <div class="card__pres p-md">
+          <div class="bubble_block">
+            <Bubbles :indice="4"></Bubbles>
+            <h4 class="h1 text--primary m-l-sm">4</h4>
+          </div>
+          <p class="text--secondary p-sm">Indice de fréquentation</p>
+        </div>
       </div>
       <div class="stats__people">
         <div class="stats__capacity">
-          <StatsPeople
-            count="90000"
-          />
+          <div class="card__pres p-md m-t-md">
+            <div class="capacity_block">
+              <i class="material-icons text--danger icn--md m-t-sm">person</i>
+              <h4 class="h1 text--danger m-l-sm">
+                {{ this.getPlaceSelected.capacity }} <span class="text--secondary">pers</span
+                >
+              </h4>
+            </div>
+            <p class="text--secondary p-sm">Capacité d’accueil</p>
+          </div>
         </div>
       </div>
     </div>
@@ -111,6 +122,7 @@
   import ListAside from '@/components/elements/aside/ListAside.vue'
   import EventDescription from '@/components/elements/events/EventDescription.vue'
   import TableComponent from '@/components/elements/TableComponent.vue'
+  import Bubbles from '@/components/molecules/Bubbles.vue'
 
   export default {
     data () {
@@ -302,7 +314,8 @@
       EventDescription,
       TableComponent,
       Notifications,
-      StationIcon
+      StationIcon,
+      Bubbles
     }
   }
 </script>
@@ -310,6 +323,29 @@
 <style lang='scss' scoped>
   @import '~stylesheets/helpers/_variables.scss';
   @import '~stylesheets/helpers/mixins/style.scss';
+
+  .card__pres {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
+  }
+
+  .bubble_block {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+  }
+
+  .capacity_block {
+    position: relative;
+    display: flex;
+    align-items: top;
+    justify-content: center;
+    padding: 10px;
+  }
 
   .aside {
     width: 524px;
@@ -405,13 +441,13 @@
   .stats__hint {
     width: 40%;
     border-right: 1px solid $dusty-gray;
-    padding: 30px 40px;
+    /*padding: 30px 40px;*/
   }
 
   .stats__people {
     width: 60%;
     border-right: 1px solid $dusty-gray;
-    padding: 30px 40px;
+    /*padding: 30px 40px;*/
   }
 
   .aside__list {

@@ -84,6 +84,23 @@
       ...mapActions([
         'setCurrentPreset'
       ]),
+      hightHintsFiltered () {
+        let nombres = [...this.hightHints.data]
+        let newNombres = this.calculMedian(nombres)
+
+        newNombres.sort(function (a, b) {
+          return a - b
+        })
+
+        console.log(newNombres, 'newNombres')
+
+        // {
+        //   date: 'date0',
+        //   timestampStart: 'timestampStart0',
+        //   timestampEnd: 'timestampEnd0',
+        //   hint: 'hint0'
+        // },
+      },
       calculMedian (myArray) {
         // Calcul de la médiane.
         const mediane = d3.median(myArray, function (d) { return +d[1] })
