@@ -23,7 +23,7 @@
   }
 </script>
 
-<style lang="scss" scoped="true">
+<style lang='scss' scoped='true'>
   .welcomePage {
     width: 100vw;
     height: 100vh;

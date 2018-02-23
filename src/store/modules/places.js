@@ -4,9 +4,9 @@ import HTTP from '@/utils/httpRequest.js'
 const state = {
   places: [],
   placeSelected: {
-    'id': '',
-    'name': '',
-    'capacity': '',
+    'id': '1',
+    'name': 'Champ de Mars',
+    'capacity': '8000',
     'stationsClosest': [
       {
         'id': 0,
