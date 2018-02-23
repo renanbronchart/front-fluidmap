@@ -1,7 +1,7 @@
 <template>
   <div class="fm-index">
     <ul class="fm-index-list">
-      <li v-for="index in 10" :class="indice >= index ? 'filled' : ''" >
+      <li v-for="index in 10" :class="Math.round(indice) >= index ? 'filled' : ''" >
       </li>
     </ul>
   </div>

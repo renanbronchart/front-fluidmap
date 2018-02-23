@@ -62,8 +62,8 @@
               <Card class="card__pres p-md">
                 <p class="text--secondary p-sm">Indice de fréquentation</p>
                 <div class="bubble_block">
-                  <Bubbles :indice="4"></Bubbles>
-                  <h4 class="h1 text--primary m-l-sm">4</h4>
+                  <Bubbles :indice="getIndiceMean"></Bubbles>
+                  <h4 class="h1 text--primary m-l-sm">{{Math.round(getIndiceMean * 100) / 100}}</h4>
                 </div>
               </Card>
               <Card class="card__pres p-md m-t-md">
@@ -110,6 +110,7 @@
           <Card extraClass="p-lg">
             <div class="analyse__eventsSchedules">
               <h4>Autres évènements dans cette tranche horaire {{getSchedulesPreset}}</h4>
+              <p class="text--secondary text--center m-t-xxl m-b-xxl" v-if="eventsShowFiltered.length === 0">Il n'y a pas d'évènement dans cette période</p>
               <ul>
                 <EventInfo
                   v-for="(event, index) in eventsShowFiltered"
@@ -127,7 +128,8 @@
 
             </div>
             <div class="analyse__eventsNext m-t-lg" v-if="isEventPreset">
-              <h4>Évènements suivants entre </h4>
+              <h4>Évènements suivants entre {{getSchedulesPresetNext}}</h4>
+              <p class="text--secondary text--center m-t-xxl m-b-xxl" v-if="events.eventsSchedules.length === 0">Il n'y a pas d'évènement dans la période suivante période</p>
               <ul>
                 <EventInfo
                   v-for="(event, index) in events.eventsSchedules"
@@ -150,11 +152,13 @@
           <Card extraClass="p-lg">
             <div class="analyse__eventsStations">
               <h4>Stations à proximiter du lieu</h4>
+              <p class="text--secondary text--center m-t-xxl m-b-xxl" v-if="getStationsData.length === 0">Il n'y a pas de stations très proche de ce lieu</p>
               <TableComponent
                 :columns="stationsData.columns"
                 :data="getStationsData"
                 extraClass="m-t-sm table--lastColumnLeft"
                 :rowTodisplay="stationsShow.count"
+                v-else
               >
                 <div v-for="(data, index) in getStationsData" :slot="`station-${index}`">
                   <p class="text--bold m-b-sm">{{data.name}}</p>
@@ -244,22 +248,22 @@
         hightHints: {
           data: [
             {
-              date: 'date0',
-              timestampStart: 'timestampStart0',
-              timestampEnd: 'timestampEnd0',
-              hint: 'hint0'
+              date: '08.08.2024',
+              timestampStart: '12h00',
+              timestampEnd: '14h00',
+              hint: '1'
             },
             {
-              date: 'date1',
-              timestampStart: 'timestampStart1',
-              timestampEnd: 'timestampEnd1',
-              hint: 'hint1'
+              date: '08.08.2024',
+              timestampStart: '18h00',
+              timestampEnd: '20h00',
+              hint: '0.2'
             },
             {
-              date: 'date2',
-              timestampStart: 'timestampStart2',
-              timestampEnd: 'timestampEnd2',
-              hint: 'hint2'
+              date: '08.08.2024',
+              timestampStart: '20h00',
+              timestampEnd: '23h00',
+              hint: '3'
             }
           ],
           columns: [
@@ -326,6 +330,14 @@
         const dates = this.preset.dates
 
         return typeof dates === 'undefined' ? '' : mapDate.extandedSchedules(dates[0], dates[1])
+      },
+      getSchedulesPresetNext () {
+        const dates = this.preset.dates
+
+        return typeof dates === 'undefined' ? '' : mapDate.getSchedulesDisplay(dates[1])
+      },
+      getIndiceMean () {
+        return d3.mean(this.placePreset.properties.hints, function (d) { return +d })
       },
       eventsShowFiltered () {
         const names = []
@@ -438,7 +450,7 @@
           this.placePreset = placePreset
 
           this.eventsShow.data = placePreset.properties.events
-          this.hints.data = placePreset.properties.hints
+          // this.hints.data = placePreset.properties.hints
           this.stationsShow.data = placePreset.properties.stations_closest
           // this.stationsShow.data =
         }).catch(error => {
@@ -450,7 +462,7 @@
           this.placePreset = placePreset
 
           this.eventsShow.data = placePreset.properties.events
-          this.hightHints.data = placePreset.properties.hints
+          // this.hightHints.data = placePreset.properties.hints
           this.stationsShow.data = placePreset.properties.stations_closest
         }).catch(error => {
           console.log('error view preset', error)

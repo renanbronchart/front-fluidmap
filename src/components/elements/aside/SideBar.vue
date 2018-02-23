@@ -40,8 +40,8 @@
       <div class="stats__hint">
         <div class="card__pres p-md">
           <div class="bubble_block">
-            <Bubbles :indice="4"></Bubbles>
-            <h4 class="h1 text--primary m-l-sm">4</h4>
+            <Bubbles :indice="getIndiceMean"></Bubbles>
+            <h4 class="h1 text--primary m-l-sm">{{Math.round(getIndiceMean)}}</h4>
           </div>
           <p class="text--secondary p-sm">Indice de fréquentation</p>
         </div>
@@ -273,8 +273,15 @@
 
         return extraClass
       },
+      getIndiceMean () {
+        return d3.mean(this.propertiesPlaceSelected.hints, function (d) { return +d })
+      },
       getStationsData () {
         const names = []
+
+        if (typeof this.propertiesPlaceSelected.stations_closest === 'undefined') {
+          this.propertiesPlaceSelected.stations_closest = []
+        }
 
         const stationsShowFiltered = this.propertiesPlaceSelected.stations_closest.filter((elem) => {
           if (names.indexOf(elem.name) < 0) {

@@ -50,7 +50,7 @@ const getters = {
 
 const actions = {
   getEventsSchedules ({commit}, dates) {
-    HTTP.get(`event/all?timestampStart=${dates[0]}&timestampEnd=${dates[1]}`).then(({data}) => {
+    HTTP.get(`event/all?timestampStart=${dates[0] + 1}&timestampEnd=${dates[1] + 1}`).then(({data}) => {
       commit(types.GET_EVENTS_SCHEDULES, {
         events: data
       })

@@ -322,15 +322,15 @@
 
         mainGradientLine.append('stop')
           .attr('class', 'stop-10')
-          .attr('offset', '.01')
+          .attr('offset', '.3')
 
         mainGradientLine.append('stop')
           .attr('class', 'stop-40')
-          .attr('offset', '.05')
+          .attr('offset', '5')
 
         mainGradientLine.append('stop')
           .attr('class', 'stop-right')
-          .attr('offset', '0.1')
+          .attr('offset', '10')
 
         var mainGradientArea = svgDefs.append('linearGradient')
           .attr('id', 'mainGradientArea')
@@ -344,15 +344,15 @@
 
         mainGradientArea.append('stop')
           .attr('class', 'stop-30')
-          .attr('offset', '.30')
+          .attr('offset', '0.1')
 
         mainGradientArea.append('stop')
           .attr('class', 'stop-60')
-          .attr('offset', '.6')
+          .attr('offset', '5')
 
         mainGradientArea.append('stop')
           .attr('class', 'stop-right')
-          .attr('offset', '1')
+          .attr('offset', '10')
       }
     }
   }

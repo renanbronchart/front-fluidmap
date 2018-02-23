@@ -17,13 +17,6 @@
         dataNav: {
           urls: [
             {
-              name: 'profile',
-              objectParams: {
-                name: 'renan&bronchart'
-              },
-              iconName: 'person'
-            },
-            {
               name: 'presets',
               objectParams: {},
               iconName: 'map'
@@ -36,8 +29,7 @@
               iconName: 'layers'
             },
             {
-              name: 'api',
-              objectParams: {},
+              url: 'http://api.fluidmap.fr/api/doc',
               label: 'API'
             }
           ]
